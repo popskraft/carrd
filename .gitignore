@@ -15,21 +15,14 @@ Thumbs.db
 *
 !/.gitignore
 !/README.md
-!/BREAKPOINTS.md
 !/dist/
-!/src/
 
-# Отдельно разрешаем только src/mini, всё остальное в src/ игнорируем
-/src/*
-!/src/mini/
-
-# Внутри src/mini нужны все файлы
-/src/mini/*
-!/src/mini/**
-
-# Деплойная папка dist/ целиком коммитится
+# Разрешаем только минифицированные CDN-артефакты
 /dist/*
-!/dist/**
+!/dist/mini/
+/dist/mini/*
+!/dist/mini/*.css
+!/dist/mini/*.js
 
 # Системные файлы всё ещё исключаем
 .DS_Store
