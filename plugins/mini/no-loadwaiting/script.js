@@ -7,9 +7,12 @@
 'use strict';
 
 var initialized = false;
+var cachedBody = null;
 
 function getBody() {
-return document.body;
+if (cachedBody && cachedBody.isConnected) return cachedBody;
+cachedBody = document.body;
+return cachedBody;
 }
 
 function markReadyNow() {
@@ -29,49 +32,57 @@ body.classList.add('is-ready');
 
 function hideLoaderIfPresent() {
 var loader = document.getElementById('loader');
-if (loader) {
+if (!loader) return false;
+
+if (typeof loader.remove === 'function') {
+loader.remove();
+} else {
 loader.style.cssText = 'display:none; visibility:hidden; opacity:0';
 }
+return true;
 }
 
 function kickScrollHandlers() {
 var pulses = 0;
-var maxPulses = 15;
+var maxPulses = 10;
 
 var timer = setInterval(function () {
 if (++pulses >= maxPulses) {
 clearInterval(timer);
 return;
 }
-try {
-window.dispatchEvent(new Event('resize'));
-window.dispatchEvent(new Event('scroll'));
-} catch (e) { /* ignore */ }
-}, 75);
+dispatchLayoutEvents();
+}, 60);
 
 var rafPulses = 0;
 (function rafTick() {
+dispatchLayoutEvents();
+if (++rafPulses < 4) requestAnimationFrame(rafTick);
+})();
+}
+
+function dispatchLayoutEvents() {
 try {
 window.dispatchEvent(new Event('resize'));
 window.dispatchEvent(new Event('scroll'));
 } catch (e) { /* ignore */ }
-if (++rafPulses < 5) requestAnimationFrame(rafTick);
-})();
 }
 
 function setupObservers() {
 var body = getBody();
 if (!body) return;
 
-var classObserver = new MutationObserver(function (mutations) {
-mutations.forEach(function (m) {
-if (m.attributeName === 'class' && body.classList.contains('with-loader')) {
+var classObserver = new MutationObserver(function () {
+if (body.classList.contains('with-loader')) {
 body.classList.remove('with-loader');
 }
 });
-});
 
-var childObserver = new MutationObserver(hideLoaderIfPresent);
+var childObserver = new MutationObserver(function () {
+if (hideLoaderIfPresent()) {
+childObserver.disconnect();
+}
+});
 
 classObserver.observe(body, { attributes: true, attributeFilter: ['class'] });
 childObserver.observe(body, { childList: true });
