@@ -1,4 +1,4 @@
-# Carrd Grid Cluster
+# Carrd Grid Cluster 2
 
 Публичный артефакт для CDN. Репозиторий содержит только то, что Carrd подключает с jsDelivr:
 
