@@ -1,4 +1,4 @@
-// Группирует непрерывные блоки style-3 в grid-контейнеры (3 колонки, gap 1rem)
+// Groups consecutive style-3 blocks into grid containers (3 columns, 1rem gap)
 (function() {
   const items = document.querySelectorAll('.style-3');
   if (!items.length) return;
@@ -9,11 +9,11 @@
     const nextItem = items[i + 1];
     cluster.push(item);
     
-    // Проверяем, является ли следующий элемент соседним в DOM
+    // Check if next element is adjacent in DOM
     const isNextAdjacent = nextItem && item.nextElementSibling === nextItem;
     
     if (!isNextAdjacent || i === items.length - 1) {
-      // Конец кластера — оборачиваем
+      // End of cluster — wrap it
       const container = document.createElement('div');
       container.className = 'custom-grid-container';
       cluster[0].parentNode.insertBefore(container, cluster[0]);

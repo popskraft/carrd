@@ -1,4 +1,4 @@
-/* Grid-контейнер: 3 колонки, gap 1rem */
+/* Grid container: 3 columns, 1rem gap */
 .custom-grid-container {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
