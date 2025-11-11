@@ -1,0 +1,45 @@
+{
+  "version": "1.0.0",
+  "generated": "2025-11-11T12:33:47.039Z",
+  "projects": [
+    {
+      "project": "mini",
+      "title": "Mini Project",
+      "description": "Collection of customizations for mini Carrd project",
+      "customizations": [
+        {
+          "id": "grid-cluster",
+          "sourcePath": "src/mini/grid-cluster",
+          "name": "grid-cluster",
+          "title": "Grid Cluster",
+          "version": "1.0.0",
+          "description": "Groups consecutive grid-2/grid-3/grid-4 blocks into responsive grid containers",
+          "author": "popskraft",
+          "license": "MIT",
+          "tags": [
+            "grid",
+            "layout",
+            "responsive"
+          ],
+          "breakpoints": {
+            "mobile": 736,
+            "tablet": 1024,
+            "desktop": 1681
+          },
+          "files": {
+            "css": "style.css",
+            "js": "script.js"
+          },
+          "dependencies": [],
+          "changelog": {
+            "1.0.0": "Initial release"
+          },
+          "cdn": {
+            "css": "https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/mini/grid-cluster.css",
+            "js": "https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/mini/grid-cluster.js"
+          }
+        }
+      ]
+    }
+  ]
+}

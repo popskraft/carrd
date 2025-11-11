@@ -1,0 +1,22 @@
+{
+  "name": "grid-cluster",
+  "title": "Grid Cluster",
+  "version": "1.0.0",
+  "description": "Groups consecutive grid-2/grid-3/grid-4 blocks into responsive grid containers",
+  "author": "popskraft",
+  "license": "MIT",
+  "tags": ["grid", "layout", "responsive"],
+  "breakpoints": {
+    "mobile": 736,
+    "tablet": 1024,
+    "desktop": 1681
+  },
+  "files": {
+    "css": "style.css",
+    "js": "script.js"
+  },
+  "dependencies": [],
+  "changelog": {
+    "1.0.0": "Initial release"
+  }
+}

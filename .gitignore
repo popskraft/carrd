@@ -15,7 +15,7 @@ package-lock.json
 yarn.lock
 
 # Build
-dist/
+# dist/  ← Коммитим dist/ для CDN!
 build/
 
 # Logs
