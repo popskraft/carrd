@@ -1,0 +1,83 @@
+<!-- Groups consecutive grid-3/grid-4 blocks into responsive grid containers -->
+<style>
+  .custom-grid-container {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: 1fr;
+  }
+
+  @media (min-width: 737px) {
+    .custom-grid-container {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1025px) {
+    .custom-grid-container {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+  }
+
+  @media (min-width: 1681px) {
+    .custom-grid-container.grid-4 {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  /* Force full-width wrappers inside clustered grids despite fixed admin width */
+  .custom-grid-container > .container-component > .wrapper {
+    width: 100% !important;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+
+  /* Applied dynamically via JS when frame width > 20rem */
+  .custom-grid-container .image-component > .frame.constrain-width {
+    width: auto !important;
+    max-width: 100%;
+  }
+</style>
+
+<script>
+  // Groups consecutive grid-2/grid-3/grid-4 blocks into responsive grid containers
+  (function() {
+    const selectors = ['.grid-2', '.grid-3', '.grid-4'];
+    
+    selectors.forEach(selector => {
+      const items = document.querySelectorAll(selector);
+      if (!items.length) return;
+
+      let cluster = [];
+      
+      items.forEach((item, i) => {
+        const nextItem = items[i + 1];
+        cluster.push(item);
+        
+        // Check if next element is adjacent in DOM
+        const isNextAdjacent = nextItem && item.nextElementSibling === nextItem;
+        
+        if (!isNextAdjacent || i === items.length - 1) {
+          // End of cluster — wrap it
+          const container = document.createElement('div');
+          const gridClass = selector.slice(1);
+          container.className = `custom-grid-container ${gridClass}`;
+          cluster[0].parentNode.insertBefore(container, cluster[0]);
+          cluster.forEach(el => container.appendChild(el));
+          cluster = [];
+        }
+      });
+    });
+
+    // Constrain image frames with width > 20rem inside grid containers
+    document.querySelectorAll('.custom-grid-container .image-component > .frame').forEach(frame => {
+      const computedWidth = window.getComputedStyle(frame).width;
+      const widthInRem = parseFloat(computedWidth) / parseFloat(getComputedStyle(document.documentElement).fontSize);
+      
+      if (widthInRem > 20) {
+        frame.classList.add('constrain-width');
+      }
+    });
+  })();
+</script>
