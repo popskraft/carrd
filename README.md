@@ -1,35 +1,28 @@
 # Carrd Grid Cluster 2
 
-Public artifact for CDN. This repository contains only what Carrd loads from jsDelivr:
+This repository mirrors the production-ready payload that Carrd loads via jsDelivr. The authoritative files live under `dist/plugins/**`, while `plugins/**` contains the readable sources that get minified before publishing.
 
-- `plugins/mini/grid-cluster/style.css`
-- `plugins/mini/grid-cluster/script.js`
+All additional tooling, metadata, and documentation reside in a private working repository.
 
-All source files, metadata, build scripts, and documentation are located in a private working repository and are not published here.
+## Usage Concept
+1. **CSS in `<head>`** – load the stylesheet generated at `dist/plugins/mini/grid-cluster/style.css` inside your Carrd head injection block:
 
-## CDN Usage
-Include files via jsDelivr (updates after each release):
+   ```html
+   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/plugins/mini/grid-cluster/style.css">
+   ```
 
-```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/plugins/mini/grid-cluster/style.css">
-<script src="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/plugins/mini/grid-cluster/script.js"></script>
-```
+   Placing it in the head ensures the grid layout classes are available when the Carrd page renders.
 
-To get a new build, run the build process in the working repository and copy the fresh files to `plugins/` in this public mirror.
+2. **JS in a footer container** – append the script just before closing `</body>` (Carrd's "Special Container" at the bottom works well). The script expects to sit on top of the TGM body so it can enhance the DOM without layout flicker:
 
-## Minifying for `dist/`
-Use the helper script to create minified copies under `dist/plugins/...` while preserving the directory structure:
+   ```html
+     <script src="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/plugins/mini/grid-cluster/script.js"></script>
+   ```
 
-```bash
-python scripts/minify_plugins.py
-```
+   Keeping it in a dedicated container helps avoid Carrd sanitizing the tag and allows the plugin to overlay the TGM body safely.
 
-Optional arguments:
-
-- `--source`: Defaults to `plugins`
-- `--dist`: Defaults to `dist/plugins`
-
-This will create `dist/plugins/mini/grid-cluster/style.css` and `.js` counterparts that are whitespace-stripped.
+## Building Updates
+Run the build in the private repo, copy the fresh assets into `plugins/`, minify them into `dist/plugins/`, and push. jsDelivr will automatically serve the new `dist/` artifacts once the commit lands on `main`.
 
 ## License
 MIT.
