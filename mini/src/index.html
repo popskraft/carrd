@@ -78,41 +78,71 @@
 								</div>
 							</div>
 						</div>
-						<div id="container04" class="container-component instance-4 style-3 grid-4 default">
+						<div id="container04" class="container-component instance-4 style-3 grid-2 grid-sm-2 default">
 							<div class="wrapper">
 								<div class="inner">
-									<div id="image03" class="image-component instance-3 style-1">
-										<span class="frame"><img src="assets/images/image03.jpg" alt="Logo" /></span>
+									<div id="image03" class="image-component instance-3 style-1 full">
+										<span class="frame"><img src="assets/images/image03.jpg" alt="" /></span>
 									</div>
 									<p id="text08" class="text-component instance-8 style-6">(Body Small) This is a regular paragraph. It contains several sentences that demonstrate the default text style. The goal is to show how readable the body text appears on screen. Line height, letter spacing, and color contrast should be comfortable for long reading sessions.</p>
 								</div>
 							</div>
 						</div>
-						<div id="container05" class="container-component instance-5 style-3 grid-4 default">
+						<div id="container05" class="container-component instance-5 style-3 grid-2 grid-sm-2 default">
 							<div class="wrapper">
 								<div class="inner">
-									<div id="image04" class="image-component instance-4 style-1">
-										<span class="frame"><img src="assets/images/image04.jpg" alt="Logo" /></span>
+									<div id="image04" class="image-component instance-4 style-1 full">
+										<span class="frame"><img src="assets/images/image04.jpg" alt="" /></span>
 									</div>
 									<p id="text11" class="text-component instance-11 style-6">(Body Small) This is a regular paragraph. It contains several sentences that demonstrate the default text style. The goal is to show how readable the body text appears on screen. Line height, letter spacing, and color contrast should be comfortable for long reading sessions.</p>
 								</div>
 							</div>
 						</div>
-						<div id="container06" class="container-component instance-6 style-3 grid-4 default">
+						<div id="container06" class="container-component instance-6 style-3 grid-3 default">
 							<div class="wrapper">
 								<div class="inner">
-									<div id="image05" class="image-component instance-5 style-1">
-										<span class="frame"><img src="assets/images/image05.jpg" alt="Logo" /></span>
+									<div id="image05" class="image-component instance-5 style-1 full">
+										<span class="frame"><img src="assets/images/image05.jpg" alt="" /></span>
 									</div>
 									<p id="text10" class="text-component instance-10 style-6">(Body Small) This is a regular paragraph. It contains several sentences that demonstrate the default text style. The goal is to show how readable the body text appears on screen. Line height, letter spacing, and color contrast should be comfortable for long reading sessions.</p>
 								</div>
 							</div>
 						</div>
-						<div id="container03" class="container-component instance-3 style-3 grid-4 default">
+						<div id="container07" class="container-component instance-7 style-3 grid-3 default">
 							<div class="wrapper">
 								<div class="inner">
-									<div id="image02" class="image-component instance-2 style-1">
-										<span class="frame"><img src="assets/images/image02.jpg" alt="Logo" /></span>
+									<div id="image06" class="image-component instance-6 style-1 full">
+										<span class="frame"><img src="assets/images/image06.jpg" alt="" /></span>
+									</div>
+									<p id="text12" class="text-component instance-12 style-6">(Body Small) This is a regular paragraph. It contains several sentences that demonstrate the default text style. The goal is to show how readable the body text appears on screen. Line height, letter spacing, and color contrast should be comfortable for long reading sessions.</p>
+								</div>
+							</div>
+						</div>
+						<div id="container08" class="container-component instance-8 style-3 grid-3 default">
+							<div class="wrapper">
+								<div class="inner">
+									<div id="image07" class="image-component instance-7 style-1 full">
+										<span class="frame"><img src="assets/images/image07.jpg" alt="" /></span>
+									</div>
+									<p id="text13" class="text-component instance-13 style-6">(Body Small) This is a regular paragraph. It contains several sentences that demonstrate the default text style. The goal is to show how readable the body text appears on screen. Line height, letter spacing, and color contrast should be comfortable for long reading sessions.</p>
+								</div>
+							</div>
+						</div>
+						<div id="container09" class="container-component instance-9 style-3 grid-3 default">
+							<div class="wrapper">
+								<div class="inner">
+									<div id="image08" class="image-component instance-8 style-1 full">
+										<span class="frame"><img src="assets/images/image08.jpg" alt="" /></span>
+									</div>
+									<p id="text14" class="text-component instance-14 style-6">(Body Small) This is a regular paragraph. It contains several sentences that demonstrate the default text style. The goal is to show how readable the body text appears on screen. Line height, letter spacing, and color contrast should be comfortable for long reading sessions.</p>
+								</div>
+							</div>
+						</div>
+						<div id="container03" class="container-component instance-3 style-3 grid-3 default">
+							<div class="wrapper">
+								<div class="inner">
+									<div id="image02" class="image-component instance-2 style-1 full">
+										<span class="frame"><img src="assets/images/image02.jpg" alt="" /></span>
 									</div>
 									<p id="text09" class="text-component instance-9 style-6">(Body Small) This is a regular paragraph. It contains several sentences that demonstrate the default text style. The goal is to show how readable the body text appears on screen. Line height, letter spacing, and color contrast should be comfortable for long reading sessions.</p>
 								</div>
@@ -233,27 +263,70 @@
 		<!-- qweoqwupeoiqwuewqe --><!-- Groups consecutive grid-3/grid-4 blocks into responsive grid containers -->
 		<style>
 		.custom-grid-container {
+		--grid-columns: 1;
+		--grid-row-gap: 1rem;
+		--grid-column-gap: 1rem;
 		display: grid;
-		gap: 1rem;
-		grid-template-columns: 1fr;
+		grid-template-columns: repeat(var(--grid-columns, 1), minmax(0, 1fr));
+		row-gap: var(--grid-row-gap, 1rem);
+		column-gap: var(--grid-column-gap, 1rem);
+		}
+		
+		@media (max-width: 736px) {
+		.custom-grid-container.grid-sm-2 {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		row-gap: 1rem;
+		column-gap: 0.5rem;
+		}
 		}
 		
 		@media (min-width: 737px) {
-		.custom-grid-container {
-		grid-template-columns: repeat(2, 1fr);
+		.custom-grid-container.grid-2,
+		.custom-grid-container.grid-3,
+		.custom-grid-container.grid-4 {
+		--grid-columns: 2;
 		}
 		}
 		
 		@media (min-width: 1025px) {
 		.custom-grid-container {
-		grid-template-columns: repeat(3, 1fr);
+		--grid-row-gap: 2rem;
+		--grid-column-gap: 2rem;
+		}
+		
+		.custom-grid-container.grid-3,
+		.custom-grid-container.grid-4 {
+		--grid-columns: 3;
 		}
 		}
 		
 		@media (min-width: 1681px) {
 		.custom-grid-container.grid-4 {
-		grid-template-columns: repeat(4, 1fr);
+		--grid-columns: 4;
 		}
+		}
+		
+		/* Force full-width wrappers inside clustered grids despite fixed admin width */
+		.custom-grid-container > .container-component > .wrapper {
+		width: 100% !important;
+		display: flex;
+		flex-direction: column;
+		height: 100%;
+		}
+		
+		/* Align vertical rhythm with grid gaps */
+		.custom-grid-container > .container-component {
+		margin: 0;
+		}
+		
+		.custom-grid-container + .custom-grid-container {
+		margin-top: var(--grid-row-gap);
+		}
+		
+		/* Applied dynamically via JS when frame width > 20rem */
+		.custom-grid-container .image-component > .frame.constrain-width {
+		width: auto !important;
+		max-width: 100%;
 		}
 		</style>
 		
@@ -285,6 +358,29 @@
 		cluster = [];
 		}
 		});
+		});
+		
+		const framesSelector = '.custom-grid-container .image-component > .frame';
+		const constrainFrames = () => {
+		const rootFontSize = parseFloat(getComputedStyle(document.documentElement).fontSize) || 16;
+		
+		document.querySelectorAll(framesSelector).forEach(frame => {
+		frame.classList.remove('constrain-width');
+		const frameWidth = parseFloat(getComputedStyle(frame).width);
+		if (!frameWidth || !rootFontSize) return;
+		const widthInRem = frameWidth / rootFontSize;
+		if (widthInRem > 20) {
+		frame.classList.add('constrain-width');
+		}
+		});
+		};
+		
+		constrainFrames();
+		
+		let constrainTimer;
+		window.addEventListener('resize', () => {
+		clearTimeout(constrainTimer);
+		constrainTimer = setTimeout(constrainFrames, 150);
 		});
 		})();
 		</script><!-- mnbnbxmbzxmncbzxc -->
