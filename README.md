@@ -1,21 +1,21 @@
 # Carrd Grid Cluster 2
 
-Публичный артефакт для CDN. Репозиторий содержит только то, что Carrd подключает с jsDelivr:
+Public artifact for CDN. This repository contains only what Carrd loads from jsDelivr:
 
-- `dist/mini/grid-cluster.css`
-- `dist/mini/grid-cluster.js`
+- `plugins/mini/grid-cluster/style.css`
+- `plugins/mini/grid-cluster/script.js`
 
-Все исходники, метаданные, скрипты сборки и документация находятся в закрытом рабочем репозитории и сюда не публикуются.
+All source files, metadata, build scripts, and documentation are located in a private working repository and are not published here.
 
-## Использование CDN
-Подключите файлы через jsDelivr (обновляется после каждого релиза):
+## CDN Usage
+Include files via jsDelivr (updates after each release):
 
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/mini/grid-cluster.css">
-<script src="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/mini/grid-cluster.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/popskraft/carrdplugins@main/plugins/mini/grid-cluster/style.css">
+<script src="https://cdn.jsdelivr.net/gh/popskraft/carrdplugins@main/plugins/mini/grid-cluster/script.js"></script>
 ```
 
-Чтобы получить новый билд, выполните сборку в рабочем репозитории и скопируйте свежие файлы в `dist/` этого публичного зеркала.
+To get a new build, run the build process in the working repository and copy the fresh files to `plugins/` in this public mirror.
 
-## Лицензия
+## License
 MIT.
