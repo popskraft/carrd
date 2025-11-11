@@ -10,18 +10,37 @@ Thumbs.db
 *~
 
 # Dependencies
-node_modules/
-package-lock.json
-yarn.lock
+# Default: скрываем всё, кроме подготовленных артефактов
+# и исходников кастомизации
+*
+!/.gitignore
+!/README.md
+!/dist/
+!/src/
 
-# Build
-# dist/  ← Коммитим dist/ для CDN!
-build/
+# Отдельно разрешаем только src/mini, всё остальное в src/ игнорируем
+/src/*
+!/src/mini/
 
-# Logs
+# Внутри src/mini нужны все файлы
+/src/mini/*
+!/src/mini/**
+
+# Деплойная папка dist/ целиком коммитится
+/dist/*
+!/dist/**
+
+# Системные файлы всё ещё исключаем
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Логи и временные артефакты (если вдруг появятся внутри разрешённых папок)
 *.log
 npm-debug.log*
-
-# Temporary files
 .tmp/
 temp/

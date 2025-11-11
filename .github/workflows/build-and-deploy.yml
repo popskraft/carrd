@@ -11,6 +11,9 @@ on:
       - 'mini/**'
   workflow_dispatch: null
 
+permissions:
+  contents: write
+
 jobs:
   validate:
     runs-on: ubuntu-latest
