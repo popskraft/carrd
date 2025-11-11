@@ -17,5 +17,19 @@ Include files via jsDelivr (updates after each release):
 
 To get a new build, run the build process in the working repository and copy the fresh files to `plugins/` in this public mirror.
 
+## Minifying for `dist/`
+Use the helper script to create minified copies under `dist/plugins/...` while preserving the directory structure:
+
+```bash
+python scripts/minify_plugins.py
+```
+
+Optional arguments:
+
+- `--source`: Defaults to `plugins`
+- `--dist`: Defaults to `dist/plugins`
+
+This will create `dist/plugins/mini/grid-cluster/style.css` and `.js` counterparts that are whitespace-stripped.
+
 ## License
 MIT.
