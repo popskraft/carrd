@@ -1,7 +1,7 @@
-# Grid Cluster
+# Container to Grid Converter
 
 ## Purpose
-Grid Cluster turns consecutive Carrd grid blocks into cohesive, responsive containers so layouts stay aligned across breakpoints. It solves uneven spacing by applying a shared wrapper, keeps image widths constrained, and respects optional `grid-sm-2` rules for smaller screens.
+Container to Grid Converter turns consecutive Carrd grid blocks into cohesive, responsive containers so layouts stay aligned across breakpoints. It solves uneven spacing by applying a shared wrapper, keeps image widths constrained, and respects optional `grid-sm-2` rules for smaller screens.
 
 ## How to Use
 1. Add Carrd elements with classes such as `grid-2` through `grid-6` (and `grid-sm-2` when a two-column mobile layout is needed).

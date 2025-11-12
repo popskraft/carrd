@@ -1,7 +1,7 @@
-# Grid Cluster
+# Container to Grid Converter
 
 ## Purpose
-Grid Cluster turns consecutive Carrd grid blocks into cohesive, responsive containers so layouts stay aligned across breakpoints. It solves uneven spacing by applying a shared wrapper, keeps image widths constrained, and respects optional `grid-sm-2` rules for smaller screens.
+Container to Grid Converter turns consecutive Carrd grid blocks into cohesive, responsive containers so layouts stay aligned across breakpoints. It solves uneven spacing by applying a shared wrapper, keeps image widths constrained, and respects optional `grid-sm-2` rules for smaller screens.
 
 ## How to Use
 1. Add Carrd elements with classes such as `grid-2` through `grid-6` (and `grid-sm-2` when a two-column mobile layout is needed).
@@ -15,34 +15,29 @@ For easy integration with Carrd, use the `example.html` file which contains read
 2. Copy the entire code content
 3. In Carrd, add ( + ) an Element → Embed with these parameters:
    - **Type**: Code
-   - **Title**: Grid Cluster
+   - **Title**: Container to Grid Converter
    - **Style**: Hidden → Body End
    - **Code**: Paste the copied code from example.html
 
 **Important**: Place HTML Elements at the very bottom of the page below the footer, ensuring they don't fall into containers with hidden content.
 
-This will automatically include both the CSS and JavaScript files with proper CDN links.
-
 ## CDN Installation
-Alternatively, you can manually include the plugin files directly from CDN using separate Embed elements.
-
-**Important**: Place HTML Elements at the very bottom of the page below the footer, ensuring they don't fall into containers with hidden content.
+Alternatively, you can manually include the plugin files directly from CDN using two separate Embed elements:
 
 ### 1. CSS Embed Element
 In Carrd, add ( + ) an Element → Embed with these parameters:
    - **Type**: Code
-   - **Title**: Grid Cluster
+   - **Title**: CSS CDN Container to Grid Converter
    - **Style**: Hidden → Head
    - **Code**:
 ```html
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/plugins/mini/grid-cluster/style.css">
 ```
 
-
 ### 2. JavaScript Embed Element
 In Carrd, add ( + ) another Element → Embed with these parameters:
    - **Type**: Code
-   - **Title**: Grid Cluster
+   - **Title**: JS CDN Container to Grid Converter
    - **Style**: Hidden → Body End
    - **Code**:
 ```html

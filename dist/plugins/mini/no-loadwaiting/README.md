@@ -21,17 +21,13 @@ For easy integration with Carrd, use the `example.html` file which contains read
 
 **Important**: Place HTML Elements at the very bottom of the page below the footer, ensuring they don't fall into containers with hidden content.
 
-This will automatically include the JavaScript file with proper CDN links.
-
 ## CDN Installation
-Alternatively, you can manually include the plugin files directly from CDN using separate Embed elements.
+Alternatively, you can manually include the plugin files directly from CDN using two separate Embed elements:
 
-**Important**: Place HTML Elements at the very bottom of the page below the footer, ensuring they don't fall into containers with hidden content.
-
-### 1. JavaScript Embed Element
+### JavaScript Embed Element
 In Carrd, add ( + ) another Element → Embed with these parameters:
    - **Type**: Code
-   - **Title**: No Load Waiting
+   - **Title**: JS CDN No Load Waiting
    - **Style**: Hidden → Body End
    - **Code**:
 ```html
