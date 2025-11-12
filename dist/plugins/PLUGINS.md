@@ -2,7 +2,7 @@
 
 ## Container to Grid Converter
 
-`mini/grid-cluster` — Container to Grid Converter turns consecutive Carrd grid blocks into cohesive, responsive containers so layouts stay aligned across breakpoints. It solves uneven spacing by applying a shared wrapper, keeps image widths constrained, and respects optional `grid-sm-2` rules for smaller screens.
+`mini/grid-cluster` — In Carrd you can merge consecutive containers into a single grid spanning 2–6 columns. Assign each container the matching class (grid-2 … grid-6, and grid-sm-2 if needed) and place them back-to-back. The grid ends automatically where the sequence of containers stops.
 ## No Load Waiting
 
 `mini/no-loadwaiting` — No Load Waiting forces Carrd pages to start their animations as soon as the DOM is ready, instead of waiting for the default window load event. It removes the built-in loader, toggles the `is-ready` state, and dispatches early scroll/resize pulses so visitors see the page animate immediately.
