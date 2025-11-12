@@ -7,7 +7,7 @@
  * - grid-sm-2: Optional 2-column on small screens
  */
 (function() {
-  const GRID_CLASSES = ['grid-2', 'grid-3', 'grid-4'];
+  const GRID_CLASSES = ['grid-2', 'grid-3', 'grid-4', 'grid-5', 'grid-6'];
   const GRID_SELECTOR = GRID_CLASSES.map(cls => `.${cls}`).join(',');
 
   const isGridBlock = element =>
@@ -41,24 +41,18 @@
       sibling = sibling.nextElementSibling;
     }
 
-    cluster.forEach(node => collected.add(node));
-    wrapCluster(cluster);
+    collected.add(block);
+    wrapCluster(cluster, baseSize);
   });
 
-  function wrapCluster(cluster) {
-    if (!cluster.length) return;
+  function wrapCluster(cluster, gridSize) {
+    if (!cluster.length || !cluster[0].parentNode) return;
 
     const container = document.createElement('div');
-    const dominantSize = cluster.reduce((max, el) => {
-      const size = GRID_CLASSES.find(cls => el.classList.contains(cls));
-      if (!size) return max;
-      const numeric = parseInt(size.split('-')[1], 10);
-      return Math.max(max, numeric);
-    }, 1);
-
     const classList = ['custom-grid-container'];
-    if (dominantSize >= 2) {
-      classList.push(`grid-${dominantSize}`);
+    
+    if (gridSize && gridSize >= 2) {
+      classList.push(`grid-${gridSize}`);
     }
 
     if (cluster.some(el => el.classList.contains('grid-sm-2'))) {

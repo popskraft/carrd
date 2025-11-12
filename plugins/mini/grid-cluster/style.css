@@ -19,7 +19,9 @@
 @media (min-width: 737px) {
   .custom-grid-container.grid-2,
   .custom-grid-container.grid-3,
-  .custom-grid-container.grid-4 {
+  .custom-grid-container.grid-4,
+  .custom-grid-container.grid-5,
+  .custom-grid-container.grid-6 {
     --grid-columns: 2;
   }
 }
@@ -27,18 +29,34 @@
 @media (min-width: 1025px) {
   .custom-grid-container {
     --grid-row-gap: 2rem;
-    --grid-column-gap: 2rem;
+    --grid-column-gap: 1.5rem;
   }
 
   .custom-grid-container.grid-3,
-  .custom-grid-container.grid-4 {
+  .custom-grid-container.grid-5,
+  .custom-grid-container.grid-6 {
     --grid-columns: 3;
+  }
+
+  .custom-grid-container.grid-4 {
+    --grid-columns: 4;
   }
 }
 
-@media (min-width: 1681px) {
+@media (min-width: 1280px) {
+  .custom-grid-container.grid-3,
   .custom-grid-container.grid-4 {
-    --grid-columns: 4;
+    --grid-column-gap: 2rem;
+  }
+
+  .custom-grid-container.grid-5 {
+    --grid-columns: 5;
+    --grid-column-gap: 1.5rem;
+  }
+
+  .custom-grid-container.grid-6 {
+    --grid-columns: 6;
+    --grid-column-gap: 1rem;
   }
 }
 
