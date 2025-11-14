@@ -31,7 +31,7 @@ In Carrd, add ( + ) an Element → Embed with these parameters:
    - **Style**: Hidden → Head
    - **Code**:
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/plugins/mini/grid-cluster/style.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/mini/grid-cluster/style.css">
 ```
 
 ### 2. JavaScript Embed Element
@@ -41,5 +41,5 @@ In Carrd, add ( + ) another Element → Embed with these parameters:
    - **Style**: Hidden → Body End
    - **Code**:
 ```html
-<script src="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/plugins/mini/grid-cluster/script.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/mini/grid-cluster/script.js"></script>
 ```
