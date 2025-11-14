@@ -2,7 +2,7 @@
 
 ## FAQ Toggle
 
-`mini/faq` — This plugin converts a list of FAQ items into an accessible accordion. Each question header becomes a focusable button that reveals or hides the answer while keeping the section tidy for Carrd pages with a lot of documentation.
+`mini/faq` — Transforms the Carrd FAQ block into a divider-driven accordion while keeping your original markup untouched. Every segment between two `hr.divider-component` elements is treated as one Q/A pair, with the heading becoming the toggle and the intervening nodes wrapped into an animated answer.
 ## Container to Grid Converter
 
 `mini/grid-cluster` — In Carrd you can merge consecutive containers into a single grid spanning 2–6 columns. Assign each container the matching class (grid-2 … grid-6, and grid-sm-2 if needed) and place them back-to-back. The grid ends automatically where the sequence of containers stops.

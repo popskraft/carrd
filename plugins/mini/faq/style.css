@@ -1,66 +1,66 @@
-.faq-container {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-  max-width: 720px;
-  margin: 0 auto;
-  font-family: 'Inter', 'Helvetica Neue', sans-serif;
-}
-
-.faq-item {
-  border: 1px solid rgba(30, 30, 30, 0.1);
-  border-radius: 10px;
-  overflow: hidden;
-  background: #fff;
-  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.08);
-}
-
-.faq-header {
+.FAQContainer .faq-question {
   cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 1rem 1.25rem;
-  font-weight: 600;
-  letter-spacing: -0.02em;
-  transition: background 0.2s ease;
+  position: relative;
+  padding-right: 2.75rem;
+  margin: 0;
+  transition: color 0.2s ease;
 }
 
-.faq-header:hover {
-  background: rgba(15, 23, 42, 0.04);
+.FAQContainer .faq-question:focus-visible {
+  outline: 2px solid #5c9dff;
+  outline-offset: 4px;
 }
 
-.faq-header::after {
-  content: '\002B';
-  font-size: 1.25rem;
-  transition: transform 0.2s ease;
+.FAQContainer .faq-question::after {
+  content: '+';
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.75rem;
+  line-height: 1;
+  color: #5c9dff;
+  transition: transform 0.3s ease;
 }
 
-.faq-item.is-open .faq-header::after {
-  transform: rotate(45deg);
+.FAQContainer .faq-question.is-open::after {
+  transform: translateY(-50%) rotate(45deg);
 }
 
-.faq-content {
-  padding: 0 1.25rem 1rem;
-  font-size: 0.95rem;
-  line-height: 1.6;
+.FAQContainer .faq-answer {
   max-height: 0;
-  opacity: 0;
-  transition: max-height 0.3s ease, opacity 0.3s ease;
   overflow: hidden;
+  opacity: 0;
+  visibility: hidden;
+  transition: max-height 0.35s ease, opacity 0.3s ease, margin 0.4s ease;
 }
 
-.faq-item.is-open .faq-content {
-  max-height: 200vh;
+.FAQContainer .faq-answer.is-closed {
+  margin-top: 0;
+  margin-bottom: -.5rem !important;
+}
+
+.FAQContainer .faq-answer.is-open {
   opacity: 1;
+  visibility: visible;
+  margin-top: var(--spacing, 0.75rem);
+  margin-bottom: var(--spacing, 1rem);
+}
+
+.FAQContainer .faq-answer > *:first-child {
+  margin-top: 0;
+}
+
+.FAQContainer .faq-answer > *:last-child {
+  margin-bottom: 0;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .faq-content {
+  .FAQContainer .faq-answer {
     transition: none;
   }
 
-  .faq-header::after {
+  .FAQContainer .faq-question::after {
     transition: none;
   }
 }
