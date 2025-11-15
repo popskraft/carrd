@@ -31,5 +31,5 @@ In Carrd, add ( + ) another Element → Embed with these parameters:
    - **Style**: Hidden → Body End
    - **Code**:
 ```html
-<script src="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/mini/no-loadwaiting/script.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/no-loadwaiting/script.js"></script>
 ```
