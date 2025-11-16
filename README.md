@@ -45,6 +45,7 @@ The latest commit on `main` is always live on jsDelivr, so you don’t have to h
 ## Need Help?
 - Check the plugin-specific README in `dist/<plugin>/...` for detailed usage notes.
 - File an issue if you notice a bug or need a new Carrd automation.
+**Internal guidance:** Development workflow and build instructions live in `.docs/developer-notes.md`.
 
 ## License
 MIT

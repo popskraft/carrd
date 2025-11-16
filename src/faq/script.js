@@ -8,6 +8,30 @@
   const containers = document.querySelectorAll(CONTAINER_SELECTOR);
   if (!containers.length) return;
 
+  const openAnswers = new Set();
+  const requestFrame = window.requestAnimationFrame || (cb => setTimeout(cb, 16));
+  const cancelFrame = window.cancelAnimationFrame || clearTimeout;
+  let resizeHandle = null;
+
+  const scheduleOpenAnswerSync = () => {
+    if (resizeHandle !== null) return;
+    resizeHandle = requestFrame(() => {
+      openAnswers.forEach(answer => adjustHeight(answer));
+      resizeHandle = null;
+    });
+  };
+
+  const answerResizeObserver =
+    typeof ResizeObserver !== 'undefined'
+      ? new ResizeObserver(entries => {
+          entries.forEach(entry => {
+            if (openAnswers.has(entry.target)) {
+              adjustHeight(entry.target);
+            }
+          });
+        })
+      : null;
+
   containers.forEach(container => {
     const dividers = Array.from(container.querySelectorAll(DIVIDER_SELECTOR)).filter(
       divider => divider.closest(CONTAINER_SELECTOR) === container
@@ -35,11 +59,8 @@
     });
   });
 
-  window.addEventListener('resize', () => {
-    document
-      .querySelectorAll(`${CONTAINER_SELECTOR} .faq-answer.is-open`)
-      .forEach(answer => adjustHeight(answer));
-  });
+  window.addEventListener('resize', scheduleOpenAnswerSync);
+  window.addEventListener('orientationchange', scheduleOpenAnswerSync);
 
   function findNextDivider(divider) {
     let node = divider.nextElementSibling;
@@ -125,6 +146,10 @@
 
     header.setAttribute('aria-controls', answer.id);
 
+    if (answerResizeObserver) {
+      answerResizeObserver.observe(answer);
+    }
+
     const toggle = () => toggleAnswer(header, answer);
 
     header.addEventListener('click', toggle);
@@ -146,8 +171,11 @@
     answer.setAttribute('aria-hidden', String(!willOpen));
 
     if (willOpen) {
+      openAnswers.add(answer);
       adjustHeight(answer);
+      scheduleOpenAnswerSync();
     } else {
+      openAnswers.delete(answer);
       answer.style.maxHeight = '0px';
     }
   }
