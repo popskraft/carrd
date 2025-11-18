@@ -1,14 +1,26 @@
-# FAQ Toggle
+# FAQ
 
-## Purpose
-Transforms the Carrd FAQ block into a divider-driven accordion while keeping your original markup untouched. Every segment between two `hr.divider-component` elements is treated as one Q/A pair, with the heading becoming the toggle and the intervening nodes wrapped into an animated answer.
+## What is it?
+Accordion plugin for Carrd that converts every block inside a `FAQContainer` into interactive questions with proper aria attributes and Mini Theme driven animation.
 
-## How to include it
-1. Wrap your markup inside a container that carries the `FAQContainer` class.
-2. Structure questions as `<h1–h3>` elements with the surrounding divider pair: `hr.divider-component → heading → answer nodes → hr.divider-component`.
-3. Load the stylesheet in **Head** and the script in **Body End** (or use the example embed below); the JS automatically wraps answers in `.faq-answer`, wires the headings as toggles, and animates their open/close states with aria attributes.
+## Why use it
+Lets you build FAQ lists without custom markup: keep the `divider-component` + heading pattern and the plugin creates toggles automatically, adding `faq-question`/`faq-answer` wrappers and smooth transitions.
 
-## Example skeleton
+## How to use it
+1. **Create the container.** Add a Container element and assign it the `FAQContainer` class; every child inside will be processed.
+2. **Author the questions.** Follow the sequence per Q&A: `hr.divider-component → <h1-3> question → answer nodes → hr.divider-component`. You can mix any Carrd components inside the answer cluster—the script wraps them into a single answer block.
+3. **Embed the plugin.**
+   - Head →  
+     ```html
+     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/faq/style.css">
+     ```
+   - Body End →  
+     ```html
+     <script src="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/faq/script.js" defer></script>
+     ```
+4. **Preview the page.** Each heading becomes a toggle button, answers collapse into `.faq-answer`, and the script manages aria attributes plus `.is-open` / `.is-closed` classes. Keyboard interactions are wired in by default.
+
+### Example skeleton
 ```
 <div class="FAQContainer">
   <hr class="divider-component">
@@ -23,15 +35,10 @@ Transforms the Carrd FAQ block into a divider-driven accordion while keeping you
 </div>
 ```
 
-## Behavior notes
-- Questions are grouped strictly by divider pairs, so insert an `hr.divider-component` before each heading and after the answer block.
-- The script adds `faq-question`, toggles the `faq-answer` wrapper, and manages aria attributes plus keyboard handling.
-- Animations control `max-height`, `opacity`, and spacing to keep the collapsed rows from breaking Carrd’s layout.
-- If you don’t use `<h1>–<h3>` headings, the script will promote the first `<p>` after the opening divider to act as the toggle so every block still works.
-
-## Theme-wide styling
-- Load the shared Mini Theme Base CSS once per site (Head embed → `<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/themes/mini/style.css">`) to expose the accent, motion, and focus tokens tracked in `_theme-base`.
-- This FAQ stylesheet already references those variables but includes fallbacks, so it retains the same look on non-Mini Carrd themes if you skip the base layer entirely.
+## Behavior and styling tips
+- On every breakpoint the animation adjusts `max-height`, `opacity`, and spacing so collapsed answers don’t disrupt the layout.
+- If a paragraph follows the opening divider before any heading, the script promotes it into the “question” node to keep the accordion workable.
+- The stylesheet consumes Mini Theme tokens. When you load `themes/mini/style.css` (Head → `<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/themes/mini/style.css">`) the FAQ inherits the shared palette and motion, while still shipping fallbacks for non-Mini pages.
 
 ## Example Usage
 For easy integration with Carrd, use the `example.html` file which contains ready-to-copy code for embedding:
@@ -40,7 +47,7 @@ For easy integration with Carrd, use the `example.html` file which contains read
 2. Copy the entire code content
 3. In Carrd, add ( + ) an Element → Embed with these parameters:
    - **Type**: Code
-   - **Title**: FAQ Toggle
+   - **Title**: FAQ
    - **Style**: Hidden → Body End
    - **Code**: Paste the copied code from example.html
 
@@ -52,7 +59,7 @@ Alternatively, you can manually include the plugin files directly from CDN using
 ### 1. CSS Embed Element
 In Carrd, add ( + ) an Element → Embed with these parameters:
    - **Type**: Code
-   - **Title**: CSS CDN FAQ Toggle
+   - **Title**: CSS CDN FAQ
    - **Style**: Hidden → Head
    - **Code**:
 ```html
@@ -62,7 +69,7 @@ In Carrd, add ( + ) an Element → Embed with these parameters:
 ### 2. JavaScript Embed Element
 In Carrd, add ( + ) another Element → Embed with these parameters:
    - **Type**: Code
-   - **Title**: JS CDN FAQ Toggle
+   - **Title**: JS CDN FAQ
    - **Style**: Hidden → Body End
    - **Code**:
 ```html

@@ -1,5 +1,5 @@
 (function () {
-  // FAQ toggling for divider-delimited sections inside .FAQContainer elements.
+  // FAQ Toggle: turn divider-delimited sections inside .FAQContainer into accessible accordions.
   const CONTAINER_SELECTOR = '.FAQContainer';
   const DIVIDER_SELECTOR = 'hr.divider-component';
   const HEADER_TAGS = new Set(['H1', 'H2', 'H3']);

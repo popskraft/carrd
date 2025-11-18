@@ -1,29 +1,41 @@
-# Mini Theme Base
+# Mini
 
-## Purpose
-Provides a single stylesheet that exposes shared color, motion, and focus tokens for every Mini plugin. When you load it once per site, plugins can inherit `--mini-*` custom properties instead of hard-coding colors or timings, which keeps them visually consistent and easier to theme.
+## What is it?
+Base CSS layer for the Mini theme family that declares shared `--mini-*` tokens covering color, motion, and focus across every Mini plugin.
 
-## How to include it
-1. Add the stylesheet in **Head** via an Embed → Code element:
+## Why use it
+Keeps Mini plugins (FAQ, Grid Cluster, etc.) visually consistent and makes recoloring easy—override a token once instead of editing each plugin stylesheet.
+
+## How to use it
+1. In Carrd add an **Embed → Code** block targeting **Head** and paste:  
    ```html
    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/themes/mini/style.css">
    ```
-2. Loading this file only declares shared tokens; it intentionally avoids overriding Carrd’s native classes. Apply `body.is-theme-mini` (or any custom hook) manually if you need the same color scheme outside the built-in Mini pages.
+2. The file does **not** change native Carrd classes; it only registers tokens. If you need a global hook such as `body.is-theme-mini`, add it with your own snippet after loading this base layer.
+3. Customize the palette by overriding variables after the include:
+   ```html
+   <style>
+     :root {
+       --mini-color-primary: #61dafb;
+       --mini-focus-outline-color: rgba(97, 218, 251, 0.75);
+     }
+   </style>
+   ```
 
 ## Key tokens
-This stylesheet now exposes exactly the tokens that existing Mini plugins consume. Table below documents every token, its role, and which plugin currently depends on it. Rely on these tokens (with fallbacks) rather than adding new globals, and keep this table as the single source of truth when you extend the UI.
+Use this table as the single source of truth for what each Mini plugin consumes.
 
 | Token | Purpose | Plugin(s) |
 | --- | --- | --- |
-| `--mini-color-primary` | Drives accent color, from focus rings to the FAQ toggle icon. | Global theme, FAQ |
-| `--mini-focus-outline`, `--mini-focus-outline-width`, `--mini-focus-outline-offset`, `--mini-focus-outline-color` | Standardizes focus rings across anchors and buttons. | Global theme |
-| `--mini-transition-transform` | Reuses the same transform transition when toggling the FAQ icon. | FAQ |
-| `--mini-anim-duration-fast`, `--mini-anim-duration-medium` | Provides consistent timing for FAQ color/accordion transitions and animation helpers. | FAQ |
-| `--mini-anim-ease-standard`, `--mini-anim-ease-emphasized`, `--mini-anim-ease-decelerate` | Ensures FAQ motion curves match the Mini feel. | FAQ |
-| `--mini-accordion-open-animation`, `--mini-accordion-close-animation`, `--mini-rotate-open-animation` | Exposed keyframe-driven animations for toggles and answer panels. | FAQ |
-| `--mini-grid-row-gap`, `--mini-grid-row-gap-compact`, `--mini-grid-row-gap-wide`, `--mini-grid-column-gap`, `--mini-grid-column-gap-compact`, `--mini-grid-column-gap-wide`, `--mini-grid-column-gap-max` | Provides grid gap defaults so Grid Cluster inherits spacing without duplicating logic. | Grid Cluster |
+| `--mini-color-primary` | Drives the accent color, focus states, and FAQ icons. | Global, FAQ |
+| `--mini-focus-outline`, `--mini-focus-outline-width`, `--mini-focus-outline-offset`, `--mini-focus-outline-color` | Standardizes focus styles for links/buttons. | Global |
+| `--mini-transition-transform` | Controls icon rotation timing when toggles open. | FAQ |
+| `--mini-anim-duration-fast`, `--mini-anim-duration-medium` | Timings for FAQ accordion transitions and helpers. | FAQ |
+| `--mini-anim-ease-standard`, `--mini-anim-ease-emphasized`, `--mini-anim-ease-decelerate` | Defines the Mini motion curves. | FAQ |
+| `--mini-accordion-open-animation`, `--mini-accordion-close-animation`, `--mini-rotate-open-animation` | Keyframes used by toggles and answer panels. | FAQ |
+| `--mini-grid-row-gap`, `--mini-grid-row-gap-compact`, `--mini-grid-row-gap-wide`, `--mini-grid-column-gap`, `--mini-grid-column-gap-compact`, `--mini-grid-column-gap-wide`, `--mini-grid-column-gap-max` | Gap values inherited by Grid Cluster. | Grid Cluster |
 
-Override these tokens in your embed *after* loading `themes/mini/style.css` to recolor the whole Mini palette without touching the plugins directly.
+Override tokens after loading `themes/mini/style.css` to recolor every Mini plugin instantly.
 
 ## Example Usage
 For easy integration with Carrd, use the `example.html` file which contains ready-to-copy code for embedding:
@@ -32,7 +44,7 @@ For easy integration with Carrd, use the `example.html` file which contains read
 2. Copy the entire code content
 3. In Carrd, add ( + ) an Element → Embed with these parameters:
    - **Type**: Code
-   - **Title**: Mini Theme Base
+   - **Title**: Mini
    - **Style**: Hidden → Body End
    - **Code**: Paste the copied code from example.html
 
@@ -44,7 +56,7 @@ Alternatively, you can manually include the plugin files directly from CDN using
 ### CSS Embed Element
 In Carrd, add ( + ) an Element → Embed with these parameters:
    - **Type**: Code
-   - **Title**: CSS CDN Mini Theme Base
+   - **Title**: CSS CDN Mini
    - **Style**: Hidden → Head
    - **Code**:
 ```html

@@ -1,36 +1,30 @@
-# No Load Waiting
+# No Loadwaiting
 
-## Purpose
-No Load Waiting forces Carrd pages to start their animations as soon as the DOM is ready, instead of waiting for the default window load event. It removes the built-in loader, toggles the `is-ready` state, and dispatches early scroll/resize pulses so visitors see the page animate immediately.
+## What is it?
+Plugin that forces Carrd pages into the `is-ready` state right after `DOMContentLoaded`, hiding the built-in loader and firing synthetic `scroll`/`resize` pulses so animations start immediately.
 
-## How to Use
-1. Add the plugin assets to your Carrd site either via CDN links in the global code injection or by embedding the provided script manually with an Embed element placed near the end of the page.
-2. Publish or preview; the script listens for `DOMContentLoaded`, strips loader classes or elements, and triggers the ready state automatically.
-3. Optional: keep Carrd's loader enabled in the editor—the plugin will remove it on load to avoid delays.
+## Why use it
+Removes the default “black screen” delay for sites that keep Carrd’s loader enabled, letting hero blocks and custom scripts animate instantly without toggling the loader per project.
 
-## Manual (Step by Step)
-### Option A — One-shot embed (recommended)
-1. Open `dist/no-loadwaiting/example.html`.
-2. In Carrd: **Embed → Code**, set **Hidden → Body End**.
-3. Paste the full contents of the file; it already references the CSS/JS on jsDelivr with cache-busting query params.
+## How to use it
+1. **Pick your injection method.** The quickest option is to drop the bundled snippet from `dist/no-loadwaiting/example.html`, though you can embed separate CDN tags if you prefer.
+2. **Option A — single embed (recommended).**
+   1. Open `dist/no-loadwaiting/example.html`.
+   2. In Carrd add **Embed → Code** and set **Hidden → Body End**.
+   3. Paste the entire file contents; the jsDelivr links are already included.
+3. **Option B — standalone CDN tags.**
+   - Head →  
+     ```html
+     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/no-loadwaiting/style.css">
+     ```
+   - Body End →  
+     ```html
+     <script src="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/no-loadwaiting/script.js" defer></script>
+     ```
+4. **Publish the site.** The script removes loader DOM/classes, toggles `is-ready`, dispatches `scroll`/`resize` for downstream plugins, and reveals the page right away. Keep the Carrd loader enabled in the editor—the plugin takes care of it on load.
 
-### Option B — Separate CDN tags
-1. **Head** embed → paste:  
-   ```html
-   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/no-loadwaiting/style.css">
-   ```
-2. **Body End** embed → paste:  
-   ```html
-   <script src="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/no-loadwaiting/script.js" defer></script>
-   ```
-
-### Configuration notes
-- Works with Carrd’s default loader state; you don’t need to toggle the «Show Loader» switch off manually.
-- The script dispatches `resize`/`scroll` pulses immediately. If you have other plugins that react to those events, load them **after** No Load Waiting so they see the synthetic pulses.
-- To temporarily disable the behavior for debugging, wrap the `<script>` tag in an HTML comment and republish.
-
-## Known limitations & troubleshooting
-1. **Video autoplay blocks ready state** – browsers may still delay animations if hero videos require user interaction. No Load Waiting can’t bypass autoplay restrictions; provide poster images for background videos.
-2. **Conflicts with custom loaders** – if you built a custom loader with its own DOM ID, add `id="loader"` (or update the script manually) so the plugin can remove it. Otherwise the loader stays visible even though the rest of the page is ready.
-3. **Very heavy third-party widgets** – they might re-add `with-loader` or `is-loading` classes after the plugin cleans them. In that case, include No Load Waiting near the bottom of the embed list so it runs last, or remove the conflicting snippet.
-4. **Debugging** – open DevTools and check for `[warn] esbuild ...` logs only when building assets locally; the runtime script logs only if a fatal error occurs while forcing the ready state.
+## Notes and limitations
+1. **Video autoplay.** Browsers can still pause animations if hero videos require interaction. Provide poster images or user controls when autoplay is blocked.
+2. **Custom loaders.** If you built your own loader element with a custom ID, add `id="loader"` (or edit the script) so the plugin can remove it.
+3. **Heavy third-party widgets.** Some snippets reapply `with-loader`/`is-loading`. Place No Loadwaiting last in Body End so it executes after other scripts.
+4. **Temporarily disabling.** Wrap the `<script>` tag in an HTML comment and republish when you need to pause the behavior for debugging.

@@ -1,14 +1,19 @@
-/**
- * Grid Cluster Script - Groups consecutive grid blocks into containers
- * Script: Finds consecutive grid elements, wraps them in custom-grid-container,
- * applies largest grid size to container, constrains wide images
- * Required classes:
- * - grid-2, grid-3, grid-4: Creates 2/3/4-column layouts
- * - grid-sm-2: Optional 2-column on small screens
- */
+// Grid Cluster: wrap consecutive `.grid-*` containers into one responsive grid and honor any `w-XX` width helpers.
 (function() {
   const GRID_CLASSES = ['grid-2', 'grid-3', 'grid-4', 'grid-5', 'grid-6'];
+  const WIDTH_CLASS_MAP = {
+    'w-20': '20%',
+    'w-25': '25%',
+    'w-30': '30%',
+    'w-40': '40%',
+    'w-50': '50%',
+    'w-60': '60%',
+    'w-70': '70%',
+    'w-75': '75%',
+    'w-80': '80%',
+  };
   const GRID_SELECTOR = GRID_CLASSES.map(cls => `.${cls}`).join(',');
+  const WIDTH_CLASSES = Object.keys(WIDTH_CLASS_MAP);
 
   const isGridBlock = element =>
     element && GRID_CLASSES.some(cls => element.classList && element.classList.contains(cls));
@@ -19,6 +24,12 @@
     if (!sizeClass) return null;
     const numeric = parseInt(sizeClass.split('-')[1], 10);
     return Number.isNaN(numeric) ? null : numeric;
+  };
+
+  const widthValueForElement = element => {
+    if (!element || !element.classList) return null;
+    const widthClass = WIDTH_CLASSES.find(cls => element.classList.contains(cls));
+    return widthClass ? WIDTH_CLASS_MAP[widthClass] : null;
   };
 
   const collected = new Set();
@@ -62,6 +73,7 @@
     container.className = classList.join(' ');
     cluster[0].parentNode.insertBefore(container, cluster[0]);
     cluster.forEach(node => container.appendChild(node));
+    applyDesktopWidths(container, cluster, gridSize);
   }
 
   document.querySelectorAll('.custom-grid-container .image-component > .frame').forEach(frame => {
@@ -72,4 +84,16 @@
       frame.classList.add('constrain-width');
     }
   });
+
+  function applyDesktopWidths(container, cluster, gridSize) {
+    if (!gridSize || gridSize < 2 || cluster.length < gridSize) return;
+
+    const initialRow = cluster.slice(0, gridSize);
+    const columnWidths = initialRow.map(widthValueForElement);
+    if (!columnWidths.some(Boolean)) return;
+
+    const templateParts = columnWidths.map(value => value || 'minmax(0, 1fr)');
+    container.classList.add('custom-grid-container--desktop-widths');
+    container.style.setProperty('--custom-desktop-template', templateParts.join(' '));
+  }
 })();
