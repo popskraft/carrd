@@ -4,19 +4,17 @@
 
 `faq` — Description not provided.
 
-[GitHub folder](https://github.com/popskraft/carrd/tree/main/dist/faq)
+[GitHub folder](https://github.com/popskraft/carrd/tree/main/faq)
+
 ## Grid Cluster
 
 `grid-cluster` — Description not provided.
 
-[GitHub folder](https://github.com/popskraft/carrd/tree/main/dist/grid-cluster)
-## No Loadwaiting
+[GitHub folder](https://github.com/popskraft/carrd/tree/main/grid-cluster)
+
+## No Load Waiting
 
 `no-loadwaiting` — Description not provided.
 
-[GitHub folder](https://github.com/popskraft/carrd/tree/main/dist/no-loadwaiting)
-## Mini
+[GitHub folder](https://github.com/popskraft/carrd/tree/main/no-loadwaiting)
 
-`themes/mini` — Description not provided.
-
-[GitHub folder](https://github.com/popskraft/carrd/tree/main/dist/themes/mini)

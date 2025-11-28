@@ -1,4 +1,4 @@
-# No Loadwaiting
+# No Load Waiting
 
 ## What is it?
 Plugin that forces Carrd pages into the `is-ready` state right after `DOMContentLoaded`, hiding the built-in loader and firing synthetic `scroll`/`resize` pulses so animations start immediately.

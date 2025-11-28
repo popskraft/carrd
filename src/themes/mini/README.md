@@ -20,19 +20,5 @@ Keeps Mini plugins (FAQ, Grid Cluster, etc.) visually consistent and makes recol
        --mini-focus-outline-color: rgba(97, 218, 251, 0.75);
      }
    </style>
-   ```
-
-## Key tokens
-Use this table as the single source of truth for what each Mini plugin consumes.
-
-| Token | Purpose | Plugin(s) |
-| --- | --- | --- |
-| `--mini-color-primary` | Drives the accent color, focus states, and FAQ icons. | Global, FAQ |
-| `--mini-focus-outline`, `--mini-focus-outline-width`, `--mini-focus-outline-offset`, `--mini-focus-outline-color` | Standardizes focus styles for links/buttons. | Global |
-| `--mini-transition-transform` | Controls icon rotation timing when toggles open. | FAQ |
-| `--mini-anim-duration-fast`, `--mini-anim-duration-medium` | Timings for FAQ accordion transitions and helpers. | FAQ |
-| `--mini-anim-ease-standard`, `--mini-anim-ease-emphasized`, `--mini-anim-ease-decelerate` | Defines the Mini motion curves. | FAQ |
-| `--mini-accordion-open-animation`, `--mini-accordion-close-animation`, `--mini-rotate-open-animation` | Keyframes used by toggles and answer panels. | FAQ |
-| `--mini-grid-row-gap`, `--mini-grid-row-gap-compact`, `--mini-grid-row-gap-wide`, `--mini-grid-column-gap`, `--mini-grid-column-gap-compact`, `--mini-grid-column-gap-wide`, `--mini-grid-column-gap-max` | Gap values inherited by Grid Cluster. | Grid Cluster |
 
 Override tokens after loading `themes/mini/style.css` to recolor every Mini plugin instantly.

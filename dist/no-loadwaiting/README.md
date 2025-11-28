@@ -1,4 +1,4 @@
-# No Loadwaiting
+# No Load Waiting
 
 ## What is it?
 Plugin that forces Carrd pages into the `is-ready` state right after `DOMContentLoaded`, hiding the built-in loader and firing synthetic `scroll`/`resize` pulses so animations start immediately.
@@ -36,7 +36,7 @@ For easy integration with Carrd, use the `example.html` file which contains read
 2. Copy the entire code content
 3. In Carrd, add ( + ) an Element → Embed with these parameters:
    - **Type**: Code
-   - **Title**: No Loadwaiting
+   - **Title**: No Load Waiting
    - **Style**: Hidden → Body End
    - **Code**: Paste the copied code from example.html
 
@@ -48,9 +48,9 @@ Alternatively, you can manually include the plugin files directly from CDN using
 ### JavaScript Embed Element
 In Carrd, add ( + ) another Element → Embed with these parameters:
    - **Type**: Code
-   - **Title**: JS CDN No Loadwaiting
+   - **Title**: JS CDN No Load Waiting
    - **Style**: Hidden → Body End
    - **Code**:
 ```html
-<script src="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/no-loadwaiting/script.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/no-loadwaiting/script.js"></script>
 ```
