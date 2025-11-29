@@ -18,6 +18,7 @@
 }
 
 @media (min-width: 737px) {
+
   .custom-grid-container.grid-2,
   .custom-grid-container.grid-3,
   .custom-grid-container.grid-4,
@@ -45,8 +46,7 @@
 }
 
 @media (min-width: 1280px) {
-  .custom-grid-container.grid-3,
-  .custom-grid-container.grid-4 {
+  .custom-grid-container {
     --grid-column-gap: 2rem;
   }
 
@@ -65,23 +65,23 @@
   }
 }
 
-.custom-grid-container > .container-component > .wrapper {
+.custom-grid-container>.container-component>.wrapper {
   width: 100% !important;
   display: flex;
   flex-direction: column;
   height: 100%;
 }
 
-.custom-grid-container > .container-component {
+.custom-grid-container>.container-component {
   overflow: hidden;
   margin: 0;
 }
 
-.custom-grid-container + .custom-grid-container {
+.custom-grid-container+.custom-grid-container {
   margin-top: var(--grid-row-gap);
 }
 
-.custom-grid-container .image-component > .frame.constrain-width {
+.custom-grid-container .image-component>.frame.constrain-width {
   width: auto !important;
   max-width: 100%;
 }
