@@ -6,19 +6,100 @@ Base CSS layer for the Mini theme family that declares shared `--mini-*` tokens 
 ## Why use it
 Keeps Mini plugins (FAQ, Grid Cluster, etc.) visually consistent and makes recoloring easy—override a token once instead of editing each plugin stylesheet.
 
-## How to use it
-1. In Carrd add an **Embed → Code** block targeting **Head** and paste:  
-   ```html
-   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/themes/mini/style.css">
-   ```
-2. The file does **not** change native Carrd classes; it only registers tokens. If you need a global hook such as `body.is-theme-mini`, add it with your own snippet after loading this base layer.
-3. Customize the palette by overriding variables after the include:
-   ```html
-   <style>
-     :root {
-       --mini-color-primary: #61dafb;
-       --mini-focus-outline-color: rgba(97, 218, 251, 0.75);
-     }
-   </style>
+## Available Files
+The Mini theme includes the following files:
+- **theme-style.min.css** - Base theme CSS tokens
+- **theme-script.min.js** - Base theme JavaScript (if needed)
+- **plugin-style.min.css** - Plugin-specific styles
+- **plugin-script.min.js** - Plugin-specific functionality
 
-Override tokens after loading `themes/mini/style.css` to recolor every Mini plugin instantly.
+## Installation Methods
+
+### Method 1: CDN (jsDelivr) - Recommended
+Use jsDelivr CDN for faster loading and automatic caching.
+
+#### Theme Styles (Required)
+1. In Carrd, add **( + ) → Element → Embed** with these parameters:
+   - **Type**: Code
+   - **Title**: Mini Theme CSS
+   - **Style**: Hidden → Head
+   - **Code**:
+   ```html
+   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/themes/mini/theme-style.min.css">
+   ```
+
+#### Plugin Styles (If using Mini plugins)
+2. Add another **Embed → Code** element:
+   - **Type**: Code
+   - **Title**: Mini Plugin CSS
+   - **Style**: Hidden → Head
+   - **Code**:
+   ```html
+   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/themes/mini/plugin-style.min.css">
+   ```
+
+#### Plugin Scripts (If using Mini plugins)
+3. Add another **Embed → Code** element:
+   - **Type**: Code
+   - **Title**: Mini Plugin JS
+   - **Style**: Hidden → Body End
+   - **Code**:
+   ```html
+   <script src="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/themes/mini/plugin-script.min.js"></script>
+   ```
+
+#### Theme Scripts (Optional)
+4. If the theme requires JavaScript, add:
+   - **Type**: Code
+   - **Title**: Mini Theme JS
+   - **Style**: Hidden → Body End
+   - **Code**:
+   ```html
+   <script src="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/themes/mini/theme-script.min.js"></script>
+   ```
+
+### Method 2: GitHub Raw URLs
+Use direct GitHub URLs (slower, not cached, but always up-to-date with the main branch).
+
+#### Theme Styles (Required)
+```html
+<link rel="stylesheet" href="https://raw.githubusercontent.com/popskraft/carrd/main/dist/themes/mini/theme-style.min.css">
+```
+
+#### Plugin Styles
+```html
+<link rel="stylesheet" href="https://raw.githubusercontent.com/popskraft/carrd/main/dist/themes/mini/plugin-style.min.css">
+```
+
+#### Plugin Scripts
+```html
+<script src="https://raw.githubusercontent.com/popskraft/carrd/main/dist/themes/mini/plugin-script.min.js"></script>
+```
+
+#### Theme Scripts
+```html
+<script src="https://raw.githubusercontent.com/popskraft/carrd/main/dist/themes/mini/theme-script.min.js"></script>
+```
+
+**Note**: GitHub raw URLs are not recommended for production as they're slower and don't benefit from CDN caching.
+
+## Customization
+Override tokens after loading the theme styles to recolor every Mini plugin instantly:
+
+```html
+<style>
+  :root {
+    --mini-color-primary: #61dafb;
+    --mini-focus-outline-color: rgba(97, 218, 251, 0.75);
+  }
+</style>
+```
+
+Add this as a separate **Embed → Code** element with **Style**: Hidden → Head, placed **after** the theme CSS embed.
+
+## Important Notes
+- The theme files do **not** change native Carrd classes; they only register CSS custom properties (tokens)
+- Always load CSS files in the **Head** section
+- Always load JavaScript files at **Body End** for optimal performance
+- If you need a global hook such as `body.is-theme-mini`, add it with your own snippet after loading the base layer
+- Place embed elements in the correct order: theme styles → plugin styles → customization → scripts
