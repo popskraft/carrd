@@ -9,6 +9,10 @@
         const cardContainers = document.querySelectorAll('.cards');
 
         cardContainers.forEach(container => {
+            // Guard against re-initialization
+            if (container.dataset.cardsInitialized === 'true') return;
+            container.dataset.cardsInitialized = 'true';
+            
             const style = window.getComputedStyle(container);
             
             // 1. Get background color

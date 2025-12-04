@@ -30,11 +30,10 @@
     var loader = document.getElementById("loader");
     if (!loader) return false;
 
-    if (typeof loader.remove === "function") {
-      loader.remove();
-    } else {
-      loader.style.cssText = "display:none; visibility:hidden; opacity:0";
-    }
+    // Instead of removing, we just hide it.
+    // This prevents "NotFoundError: Failed to execute 'removeChild'" if Carrd's native script
+    // tries to remove it later.
+    loader.style.cssText = "display:none !important; visibility:hidden !important; opacity:0 !important; pointer-events:none !important;";
     return true;
   }
 

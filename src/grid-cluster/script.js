@@ -37,6 +37,7 @@
 
   gridBlocks.forEach(block => {
     if (collected.has(block)) return;
+    if (block.dataset.gridInitialized === 'true') return;
 
     const cluster = [block];
     const baseSize = getGridSize(block);
@@ -53,6 +54,7 @@
     }
 
     collected.add(block);
+    cluster.forEach(node => node.dataset.gridInitialized = 'true');
     wrapCluster(cluster, baseSize);
   });
 

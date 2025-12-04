@@ -15,8 +15,8 @@ A plugin that transforms a standard Carrd container with columns into a set of i
 3. **Add Columns**: Set the container to use Columns.
 4. **Add Class**: Add the class `cards` to the Container's **Classes** field.
 5. **(Optional) Custom Padding**:
-   - Add a custom attribute `data-padding` with value like `2` (for 2rem) or `3 1` (vertical horizontal).
-   - Add `data-padding-mobile` for mobile-specific padding (e.g. `1`).
+   - Add a custom attribute `data-padding` with value like `2` (for 2rem) or `3 1` (vertical horizontal) Example: `data-padding=2 1`.
+   - Add `data-padding-mobile` for mobile-specific padding (e.g. `1`) Example: `data-padding-mobile=1`.
 
 ## Installation
 
