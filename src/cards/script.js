@@ -31,15 +31,24 @@
             const backgroundRepeat = style.backgroundRepeat;
             const backgroundSize = style.backgroundSize;
 
-            // 3. Get padding from data attributes
+            // 3. Get padding and color from data attributes
             const dataPadding = parsePadding(container.dataset.padding);
             const dataPaddingMobile = parsePadding(container.dataset.paddingMobile);
+            const dataColor = container.dataset.color;
 
-            // 4. Set container background to transparent and reset border/shadow
-            container.style.setProperty('background-color', 'transparent', 'important');
+            // 4. Handle styles based on data-color
+            // Always reset border and shadow on container as they move to cards
             container.style.setProperty('border', 'none', 'important');
             container.style.setProperty('box-shadow', 'none', 'important');
-            container.style.setProperty('background', 'none', 'important');
+
+            if (dataColor) {
+                // If data-color is present, container KEEPS its background
+                // Cards get the data-color as background
+            } else {
+                // If no data-color, container loses its background (moves to cards)
+                container.style.setProperty('background-color', 'transparent', 'important');
+                container.style.setProperty('background', 'none', 'important');
+            }
             
             // Remove border radius from parent to avoid clipping weirdness if it had a background
             // container.style.borderRadius = '0'; // Optional, might break layout if used for other things
@@ -56,9 +65,14 @@
                 cardItem.classList.add('card-item');
                 
                 // Apply background color
-                if (backgroundColor && backgroundColor !== 'rgba(0, 0, 0, 0)' && backgroundColor !== 'transparent') {
+                if (dataColor) {
+                    // Use data-color if present
+                    cardItem.style.backgroundColor = dataColor;
+                } else if (backgroundColor && backgroundColor !== 'rgba(0, 0, 0, 0)' && backgroundColor !== 'transparent') {
+                    // Otherwise inherit from container
                     cardItem.style.backgroundColor = backgroundColor;
                 } else {
+                    // Default fallback
                     cardItem.style.backgroundColor = '#cccccc';
                 }
 
@@ -79,8 +93,8 @@
                     cardItem.style.boxShadow = boxShadow;
                 }
 
-                // Apply background properties
-                if (backgroundImage && backgroundImage !== 'none') {
+                // Apply background properties (only if no data-color override)
+                if (!dataColor && backgroundImage && backgroundImage !== 'none') {
                     cardItem.style.backgroundImage = backgroundImage;
                     cardItem.style.backgroundPosition = backgroundPosition;
                     cardItem.style.backgroundRepeat = backgroundRepeat;
