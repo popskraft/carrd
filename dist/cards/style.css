@@ -1,0 +1,1 @@
+.card-item{padding:var(--card-padding, 2rem);border-radius:var(--card-border-radius, 0);height:100%;box-sizing:border-box}.cards .inner{align-items:stretch}@media screen and (max-width:736px){.card-item{padding:var(--card-padding-mobile, var(--card-padding, 2rem))}}

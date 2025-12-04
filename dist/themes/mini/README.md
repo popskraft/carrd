@@ -13,9 +13,8 @@ The Mini theme includes the following files:
 - **plugin-style.min.css** - Plugin-specific styles
 - **plugin-script.min.js** - Plugin-specific functionality
 
-## Installation Methods
+## Installation
 
-### Method 1: CDN (jsDelivr) - Recommended
 Use jsDelivr CDN for faster loading and automatic caching.
 
 #### Theme Styles (Required)
@@ -58,30 +57,6 @@ Use jsDelivr CDN for faster loading and automatic caching.
    <script src="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/themes/mini/theme-script.min.js"></script>
    ```
 
-### Method 2: GitHub Raw URLs
-Use direct GitHub URLs (slower, not cached, but always up-to-date with the main branch).
-
-#### Theme Styles (Required)
-```html
-<link rel="stylesheet" href="https://raw.githubusercontent.com/popskraft/carrd/main/dist/themes/mini/theme-style.min.css">
-```
-
-#### Plugin Styles
-```html
-<link rel="stylesheet" href="https://raw.githubusercontent.com/popskraft/carrd/main/dist/themes/mini/plugin-style.min.css">
-```
-
-#### Plugin Scripts
-```html
-<script src="https://raw.githubusercontent.com/popskraft/carrd/main/dist/themes/mini/plugin-script.min.js"></script>
-```
-
-#### Theme Scripts
-```html
-<script src="https://raw.githubusercontent.com/popskraft/carrd/main/dist/themes/mini/theme-script.min.js"></script>
-```
-
-**Note**: GitHub raw URLs are not recommended for production as they're slower and don't benefit from CDN caching.
 
 ## Customization
 Override tokens after loading the theme styles to recolor every Mini plugin instantly:

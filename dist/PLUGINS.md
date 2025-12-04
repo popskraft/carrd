@@ -1,5 +1,11 @@
 # Plugins
 
+## Cards
+
+`cards` — Description not provided.
+
+[GitHub folder](https://github.com/popskraft/carrd/tree/main/cards)
+
 ## FAQ
 
 `faq` — Description not provided.
