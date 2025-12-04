@@ -18,15 +18,28 @@
             // 1. Get background color
             const backgroundColor = style.backgroundColor;
             
-            // 2. Get border radius
+            // 2. Get border radius and other border properties
             const borderRadius = style.borderRadius;
+            const borderTopWidth = style.borderTopWidth;
+            const borderTopStyle = style.borderTopStyle;
+            const borderTopColor = style.borderTopColor;
+            const boxShadow = style.boxShadow;
+            
+            // 2.1 Get background properties (gradient, image, etc.)
+            const backgroundImage = style.backgroundImage;
+            const backgroundPosition = style.backgroundPosition;
+            const backgroundRepeat = style.backgroundRepeat;
+            const backgroundSize = style.backgroundSize;
 
             // 3. Get padding from data attributes
             const dataPadding = parsePadding(container.dataset.padding);
             const dataPaddingMobile = parsePadding(container.dataset.paddingMobile);
 
-            // 4. Set container background to transparent
+            // 4. Set container background to transparent and reset border/shadow
             container.style.setProperty('background-color', 'transparent', 'important');
+            container.style.setProperty('border', 'none', 'important');
+            container.style.setProperty('box-shadow', 'none', 'important');
+            container.style.setProperty('background', 'none', 'important');
             
             // Remove border radius from parent to avoid clipping weirdness if it had a background
             // container.style.borderRadius = '0'; // Optional, might break layout if used for other things
@@ -52,6 +65,26 @@
                 // Apply border radius
                 if (borderRadius && borderRadius !== '0px') {
                     cardItem.style.setProperty('--card-border-radius', borderRadius);
+                }
+
+                // Apply border
+                if (borderTopWidth && borderTopWidth !== '0px' && borderTopStyle !== 'none') {
+                    cardItem.style.borderWidth = borderTopWidth;
+                    cardItem.style.borderStyle = borderTopStyle;
+                    cardItem.style.borderColor = borderTopColor;
+                }
+
+                // Apply box shadow
+                if (boxShadow && boxShadow !== 'none') {
+                    cardItem.style.boxShadow = boxShadow;
+                }
+
+                // Apply background properties
+                if (backgroundImage && backgroundImage !== 'none') {
+                    cardItem.style.backgroundImage = backgroundImage;
+                    cardItem.style.backgroundPosition = backgroundPosition;
+                    cardItem.style.backgroundRepeat = backgroundRepeat;
+                    cardItem.style.backgroundSize = backgroundSize;
                 }
 
                 // Apply padding variables
