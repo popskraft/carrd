@@ -1,35 +1,25 @@
 # Cards
 
-## What is it?
-A plugin that transforms a standard Carrd container with columns into a set of individual cards. It automatically inherits styles from the parent container.
+Transforms a standard Carrd container into a set of individual cards with inherited styling.
 
 ## Features
-- **Automatic Styling**: Inherits `background-color` and `border-radius` from the parent container.
-- **Custom Padding**: Configure padding via data attributes (supports desktop and mobile).
-- **Responsive**: Works with Carrd's existing column system.
+- **Inheritance**: Automatically adopts parent container's background, border, and shadow.
+- **Custom Padding**: configurable via `data-padding` and `data-padding-mobile`.
+- **Responsive**: Fully compatible with Carrd's column system.
 
-## How to use
-
-1. **Create a Container**: Add a Container element in Carrd.
-2. **Set Styles**: Set the Background Color and Corner Rounding (Border Radius) on this Container.
-3. **Add Columns**: Set the container to use Columns.
-4. **Add Class**: Add the class `cards` to the Container's **Classes** field.
-5. **(Optional) Custom Padding**:
-   - Add a custom attribute `data-padding` with value like `2` (for 2rem) or `3 1` (vertical horizontal) Example: `data-padding=2 1`.
-   - Add `data-padding-mobile` for mobile-specific padding (e.g. `1`) Example: `data-padding-mobile=1`.
+## Setup
+1. **Container**: Add a Container element with Columns.
+2. **Styles**: Apply Background, Border, and Shadow to the Container.
+3. **Class**: Add `cards` to the Container's **Classes** field.
+4. **(Optional) Padding**: Add `data-padding="2 1"` (desktop) or `data-padding-mobile="1"` (mobile) to **Attributes**.
 
 ## Installation
-
-### CDN (jsDelivr)
-
-#### Plugin Styles
-Add an **Embed** element (Hidden, Head):
+**CSS (Hidden, Head)**
 ```html
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/cards/style.css">
 ```
 
-#### Plugin Script
-Add an **Embed** element (Hidden, Body End):
+**JS (Hidden, Body End)**
 ```html
 <script src="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/cards/script.js"></script>
 ```

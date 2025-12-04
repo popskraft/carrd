@@ -1,66 +1,30 @@
-# Mini
+# Mini Theme
 
-## What is it?
-Base CSS layer for the Mini theme family that declares shared `--mini-*` tokens covering color, motion, and focus across every Mini plugin.
+Shared design system for Mini plugins (FAQ, Grid Cluster, etc.) providing centralized tokens for color, motion, and focus.
 
-## Why use it
-Keeps Mini plugins (FAQ, Grid Cluster, etc.) visually consistent and makes recoloring easy—override a token once instead of editing each plugin stylesheet.
-
-## Available Files
-The Mini theme includes the following files:
-- **theme-style.min.css** - Base theme CSS tokens
-- **theme-script.min.js** - Base theme JavaScript (if needed)
-- **plugin-style.min.css** - Plugin-specific styles
-- **plugin-script.min.js** - Plugin-specific functionality
+## Setup
+1. **Theme CSS**: Add to **Head**.
+2. **Plugin CSS**: Add to **Head** (after Theme CSS).
+3. **Plugin JS**: Add to **Body End**.
 
 ## Installation
+**Theme CSS (Hidden, Head)**
+```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/themes/mini/theme-style.min.css">
+```
 
-Use jsDelivr CDN for faster loading and automatic caching.
+**Plugin CSS (Hidden, Head)**
+```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/themes/mini/plugin-style.min.css">
+```
 
-#### Theme Styles (Required)
-1. In Carrd, add **( + ) → Element → Embed** with these parameters:
-   - **Type**: Code
-   - **Title**: Mini Theme CSS
-   - **Style**: Hidden → Head
-   - **Code**:
-   ```html
-   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/themes/mini/theme-style.min.css">
-   ```
-
-#### Plugin Styles (If using Mini plugins)
-2. Add another **Embed → Code** element:
-   - **Type**: Code
-   - **Title**: Mini Plugin CSS
-   - **Style**: Hidden → Head
-   - **Code**:
-   ```html
-   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/themes/mini/plugin-style.min.css">
-   ```
-
-#### Plugin Scripts (If using Mini plugins)
-3. Add another **Embed → Code** element:
-   - **Type**: Code
-   - **Title**: Mini Plugin JS
-   - **Style**: Hidden → Body End
-   - **Code**:
-   ```html
-   <script src="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/themes/mini/plugin-script.min.js"></script>
-   ```
-
-#### Theme Scripts (Optional)
-4. If the theme requires JavaScript, add:
-   - **Type**: Code
-   - **Title**: Mini Theme JS
-   - **Style**: Hidden → Body End
-   - **Code**:
-   ```html
-   <script src="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/themes/mini/theme-script.min.js"></script>
-   ```
-
+**Plugin JS (Hidden, Body End)**
+```html
+<script src="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/themes/mini/plugin-script.min.js"></script>
+```
 
 ## Customization
-Override tokens after loading the theme styles to recolor every Mini plugin instantly:
-
+Override tokens in a separate **Embed** (Head, after Theme CSS):
 ```html
 <style>
   :root {
@@ -69,12 +33,3 @@ Override tokens after loading the theme styles to recolor every Mini plugin inst
   }
 </style>
 ```
-
-Add this as a separate **Embed → Code** element with **Style**: Hidden → Head, placed **after** the theme CSS embed.
-
-## Important Notes
-- The theme files do **not** change native Carrd classes; they only register CSS custom properties (tokens)
-- Always load CSS files in the **Head** section
-- Always load JavaScript files at **Body End** for optimal performance
-- If you need a global hook such as `body.is-theme-mini`, add it with your own snippet after loading the base layer
-- Place embed elements in the correct order: theme styles → plugin styles → customization → scripts
