@@ -12,7 +12,7 @@ Transforms a standard Carrd container into a set of individual cards with inheri
 2. **Styles**: Apply Background, Border, and Shadow to the Container.
 3. **Class**: Add `cards` to the Container's **Classes** field.
 4. **(Optional) Padding**: Add `data-padding="2 1"` (desktop) or `data-padding-mobile="1"` (mobile) to **Attributes**.
-5. **(Optional) Individual Colors**: Add `data-color-1="#ff0000"`, `data-color-2="blue"`, etc. to **Attributes** to override the background color for specific cards (1-based index).
+5. **(Optional) Individual Colors**: Add `data-color-1="#ff0000"` (background) or `data-border-color-1="#00ff00"` (border) to **Attributes** to override colors for specific cards (1-based index).
 
 ## Advanced Usage
 
@@ -20,8 +20,11 @@ Transforms a standard Carrd container into a set of individual cards with inheri
 You can set a different background color for specific cards in the sequence using `data-color-N` attributes, where `N` is the card number (starting from 1).
 
 **Example:**
-To make the second card gray and the third card transparent:
+To make the second card gray with a red border:
 - `data-color-2="#cccccc"`
+- `data-border-color-2="red"`
+
+To make the third card transparent:
 - `data-color-3="transparent"`
 
 **Note:**

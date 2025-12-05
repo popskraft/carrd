@@ -66,6 +66,7 @@
                 
                 // Check for specific color override (data-color-1, data-color-2, etc.)
                 const specificColor = container.getAttribute(`data-color-${index + 1}`);
+                const specificBorderColor = container.getAttribute(`data-border-color-${index + 1}`);
 
                 // Apply background color
                 if (specificColor) {
@@ -90,7 +91,7 @@
                 if (borderTopWidth && borderTopWidth !== '0px' && borderTopStyle !== 'none') {
                     cardItem.style.borderWidth = borderTopWidth;
                     cardItem.style.borderStyle = borderTopStyle;
-                    cardItem.style.borderColor = borderTopColor;
+                    cardItem.style.borderColor = specificBorderColor || borderTopColor;
                 }
 
                 // Apply box shadow
