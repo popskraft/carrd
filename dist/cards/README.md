@@ -12,50 +12,61 @@ Transforms a standard Carrd container into a set of individual cards with inheri
 2. **Styles**: Apply Background, Border, and Shadow to the Container.
 3. **Class**: Add `cards` to the Container's **Classes** field.
 4. **(Optional) Padding**: Add `data-padding="2 1"` (desktop) or `data-padding-mobile="1"` (mobile) to **Attributes**.
+5. **(Optional) Individual Colors**: Add `data-color-1="#ff0000"`, `data-color-2="blue"`, etc. to **Attributes** to override the background color for specific cards (1-based index).
+
+## Advanced Usage
+
+### Individual Card Colors
+You can set a different background color for specific cards in the sequence using `data-color-N` attributes, where `N` is the card number (starting from 1).
+
+**Example:**
+To make the second card gray and the third card transparent:
+- `data-color-2="#cccccc"`
+- `data-color-3="transparent"`
+
+**Note:**
+- If a specific color is set (e.g., `data-color-2`), it overrides the container's background color/image for that card.
+- If `data-color` (global) is set, it applies to all cards unless overridden by a specific `data-color-N`.
 
 ## Installation
-**CSS (Hidden, Head)**
+
+### Option 1: CDN (Recommended)
+
+**1. Styles**
+Add an **Embed** element:
+- **Type**: Code
+- **Style**: Hidden, Head
+- **Code**:
 ```html
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/cards/style.css">
 ```
 
-**JS (Hidden, Body End)**
+**2. Script**
+Add an **Embed** element:
+- **Type**: Code
+- **Style**: Hidden, Body End
+- **Code**:
 ```html
 <script src="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/cards/script.js"></script>
 ```
 
-## Example Usage
-For easy integration with Carrd, use the `example.html` file which contains ready-to-copy code for embedding:
+### Option 2: Direct Code
+Copy the content of the file directly into the Embed element.
 
-1. Open `example.html`
-2. Copy the entire code content
-3. In Carrd, add ( + ) an Element → Embed with these parameters:
-   - **Type**: Code
-   - **Title**: Cards
-   - **Style**: Hidden → Body End
-   - **Code**: Paste the copied code from example.html
-
-**Important**: Place HTML Elements at the very bottom of the page below the footer, ensuring they don't fall into containers with hidden content.
-
-## CDN Installation
-Alternatively, you can manually include the plugin files directly from CDN using two separate Embed elements:
-
-### 1. CSS Embed Element
-In Carrd, add ( + ) an Element → Embed with these parameters:
-   - **Type**: Code
-   - **Title**: CSS CDN Cards
-   - **Style**: Hidden → Head
-   - **Code**:
+**1. Styles**
+- **Code**:
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/cards/style.css">
+<style>
+/* Copy content from dist/cards/style.css */
+</style>
 ```
 
-### 2. JavaScript Embed Element
-In Carrd, add ( + ) another Element → Embed with these parameters:
-   - **Type**: Code
-   - **Title**: JS CDN Cards
-   - **Style**: Hidden → Body End
-   - **Code**:
+**2. Script**
+- **Code**:
 ```html
-<script src="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/cards/script.js"></script>
+<script>
+/* Copy content from dist/cards/script.js */
+</script>
 ```
+
+

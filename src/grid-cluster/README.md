@@ -14,12 +14,42 @@ Merges consecutive `grid-*` containers into a single responsive CSS grid.
 4. **(Optional) Widths**: Add `w-20`, `w-25`, `w-33`, `w-40`, `w-50`, `w-60`, `w-67`, `w-75`, or `w-80` for desktop width overrides.
 
 ## Installation
-**CSS (Hidden, Head)**
+
+### Option 1: CDN (Recommended)
+
+**1. Styles**
+Add an **Embed** element:
+- **Type**: Code
+- **Style**: Hidden, Head
+- **Code**:
 ```html
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/grid-cluster/style.css">
 ```
 
-**JS (Hidden, Body End)**
+**2. Script**
+Add an **Embed** element:
+- **Type**: Code
+- **Style**: Hidden, Body End
+- **Code**:
 ```html
 <script src="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/grid-cluster/script.js" defer></script>
+```
+
+### Option 2: Direct Code
+Copy the content of the file directly into the Embed element.
+
+**1. Styles**
+- **Code**:
+```html
+<style>
+/* Copy content from dist/grid-cluster/style.css */
+</style>
+```
+
+**2. Script**
+- **Code**:
+```html
+<script>
+/* Copy content from dist/grid-cluster/script.js */
+</script>
 ```

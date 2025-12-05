@@ -58,14 +58,19 @@
 
             const columns = Array.from(inner.children);
 
-            columns.forEach(column => {
+            columns.forEach((column, index) => {
                 if (column.querySelector('.card-item')) return;
 
                 const cardItem = document.createElement('div');
                 cardItem.classList.add('card-item');
                 
+                // Check for specific color override (data-color-1, data-color-2, etc.)
+                const specificColor = container.getAttribute(`data-color-${index + 1}`);
+
                 // Apply background color
-                if (dataColor) {
+                if (specificColor) {
+                    cardItem.style.backgroundColor = specificColor;
+                } else if (dataColor) {
                     // Use data-color if present
                     cardItem.style.backgroundColor = dataColor;
                 } else if (backgroundColor && backgroundColor !== 'rgba(0, 0, 0, 0)' && backgroundColor !== 'transparent') {
@@ -94,7 +99,7 @@
                 }
 
                 // Apply background properties (only if no data-color override)
-                if (!dataColor && backgroundImage && backgroundImage !== 'none') {
+                if (!dataColor && !specificColor && backgroundImage && backgroundImage !== 'none') {
                     cardItem.style.backgroundImage = backgroundImage;
                     cardItem.style.backgroundPosition = backgroundPosition;
                     cardItem.style.backgroundRepeat = backgroundRepeat;
