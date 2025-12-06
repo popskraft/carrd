@@ -11,6 +11,13 @@
     return cachedBody;
   }
 
+  // FIX for Lighthouse NO_FCP error:
+  // Carrd's default CSS hides the body with `opacity: 0` until `is-ready` class is present.
+  // Previously, `is-ready` was added after a 750ms delay, causing Lighthouse to see
+  // an invisible page during its First Contentful Paint measurement window.
+  // Now we add `is-ready` immediately to ensure content is visible from the start.
+  // The `is-playing` class is kept for visual animation purposes but no longer
+  // blocks the initial paint.
   function markReadyNow() {
     var body = getBody();
     if (!body) return;
@@ -18,10 +25,13 @@
     body.classList.remove("is-loading", "with-loader");
 
     if (!body.classList.contains("is-ready")) {
+      // Add is-ready immediately so Lighthouse sees visible content (fixes NO_FCP)
+      body.classList.add("is-ready");
+
+      // Trigger Carrd's entry animations via is-playing class
       body.classList.add("is-playing");
       setTimeout(function () {
         body.classList.remove("is-playing");
-        body.classList.add("is-ready");
       }, 750);
     }
   }

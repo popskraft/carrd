@@ -1,133 +1,119 @@
+// Cards: applies styling (padding, border radius, background) to card items based on container attributes.
 (function() {
-    // Helper to parse padding values (e.g. "2" -> "2rem", "2 1" -> "2rem 1rem")
-    const parsePadding = (val) => {
-        if (!val) return null;
-        return val.split(' ').map(v => !isNaN(v) ? v + 'rem' : v).join(' ');
-    };
+  const parsePadding = (val) => {
+    if (!val) return null;
+    return val.split(' ').map(v => !isNaN(v) ? v + 'rem' : v).join(' ');
+  };
 
-    const initCards = () => {
-        const cardContainers = document.querySelectorAll('.cards');
+  const initCards = () => {
+    const cardContainers = document.querySelectorAll('.cards');
 
-        cardContainers.forEach(container => {
-            // Guard against re-initialization
-            if (container.dataset.cardsInitialized === 'true') return;
-            container.dataset.cardsInitialized = 'true';
-            
-            const style = window.getComputedStyle(container);
-            
-            // 1. Get background color
-            const backgroundColor = style.backgroundColor;
-            
-            // 2. Get border radius and other border properties
-            const borderRadius = style.borderRadius;
-            const borderTopWidth = style.borderTopWidth;
-            const borderTopStyle = style.borderTopStyle;
-            const borderTopColor = style.borderTopColor;
-            const boxShadow = style.boxShadow;
-            
-            // 2.1 Get background properties (gradient, image, etc.)
-            const backgroundImage = style.backgroundImage;
-            const backgroundPosition = style.backgroundPosition;
-            const backgroundRepeat = style.backgroundRepeat;
-            const backgroundSize = style.backgroundSize;
+    cardContainers.forEach(container => {
+      if (container.dataset.cardsInitialized === 'true') return;
+      container.dataset.cardsInitialized = 'true';
 
-            // 3. Get padding and color from data attributes
-            const dataPadding = parsePadding(container.dataset.padding);
-            const dataPaddingMobile = parsePadding(container.dataset.paddingMobile);
-            const dataColor = container.dataset.color;
+      const style = window.getComputedStyle(container);
+      const backgroundColor = style.backgroundColor;
+      const borderRadius = style.borderRadius;
+      const borderTopWidth = style.borderTopWidth;
+      const borderTopStyle = style.borderTopStyle;
+      const borderTopColor = style.borderTopColor;
+      const boxShadow = style.boxShadow;
+      const backgroundImage = style.backgroundImage;
+      const backgroundPosition = style.backgroundPosition;
+      const backgroundRepeat = style.backgroundRepeat;
+      const backgroundSize = style.backgroundSize;
 
-            // 4. Handle styles based on data-color
-            // Always reset border and shadow on container as they move to cards
-            container.style.setProperty('border', 'none', 'important');
-            container.style.setProperty('box-shadow', 'none', 'important');
+      const dataPadding = parsePadding(container.dataset.padding);
+      const dataPaddingMobile = parsePadding(container.dataset.paddingMobile);
+      const dataColor = container.dataset.color;
 
-            if (dataColor) {
-                // If data-color is present, container KEEPS its background
-                // Cards get the data-color as background
-            } else {
-                // If no data-color, container loses its background (moves to cards)
-                container.style.setProperty('background-color', 'transparent', 'important');
-                container.style.setProperty('background', 'none', 'important');
-            }
-            
-            // Remove border radius from parent to avoid clipping weirdness if it had a background
-            // container.style.borderRadius = '0'; // Optional, might break layout if used for other things
+      // Reset container styles
+      container.style.setProperty('border', 'none', 'important');
+      container.style.setProperty('box-shadow', 'none', 'important');
 
-            const inner = container.querySelector('.inner');
-            if (!inner) return;
+      if (dataColor) {
+        // If data-color is present, we keep the container background as is (or handled by specific logic)
+      } else {
+        container.style.setProperty('background-color', 'transparent', 'important');
+        container.style.setProperty('background', 'none', 'important');
+      }
 
-            const columns = Array.from(inner.children);
+      const inner = container.querySelector('.inner');
+      if (!inner) return;
 
-            columns.forEach((column, index) => {
-                if (column.querySelector('.card-item')) return;
+      const columns = Array.from(inner.children);
 
-                const cardItem = document.createElement('div');
-                cardItem.classList.add('card-item');
-                
-                // Check for specific color override (data-color-1, data-color-2, etc.)
-                const specificColor = container.getAttribute(`data-color-${index + 1}`);
-                const specificBorderColor = container.getAttribute(`data-border-color-${index + 1}`);
+      columns.forEach((column, index) => {
+        if (column.querySelector('.card-item')) return;
 
-                // Apply background color
-                if (specificColor) {
-                    cardItem.style.backgroundColor = specificColor;
-                } else if (dataColor) {
-                    // Use data-color if present
-                    cardItem.style.backgroundColor = dataColor;
-                } else if (backgroundColor && backgroundColor !== 'rgba(0, 0, 0, 0)' && backgroundColor !== 'transparent') {
-                    // Otherwise inherit from container
-                    cardItem.style.backgroundColor = backgroundColor;
-                } else {
-                    // Default fallback
-                    cardItem.style.backgroundColor = '#cccccc';
-                }
+        const cardItem = document.createElement('div');
+        cardItem.classList.add('card-item');
 
-                // Apply border radius
-                if (borderRadius && borderRadius !== '0px') {
-                    cardItem.style.setProperty('--card-border-radius', borderRadius);
-                }
+        const specificColor = container.getAttribute(`data-color-${index + 1}`);
+        const specificBorderColor = container.getAttribute(`data-border-color-${index + 1}`);
 
-                // Apply border
-                if (borderTopWidth && borderTopWidth !== '0px' && borderTopStyle !== 'none') {
-                    cardItem.style.borderWidth = borderTopWidth;
-                    cardItem.style.borderStyle = borderTopStyle;
-                    cardItem.style.borderColor = specificBorderColor || borderTopColor;
-                }
+        // Background Color Logic
+        if (specificColor) {
+          cardItem.style.backgroundColor = specificColor;
+        } else if (dataColor) {
+          cardItem.style.backgroundColor = dataColor;
+        } else if (backgroundColor && backgroundColor !== 'rgba(0, 0, 0, 0)' && backgroundColor !== 'transparent') {
+          cardItem.style.backgroundColor = backgroundColor;
+        } else {
+          // Fallback to theme variable or default gray
+          // We set it as a property so it can be overridden by CSS if needed, 
+          // or just set the style directly if we want to enforce it.
+          // Using var() in inline style works:
+          cardItem.style.backgroundColor = 'var(--mini-card-bg-default, #cccccc)';
+        }
 
-                // Apply box shadow
-                if (boxShadow && boxShadow !== 'none') {
-                    cardItem.style.boxShadow = boxShadow;
-                }
+        // Border Radius
+        if (borderRadius && borderRadius !== '0px') {
+          cardItem.style.setProperty('--mini-card-border-radius', borderRadius);
+        }
 
-                // Apply background properties (only if no data-color override)
-                if (!dataColor && !specificColor && backgroundImage && backgroundImage !== 'none') {
-                    cardItem.style.backgroundImage = backgroundImage;
-                    cardItem.style.backgroundPosition = backgroundPosition;
-                    cardItem.style.backgroundRepeat = backgroundRepeat;
-                    cardItem.style.backgroundSize = backgroundSize;
-                }
+        // Border
+        if (borderTopWidth && borderTopWidth !== '0px' && borderTopStyle !== 'none') {
+          cardItem.style.borderWidth = borderTopWidth;
+          cardItem.style.borderStyle = borderTopStyle;
+          cardItem.style.borderColor = specificBorderColor || borderTopColor;
+        }
 
-                // Apply padding variables
-                if (dataPadding) {
-                    cardItem.style.setProperty('--card-padding', dataPadding);
-                }
-                if (dataPaddingMobile) {
-                    cardItem.style.setProperty('--card-padding-mobile', dataPaddingMobile);
-                }
+        // Box Shadow
+        if (boxShadow && boxShadow !== 'none') {
+          cardItem.style.boxShadow = boxShadow;
+        }
 
-                while (column.firstChild) {
-                    cardItem.appendChild(column.firstChild);
-                }
+        // Background Image
+        if (!dataColor && !specificColor && backgroundImage && backgroundImage !== 'none') {
+          cardItem.style.backgroundImage = backgroundImage;
+          cardItem.style.backgroundPosition = backgroundPosition;
+          cardItem.style.backgroundRepeat = backgroundRepeat;
+          cardItem.style.backgroundSize = backgroundSize;
+        }
 
-                column.appendChild(cardItem);
-            });
-        });
-    };
+        // Padding
+        if (dataPadding) {
+          cardItem.style.setProperty('--mini-card-padding', dataPadding);
+        }
+        if (dataPaddingMobile) {
+          cardItem.style.setProperty('--mini-card-padding-mobile', dataPaddingMobile);
+        }
 
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initCards);
-    } else {
-        initCards();
-    }
-    window.addEventListener('load', initCards);
+        // Move content
+        while (column.firstChild) {
+          cardItem.appendChild(column.firstChild);
+        }
+        column.appendChild(cardItem);
+      });
+    });
+  };
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initCards);
+  } else {
+    initCards();
+  }
+  window.addEventListener('load', initCards);
 })();
