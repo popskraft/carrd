@@ -127,5 +127,3 @@ You can customize the entire theme by adjusting the variables in your **Styles**
 *   `--mini-grid-column-gap-desktop`: Horizontal gap on desktop (default: `1.5rem`).
 
 Simply add these to the `:root` selector in your `<style>` block to override the defaults.
-
-

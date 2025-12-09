@@ -54,5 +54,3 @@ Copy the content of the file directly into the Embed element.
 ## Notes
 - **Video Autoplay**: Browsers may still pause videos requiring interaction.
 - **Custom Loaders**: Ensure your loader has `id="loader"` for the script to remove it.
-
-

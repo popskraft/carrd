@@ -41,7 +41,7 @@ Add an **Embed** element:
 - **Style**: Hidden, Head
 - **Code**:
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/cards/style.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/cards/cards.min.css">
 ```
 
 **2. Script**
@@ -50,7 +50,7 @@ Add an **Embed** element:
 - **Style**: Hidden, Body End
 - **Code**:
 ```html
-<script src="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/cards/script.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/cards/cards.min.js"></script>
 ```
 
 ### Option 2: Direct Code
@@ -60,7 +60,7 @@ Copy the content of the file directly into the Embed element.
 - **Code**:
 ```html
 <style>
-/* Copy content from dist/cards/style.css */
+/* Copy content from dist/cards/cards.min.css */
 </style>
 ```
 

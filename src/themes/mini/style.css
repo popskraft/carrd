@@ -22,4 +22,17 @@
   --mini-grid-row-gap-desktop: 2rem;
   --mini-grid-column-gap-desktop: 1.5rem;
   --mini-grid-column-gap-desktop-large: 2rem;
+
+  /* ----- Shopping Cart Plugin ----- */
+  --mini-cart-bg: #ffffff;
+  --mini-cart-border: #eeeeee;
+  --mini-cart-text: #333333;
+  --mini-cart-accent: var(--mini-color-primary);
+  --mini-cart-btn-bg: var(--mini-color-primary);
+  --mini-cart-icon-bg: var(--mini-color-primary);
+  --mini-cart-badge-bg: #ef4444;
+  --mini-cart-font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --mini-cart-overlay-bg: rgba(218, 225, 228, 0.792);
+  --mini-cart-toast-bg: #333333;
+  --mini-cart-toast-text: #ffffff;
 }

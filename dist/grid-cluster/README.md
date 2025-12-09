@@ -53,5 +53,3 @@ Copy the content of the file directly into the Embed element.
 /* Copy content from dist/grid-cluster/script.js */
 </script>
 ```
-
-

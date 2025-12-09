@@ -22,7 +22,7 @@ Add an **Embed** element:
 - **Style**: Hidden, Head
 - **Code**:
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/faq/style.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/faq/faq.min.css">
 ```
 
 **2. Script**
@@ -31,7 +31,7 @@ Add an **Embed** element:
 - **Style**: Hidden, Body End
 - **Code**:
 ```html
-<script src="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/faq/script.js" defer></script>
+<script src="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/faq/faq.min.js" defer></script>
 ```
 
 ### Option 2: Direct Code
@@ -41,7 +41,7 @@ Copy the content of the file directly into the Embed element.
 - **Code**:
 ```html
 <style>
-/* Copy content from dist/faq/style.css */
+/* Copy content from dist/faq/faq.min.css */
 </style>
 ```
 
@@ -52,5 +52,3 @@ Copy the content of the file directly into the Embed element.
 /* Copy content from dist/faq/script.js */
 </script>
 ```
-
-
