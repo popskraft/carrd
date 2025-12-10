@@ -11,7 +11,7 @@
     bottom: 20px;
     right: 20px;
     z-index: 999990;
-    background: var(--mini-cart-icon-bg, #3b82f6);
+    background: var(--mini-shopcart-icon-bg, #3b82f6);
     color: #fff;
     width: 60px;
     height: 60px;
@@ -22,6 +22,10 @@
     cursor: pointer;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
     transition: transform 0.2s;
+}
+
+.crt-widget>svg {
+    margin-left: -4px;
 }
 
 .crt-widget:hover {
@@ -45,10 +49,11 @@
 .crt-overlay {
     position: fixed;
     inset: 0;
-    background: var(--mini-cart-overlay-bg, rgba(218, 225, 228, 0.792));
+    background: var(--mini-shopcart-overlay-bg, var(--mini-overlay-bg, rgba(218, 225, 228, 0.792)));
     z-index: 999998;
     opacity: 0;
     pointer-events: none;
+    backdrop-filter: blur(20px);
     transition: opacity 0.3s;
 }
 
@@ -63,16 +68,16 @@
     right: 0;
     bottom: 0;
     width: 100%;
-    max-width: 400px;
-    background: var(--mini-cart-bg, #ffffff);
-    color: var(--mini-cart-text, #333333);
+    max-width: 500px;
+    background: var(--mini-shopcart-bg, #ffffff);
+    color: var(--mini-shopcart-text, #333333);
     z-index: 999999;
-    transform: translateX(100%);
+    transform: translateX(110%);
     transition: transform 0.3s ease-in-out;
-    box-shadow: -4px 0 15px rgba(0, 0, 0, 0.3);
+    box-shadow: -4px 0 15px rgba(11, 41, 68, 0.3);
     display: flex;
     flex-direction: column;
-    font-family: var(--mini-cart-font, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif);
+    font-family: var(--mini-shopcart-font, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif);
 }
 
 .crt-panel.open {
@@ -81,7 +86,7 @@
 
 .crt-header {
     padding: 20px;
-    border-bottom: 1px solid var(--mini-cart-border, #eeeeee);
+    border-bottom: 1px solid var(--mini-shopcart-border, #eeeeee);
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -111,7 +116,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 15px 0;
-    border-bottom: 1px solid var(--mini-cart-border, #eeeeee);
+    border-bottom: 1px solid var(--mini-shopcart-border, #eeeeee);
 }
 
 .crt-item-info {
@@ -154,8 +159,8 @@
 
 .crt-footer {
     padding: 20px;
-    border-top: 1px solid var(--mini-cart-border, #eeeeee);
-    background: rgba(0, 0, 0, 0.1);
+    border-top: 1px solid var(--mini-shopcart-border, #eeeeee);
+    background: #6470851a;
 }
 
 .crt-total-row {
@@ -169,7 +174,7 @@
 .crt-btn-main {
     width: 100%;
     padding: 12px;
-    background: var(--mini-cart-btn-bg, #3b82f6);
+    background: var(--mini-shopcart-btn-bg, #3b82f6);
     color: white;
     border: none;
     border-radius: 6px;
@@ -203,14 +208,14 @@
     width: 100%;
     padding: 10px;
     background: rgba(255, 255, 255, 0.05);
-    border: 1px solid var(--mini-cart-border, #eeeeee);
+    border: 1px solid var(--mini-shopcart-border, #eeeeee);
     color: white;
     border-radius: 4px;
     box-sizing: border-box;
 }
 
 .crt-input:focus {
-    outline: 2px solid var(--mini-cart-accent, #3b82f6);
+    outline: 2px solid var(--mini-shopcart-accent, #3b82f6);
     border-color: transparent;
 }
 
@@ -218,8 +223,8 @@
     position: fixed;
     bottom: 90px;
     right: 20px;
-    background: var(--mini-cart-toast-bg, #333333);
-    color: var(--mini-cart-toast-text, #ffffff);
+    background: var(--mini-shopcart-toast-bg, #333333);
+    color: var(--mini-shopcart-toast-text, #ffffff);
     padding: 12px 20px;
     border-radius: 8px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
@@ -228,7 +233,7 @@
     opacity: 0;
     transition: 0.3s;
     pointer-events: none;
-    font-family: var(--mini-cart-font, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif);
+    font-family: var(--mini-shopcart-font, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif);
 }
 
 .crt-toast.visible {

@@ -68,6 +68,6 @@ Copy the content of the file directly into the Embed element.
 - **Code**:
 ```html
 <script>
-/* Copy content from dist/cards/script.js */
+/* Copy content from dist/cards/cards.min.js */
 </script>
 ```

@@ -23,7 +23,7 @@ Add an **Embed** element:
 - **Style**: Hidden, Head
 - **Code**:
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/grid-cluster/style.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/grid-cluster/grid-cluster.min.css">
 ```
 
 **2. Script**
@@ -32,7 +32,7 @@ Add an **Embed** element:
 - **Style**: Hidden, Body End
 - **Code**:
 ```html
-<script src="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/grid-cluster/script.js" defer></script>
+<script src="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/grid-cluster/grid-cluster.min.js" defer></script>
 ```
 
 ### Option 2: Direct Code
@@ -42,7 +42,7 @@ Copy the content of the file directly into the Embed element.
 - **Code**:
 ```html
 <style>
-/* Copy content from dist/grid-cluster/style.css */
+/* Copy content from dist/grid-cluster/grid-cluster.min.css */
 </style>
 ```
 
@@ -50,6 +50,6 @@ Copy the content of the file directly into the Embed element.
 - **Code**:
 ```html
 <script>
-/* Copy content from dist/grid-cluster/script.js */
+/* Copy content from dist/grid-cluster/grid-cluster.min.js */
 </script>
 ```

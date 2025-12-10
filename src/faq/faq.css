@@ -21,6 +21,7 @@
   line-height: 1;
   color: var(--mini-faq-icon-color, var(--mini-color-primary, #5c9dff));
   transition: transform 0.3s ease;
+  font-weight: 400;
 }
 
 .FAQContainer .faq-question.is-open::after {

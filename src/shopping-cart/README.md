@@ -20,16 +20,16 @@ Customize appearance by editing CSS variables in the **Styles** embed:
 ```css
 :root {
     /* Optional: Override defaults or define if not using Mini theme */
-    --mini-cart-bg: #ffffff;           /* Panel background */
-    --mini-cart-text: #333333;         /* Text color */
-    --mini-cart-accent: #3b82f6;       /* Focus color */
-    --mini-cart-btn-bg: #3b82f6;       /* Checkout button background */
-    --mini-cart-icon-bg: #3b82f6;      /* Floating cart icon background */
-    --mini-cart-badge-bg: #ef4444;     /* Badge background */
-    --mini-cart-font: "Inter", sans-serif; /* Font family */
-    --mini-cart-overlay-bg: rgba(0, 0, 0, 0.5); /* Overlay background */
-    --mini-cart-toast-bg: #333333;     /* Toast background */
-    --mini-cart-toast-text: #ffffff;   /* Toast text color */
+    --mini-shopcart-bg: #ffffff;           /* Panel background */
+    --mini-shopcart-text: #333333;         /* Text color */
+    --mini-shopcart-accent: #3b82f6;       /* Focus color */
+    --mini-shopcart-btn-bg: #3b82f6;       /* Checkout button background */
+    --mini-shopcart-icon-bg: #3b82f6;      /* Floating cart icon background */
+    --mini-shopcart-badge-bg: #ef4444;     /* Badge background */
+    --mini-shopcart-font: "Inter", sans-serif; /* Font family */
+    --mini-shopcart-overlay-bg: rgba(0, 0, 0, 0.5); /* Overlay background */
+    --mini-shopcart-toast-bg: #333333;     /* Toast background */
+    --mini-shopcart-toast-text: #ffffff;   /* Toast text color */
 }
 ```
 
