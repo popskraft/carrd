@@ -7,7 +7,7 @@ window.CarrdPluginOptions.shoppingCart = {
     currencyPosition: 'before',
     position: 'top-right',
     storageKey: 'carrd_cart_v1',
-    orderInputSelector: '#form-shopping-cart-order-details',
+    orderInputSelector: '[name="order-details"], #order-details',
     orderInputClass: '.cart-output',
     texts: {
         title: 'Shopping Cart',
@@ -37,7 +37,18 @@ window.CarrdPluginOptions.faq = {
 window.CarrdPluginOptions.columns = {
     gridClasses: ['grid-2', 'grid-3', 'grid-4', 'grid-5', 'grid-6'],
     cardSelector: '.cards',
-    defaultCardBg: 'var(--mini-card-bg-default)'
+    defaultCardBg: 'var(--mini-card-bg-default)',
+    widthClasses: {
+        'w-20': '20%',
+        'w-25': '25%',
+        'w-30': '33%',
+        'w-40': '40%',
+        'w-50': '50%',
+        'w-60': '60%',
+        'w-70': '67%',
+        'w-75': '75%',
+        'w-80': '80%'
+    }
 };
 
 /* No-loadwaiting */

@@ -53,7 +53,22 @@
   --mini-shopcart-accent: var(--mini-color-primary);
   --mini-shopcart-btn-bg: var(--mini-btn-primary-bg);
   --mini-shopcart-icon-bg: var(--mini-btn-primary-bg);
+  --mini-shopcart-icon-text: var(--mini-color-white);
   --mini-shopcart-overlay-bg: var(--mini-overlay-bg);
   --mini-shopcart-toast-bg: var(--mini-color-text);
   --mini-shopcart-toast-text: var(--mini-btn-text);
+  --mini-shopcart-badge-bg: var(--mini-color-danger);
+  --mini-shopcart-badge-text: var(--mini-color-white);
+  --mini-shopcart-badge-border: var(--mini-color-white);
+  --mini-shopcart-font: var(--mini-font-family);
+  --mini-shopcart-qty-bg: rgba(255, 255, 255, 0.1);
+  --mini-shopcart-qty-hover-bg: rgba(255, 255, 255, 0.2);
+  --mini-shopcart-footer-bg: var(--mini-color-bg);
+  --mini-shopcart-input-bg: var(--mini-color-bg);
+  --mini-shopcart-input-text: var(--mini-color-text);
+  --mini-shopcart-danger: var(--mini-color-danger);
+
+  /* Generic backgrounds for fallbacks */
+  --mini-bg-shade: rgba(255, 255, 255, 0.1);
+  --mini-bg-shade-hover: rgba(255, 255, 255, 0.2);
 }

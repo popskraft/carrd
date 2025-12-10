@@ -44,14 +44,20 @@ window.CarrdPluginOptions = {
         currencyPosition: 'before',
         position: 'top-right',
         storageKey: 'carrd_cart_v1',
-        orderInputSelector: '[name="order-details"]',
+        orderInputSelector: '[name="order-details"], #order-details',
+        orderInputClass: '.cart-output',
         texts: {
             title: 'Shopping Cart',
             empty: 'Your cart is empty.',
             checkout: 'Checkout',
             total: 'Total',
             remove: 'Remove',
-            addedToCart: 'Added "${name}" to cart'
+            required: 'Required',
+            addedToCart: 'Added "${name}" to cart',
+            errorName: 'Invalid product name',
+            errorPrice: 'Invalid price for ${name}',
+            errorForm: 'Error: Could not find the order form. Please contact support.',
+            consoleErrorForm: 'Carrd Cart: Could not find "Order Details" field. Please ensure a Textarea with name="order-details" or ID="order-details" exists.'
         }
     }
 };

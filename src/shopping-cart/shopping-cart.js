@@ -24,7 +24,7 @@
         storageKey: 'carrd_cart_v1',
         
         // Checkout Form Settings
-        orderInputSelector: '#form-shopping-cart-order-details', // Default ID
+        orderInputSelector: '[name="order-details"], #order-details', // Default field
         orderInputClass: '.cart-output', // Alternative class for flexibility
         
         // Text labels for easy translation
@@ -495,4 +495,3 @@
     }
 
 })();
-
