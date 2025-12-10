@@ -1,4 +1,5 @@
 (function () {
+  'use strict';
   // FAQ Toggle: turn divider-delimited sections inside .FAQContainer into accessible accordions.
   const CONTAINER_SELECTOR = '.FAQContainer';
   const DIVIDER_SELECTOR = 'hr.divider-component';
@@ -10,7 +11,6 @@
 
   const openAnswers = new Set();
   const requestFrame = window.requestAnimationFrame || (cb => setTimeout(cb, 16));
-  const cancelFrame = window.cancelAnimationFrame || clearTimeout;
   let resizeHandle = null;
 
   const scheduleOpenAnswerSync = () => {

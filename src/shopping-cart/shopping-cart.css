@@ -11,8 +11,8 @@
     bottom: 20px;
     right: 20px;
     z-index: 999990;
-    background: var(--mini-shopcart-icon-bg, #3b82f6);
-    color: #fff;
+    background: var(--mini-shopcart-icon-bg, var(--mini-color-primary, #3b82f6));
+    color: var(--mini-shopcart-icon-text, var(--mini-color-white, #ffffff));
     width: 60px;
     height: 60px;
     border-radius: 50%;
@@ -22,6 +22,9 @@
     cursor: pointer;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
     transition: transform 0.2s;
+    visibility: visible;
+    opacity: 1;
+    pointer-events: auto;
 }
 
 .crt-widget>svg {
@@ -36,13 +39,13 @@
     position: absolute;
     top: -5px;
     right: -5px;
-    background: #ef4444;
-    color: white;
+    background: var(--mini-shopcart-badge-bg, var(--mini-color-danger, #ef4444));
+    color: var(--mini-shopcart-badge-text, var(--mini-color-white, #ffffff));
     border-radius: 10px;
     padding: 2px 6px;
     font-size: 12px;
     font-weight: bold;
-    border: 2px solid #ffffff;
+    border: 2px solid var(--mini-shopcart-badge-border, var(--mini-color-white, #ffffff));
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
 
@@ -69,8 +72,8 @@
     bottom: 0;
     width: 100%;
     max-width: 500px;
-    background: var(--mini-shopcart-bg, #ffffff);
-    color: var(--mini-shopcart-text, #333333);
+    background: var(--mini-shopcart-bg, var(--mini-bg, #ffffff));
+    color: var(--mini-shopcart-text, var(--mini-text, #333333));
     z-index: 999999;
     transform: translateX(110%);
     transition: transform 0.3s ease-in-out;
@@ -86,7 +89,7 @@
 
 .crt-header {
     padding: 20px;
-    border-bottom: 1px solid var(--mini-shopcart-border, #eeeeee);
+    border-bottom: 1px solid var(--mini-shopcart-border, var(--mini-border, #eeeeee));
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -116,7 +119,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 15px 0;
-    border-bottom: 1px solid var(--mini-shopcart-border, #eeeeee);
+    border-bottom: 1px solid var(--mini-shopcart-border, var(--mini-border, #eeeeee));
 }
 
 .crt-item-info {
@@ -141,7 +144,7 @@
 }
 
 .crt-btn-qty {
-    background: rgba(255, 255, 255, 0.1);
+    background: var(--mini-shopcart-qty-bg, var(--mini-bg-shade, rgba(255, 255, 255, 0.1)));
     border: none;
     color: inherit;
     width: 24px;
@@ -154,13 +157,17 @@
 }
 
 .crt-btn-qty:hover {
-    background: rgba(255, 255, 255, 0.2);
+    background: var(--mini-shopcart-qty-hover-bg, var(--mini-bg-shade-hover, rgba(255, 255, 255, 0.2)));
+}
+
+.crt-btn-remove {
+    color: var(--mini-shopcart-danger, var(--mini-color-danger, #ef4444));
 }
 
 .crt-footer {
     padding: 20px;
-    border-top: 1px solid var(--mini-shopcart-border, #eeeeee);
-    background: #6470851a;
+    border-top: 1px solid var(--mini-shopcart-border, var(--mini-border, #eeeeee));
+    background: var(--mini-shopcart-footer-bg, var(--mini-bg-alt, #6470851a));
 }
 
 .crt-total-row {
@@ -174,8 +181,8 @@
 .crt-btn-main {
     width: 100%;
     padding: 12px;
-    background: var(--mini-shopcart-btn-bg, #3b82f6);
-    color: white;
+    background: var(--mini-shopcart-btn-bg, var(--mini-color-primary, #3b82f6));
+    color: var(--mini-shopcart-btn-text, var(--mini-color-white, #ffffff));
     border: none;
     border-radius: 6px;
     font-size: 1rem;
@@ -207,15 +214,15 @@
 .crt-input {
     width: 100%;
     padding: 10px;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid var(--mini-shopcart-border, #eeeeee);
-    color: white;
+    background: var(--mini-shopcart-input-bg, rgba(255, 255, 255, 0.05));
+    border: 1px solid var(--mini-shopcart-border, var(--mini-border, #eeeeee));
+    color: var(--mini-shopcart-input-text, var(--mini-text, #ffffff));
     border-radius: 4px;
     box-sizing: border-box;
 }
 
 .crt-input:focus {
-    outline: 2px solid var(--mini-shopcart-accent, #3b82f6);
+    outline: 2px solid var(--mini-shopcart-accent, var(--mini-color-primary, #3b82f6));
     border-color: transparent;
 }
 
@@ -223,8 +230,8 @@
     position: fixed;
     bottom: 90px;
     right: 20px;
-    background: var(--mini-shopcart-toast-bg, #333333);
-    color: var(--mini-shopcart-toast-text, #ffffff);
+    background: var(--mini-shopcart-toast-bg, var(--mini-bg-inverse, #333333));
+    color: var(--mini-shopcart-toast-text, var(--mini-text-inverse, #ffffff));
     padding: 12px 20px;
     border-radius: 8px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);

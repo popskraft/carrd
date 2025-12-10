@@ -1,6 +1,9 @@
 // Grid Cluster: wrap consecutive `.grid-*` containers into one responsive grid and honor any `w-XX` width helpers.
 (function() {
+  'use strict';
+
   const GRID_CLASSES = ['grid-2', 'grid-3', 'grid-4', 'grid-5', 'grid-6'];
+  // Note: w-30 → 33% and w-70 → 67% are intentional (thirds for easier naming)
   const WIDTH_CLASS_MAP = {
     'w-20': '20%',
     'w-25': '25%',
@@ -32,32 +35,6 @@
     return widthClass ? WIDTH_CLASS_MAP[widthClass] : null;
   };
 
-  const collected = new Set();
-  const gridBlocks = document.querySelectorAll(GRID_SELECTOR);
-
-  gridBlocks.forEach(block => {
-    if (collected.has(block)) return;
-    if (block.dataset.gridInitialized === 'true') return;
-
-    const cluster = [block];
-    const baseSize = getGridSize(block);
-    let sibling = block.nextElementSibling;
-
-    while (isGridBlock(sibling)) {
-      const siblingSize = getGridSize(sibling);
-      if (baseSize !== null && siblingSize !== baseSize) {
-        break;
-      }
-      cluster.push(sibling);
-      collected.add(sibling);
-      sibling = sibling.nextElementSibling;
-    }
-
-    collected.add(block);
-    cluster.forEach(node => node.dataset.gridInitialized = 'true');
-    wrapCluster(cluster, baseSize);
-  });
-
   function wrapCluster(cluster, gridSize) {
     if (!cluster.length || !cluster[0].parentNode) return;
 
@@ -78,15 +55,6 @@
     applyDesktopWidths(container, cluster, gridSize);
   }
 
-  document.querySelectorAll('.custom-grid-container .image-component > .frame').forEach(frame => {
-    const computedWidth = window.getComputedStyle(frame).width;
-    const widthInRem = parseFloat(computedWidth) / parseFloat(getComputedStyle(document.documentElement).fontSize);
-
-    if (widthInRem > 20) {
-      frame.classList.add('constrain-width');
-    }
-  });
-
   function applyDesktopWidths(container, cluster, gridSize) {
     if (!gridSize || gridSize < 2 || cluster.length < gridSize) return;
 
@@ -97,5 +65,52 @@
     const templateParts = columnWidths.map(value => value || 'minmax(0, 1fr)');
     container.classList.add('custom-grid-container--desktop-widths');
     container.style.setProperty('--custom-desktop-template', templateParts.join(' '));
+  }
+
+  function constrainImageFrames() {
+    document.querySelectorAll('.custom-grid-container .image-component > .frame').forEach(frame => {
+      const computedWidth = window.getComputedStyle(frame).width;
+      const widthInRem = parseFloat(computedWidth) / parseFloat(getComputedStyle(document.documentElement).fontSize);
+
+      if (widthInRem > 20) {
+        frame.classList.add('constrain-width');
+      }
+    });
+  }
+
+  function init() {
+    const collected = new Set();
+    const gridBlocks = document.querySelectorAll(GRID_SELECTOR);
+
+    gridBlocks.forEach(block => {
+      if (collected.has(block)) return;
+      if (block.dataset.gridInitialized === 'true') return;
+
+      const cluster = [block];
+      const baseSize = getGridSize(block);
+      let sibling = block.nextElementSibling;
+
+      while (isGridBlock(sibling)) {
+        const siblingSize = getGridSize(sibling);
+        if (baseSize !== null && siblingSize !== baseSize) {
+          break;
+        }
+        cluster.push(sibling);
+        collected.add(sibling);
+        sibling = sibling.nextElementSibling;
+      }
+
+      collected.add(block);
+      cluster.forEach(node => node.dataset.gridInitialized = 'true');
+      wrapCluster(cluster, baseSize);
+    });
+
+    constrainImageFrames();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
   }
 })();

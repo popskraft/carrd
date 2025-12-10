@@ -2,6 +2,13 @@
 (function () {
   "use strict";
 
+  // Configuration constants
+  var ANIMATION_DURATION_MS = 750;      // Duration for is-playing class
+  var OBSERVER_TIMEOUT_MS = 5000;       // Auto-disconnect observers after this time
+  var SCROLL_PULSE_INTERVAL_MS = 60;    // Interval between scroll/resize pulses
+  var SCROLL_PULSE_COUNT = 10;          // Number of interval pulses
+  var RAF_PULSE_COUNT = 4;              // Number of requestAnimationFrame pulses
+
   var initialized = false;
   var cachedBody = null;
 
@@ -32,7 +39,7 @@
       body.classList.add("is-playing");
       setTimeout(function () {
         body.classList.remove("is-playing");
-      }, 750);
+      }, ANIMATION_DURATION_MS);
     }
   }
 
@@ -49,20 +56,19 @@
 
   function kickScrollHandlers() {
     var pulses = 0;
-    var maxPulses = 10;
 
     var timer = setInterval(function () {
-      if (++pulses >= maxPulses) {
+      if (++pulses >= SCROLL_PULSE_COUNT) {
         clearInterval(timer);
         return;
       }
       dispatchLayoutEvents();
-    }, 60);
+    }, SCROLL_PULSE_INTERVAL_MS);
 
     var rafPulses = 0;
     (function rafTick() {
       dispatchLayoutEvents();
-      if (++rafPulses < 4) requestAnimationFrame(rafTick);
+      if (++rafPulses < RAF_PULSE_COUNT) requestAnimationFrame(rafTick);
     })();
   }
 
@@ -100,7 +106,7 @@
     setTimeout(function () {
       classObserver.disconnect();
       childObserver.disconnect();
-    }, 5000);
+    }, OBSERVER_TIMEOUT_MS);
   }
 
   function init() {

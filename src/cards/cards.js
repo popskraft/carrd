@@ -1,5 +1,6 @@
 // Cards: applies styling (padding, border radius, background) to card items based on container attributes.
 (function() {
+  'use strict';
   const parsePadding = (val) => {
     if (!val) return null;
     return val.split(' ').map(v => !isNaN(v) ? v + 'rem' : v).join(' ');
@@ -32,9 +33,8 @@
       container.style.setProperty('border', 'none', 'important');
       container.style.setProperty('box-shadow', 'none', 'important');
 
-      if (dataColor) {
-        // If data-color is present, we keep the container background as is (or handled by specific logic)
-      } else {
+      // If no data-color, reset container background (styles will be applied to card items)
+      if (!dataColor) {
         container.style.setProperty('background-color', 'transparent', 'important');
         container.style.setProperty('background', 'none', 'important');
       }
@@ -115,5 +115,4 @@
   } else {
     initCards();
   }
-  window.addEventListener('load', initCards);
 })();

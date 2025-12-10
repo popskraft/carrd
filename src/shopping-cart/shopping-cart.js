@@ -17,7 +17,12 @@
     const CONFIG = {
         currency: '$',
         currencyPosition: 'before', // 'before' ($10) or 'after' (10$)
+
         storageKey: 'carrd_cart_v1',
+        
+        // Checkout Form Settings
+        orderInputSelector: '#form-shopping-cart-order-details', // Default ID
+        orderInputClass: '.cart-output', // Alternative class for flexibility
         
         // Text labels for easy translation
         texts: {
@@ -79,8 +84,7 @@
     // ==========================================
     let state = {
         cart: [],
-        isOpen: false,
-        isCheckout: false
+        isOpen: false
     };
 
     // Load from local storage with validation
@@ -115,8 +119,20 @@
          * @param {number|string} price - Product price
          */
         add: function(name, price) {
+            // Validate name
+            if (typeof name !== 'string' || name.trim().length === 0) {
+                console.error('Invalid product name');
+                return;
+            }
+            name = name.trim();
+            if (name.length > 200) {
+                console.error('Product name too long (max 200 chars)');
+                return;
+            }
+
+            // Validate price
             price = parseFloat(price);
-            if (isNaN(price)) {
+            if (isNaN(price) || price < 0) {
                 console.error('Invalid price for ' + name);
                 return;
             }
@@ -169,7 +185,6 @@
 
         open: function() {
             state.isOpen = true;
-            state.isCheckout = false; // Reset to cart view
             updateUI();
         },
 
@@ -191,9 +206,11 @@
             ].join('\n');
 
             // 2. Find the native Carrd form field
-            // 2. Find the native Carrd form field
-            // The user added a textarea with id="form-shopping-cart-order-details" (name="order-details")
-            const orderField = document.getElementById('form-shopping-cart-order-details') || document.querySelector('[name="order-details"]');
+            // Priority: Config ID -> Config Class -> Default Name attribute
+            const orderField = 
+                document.querySelector(CONFIG.orderInputSelector) || 
+                document.querySelector(CONFIG.orderInputClass) || 
+                document.querySelector('[name="order-details"]');
             
             if (!orderField) {
                 console.error('Carrd Cart: Could not find "Order Details" field (#form-shopping-cart-order-details). Please ensure it exists.');
@@ -255,10 +272,10 @@
                     <span class="crt-item-price">${formatPrice(item.price)}</span>
                 </div>
                 <div class="crt-controls">
-                    <button class="crt-btn-qty" onclick="CartPlugin.updateQty('${safeNameJs}', -1)">${ICONS.minus}</button>
+                    <button class="crt-btn-qty" data-action="update-qty" data-name="${safeName}" data-qty="-1" aria-label="Decrease quantity for ${safeName}">${ICONS.minus}</button>
                     <span>${item.qty}</span>
-                    <button class="crt-btn-qty" onclick="CartPlugin.updateQty('${safeNameJs}', 1)">${ICONS.plus}</button>
-                    <button class="crt-btn-qty" style="margin-left:5px; color:#ef4444" onclick="CartPlugin.remove('${safeNameJs}')">${ICONS.trash}</button>
+                    <button class="crt-btn-qty" data-action="update-qty" data-name="${safeName}" data-qty="1" aria-label="Increase quantity for ${safeName}">${ICONS.plus}</button>
+                    <button class="crt-btn-qty crt-btn-remove" style="margin-left:5px" data-action="remove" data-name="${safeName}" aria-label="Remove ${safeName} from cart">${ICONS.trash}</button>
                 </div>
             </div>
         `;
@@ -311,15 +328,15 @@
         const div = document.createElement('div');
         div.id = 'crt-container';
         div.innerHTML = `
-            <div class="crt-widget" onclick="CartPlugin.open()">
+            <div class="crt-widget" data-action="open" role="button" aria-label="Open Shopping Cart" tabindex="0">
                 ${ICONS.cart}
                 <div class="crt-badge" style="display:none">0</div>
             </div>
-            <div class="crt-overlay" onclick="CartPlugin.close()"></div>
+            <div class="crt-overlay" data-action="close"></div>
             <div class="crt-panel">
                 <div class="crt-header">
                     <h2 class="crt-title">${CONFIG.texts.title}</h2>
-                    <button class="crt-close" onclick="CartPlugin.close()">${ICONS.close}</button>
+                    <button class="crt-close" data-action="close" aria-label="Close Cart">${ICONS.close}</button>
                 </div>
                 <div class="crt-body"></div>
                 <div class="crt-footer">
@@ -327,12 +344,54 @@
                         <span>${CONFIG.texts.total}</span>
                         <span class="crt-total-amount">$0.00</span>
                     </div>
-                    <button class="crt-btn-main crt-btn-checkout" onclick="CartPlugin.checkout()">${CONFIG.texts.checkout}</button>
+                    <button class="crt-btn-main crt-btn-checkout" data-action="checkout">${CONFIG.texts.checkout}</button>
                 </div>
             </div>
             <div class="crt-toast"></div>
         `;
         document.body.appendChild(div);
+
+        // Bind Events (Event Delegation)
+        div.addEventListener('click', (e) => {
+            const trigger = e.target.closest('[data-action]');
+            if (!trigger) return;
+
+            const action = trigger.dataset.action;
+            const name = trigger.dataset.name;
+            
+            // Prevent default for buttons
+            if (trigger.tagName === 'BUTTON') e.preventDefault();
+
+            switch (action) {
+                case 'open':
+                    CartPlugin.open();
+                    break;
+                case 'close':
+                    CartPlugin.close();
+                    break;
+                case 'checkout':
+                    CartPlugin.checkout();
+                    break;
+                case 'update-qty':
+                    const delta = parseInt(trigger.dataset.qty);
+                    if (name && !isNaN(delta)) CartPlugin.updateQty(name, delta);
+                    break;
+                case 'remove':
+                    if (name) CartPlugin.remove(name);
+                    break;
+            }
+        });
+        
+        // Handle Enter key on widget for accessibility
+        div.addEventListener('keydown', (e) => {
+             if (e.key === 'Enter' || e.key === ' ') {
+                const trigger = e.target.closest('[data-action="open"]');
+                if (trigger) {
+                    e.preventDefault();
+                    CartPlugin.open();
+                }
+             }
+        });
     }
 
     function showToast(msg) {
