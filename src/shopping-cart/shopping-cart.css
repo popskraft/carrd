@@ -9,8 +9,8 @@
 .crt-widget {
     position: fixed;
     z-index: 999990;
-    background: var(--mini-shopcart-icon-bg, var(--mini-color-primary, #3b82f6));
-    color: var(--mini-shopcart-icon-text, var(--mini-color-white, #ffffff));
+    background: var(--mini-shopcart-icon-bg, var(--mini-color-primary));
+    color: var(--mini-shopcart-icon-text, var(--mini-color-white));
     width: 60px;
     height: 60px;
     border-radius: 50%;
@@ -73,20 +73,22 @@
     position: absolute;
     top: -5px;
     right: -5px;
-    background: var(--mini-shopcart-badge-bg, var(--mini-color-danger, #ef4444));
-    color: var(--mini-shopcart-badge-text, var(--mini-color-white, #ffffff));
+    top: -5px;
+    right: -5px;
+    background: var(--mini-shopcart-badge-bg, var(--mini-color-danger));
+    color: var(--mini-shopcart-badge-text, var(--mini-color-white));
     border-radius: 10px;
     padding: 2px 6px;
     font-size: 12px;
     font-weight: bold;
-    border: 2px solid var(--mini-shopcart-badge-border, var(--mini-color-white, #ffffff));
+    border: 2px solid var(--mini-shopcart-badge-border, var(--mini-color-white));
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
 
 .crt-overlay {
     position: fixed;
     inset: 0;
-    background: var(--mini-shopcart-overlay-bg, var(--mini-overlay-bg, rgba(218, 225, 228, 0.792)));
+    background: var(--mini-shopcart-overlay-bg, var(--mini-overlay-bg));
     z-index: 999998;
     opacity: 0;
     pointer-events: none;
@@ -105,9 +107,10 @@
     right: 0;
     bottom: 0;
     width: 100%;
+    width: 100%;
     max-width: 500px;
-    background: var(--mini-shopcart-bg, var(--mini-bg, #ffffff));
-    color: var(--mini-shopcart-text, var(--mini-text, #333333));
+    background: var(--mini-shopcart-bg, var(--mini-color-bg));
+    color: var(--mini-shopcart-text, var(--mini-color-text));
     z-index: 999999;
     transform: translateX(110%);
     transition: transform 0.3s ease-in-out;
@@ -123,7 +126,7 @@
 
 .crt-header {
     padding: 20px;
-    border-bottom: 1px solid var(--mini-shopcart-border, var(--mini-border, #eeeeee));
+    border-bottom: 1px solid var(--mini-shopcart-border, var(--mini-color-border));
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -153,7 +156,9 @@
     justify-content: space-between;
     align-items: center;
     padding: 15px 0;
-    border-bottom: 1px solid var(--mini-shopcart-border, var(--mini-border, #eeeeee));
+    align-items: center;
+    padding: 15px 0;
+    border-bottom: 1px solid var(--mini-shopcart-border, var(--mini-color-border));
 }
 
 .crt-item-info {
@@ -200,8 +205,8 @@
 
 .crt-footer {
     padding: 20px;
-    border-top: 1px solid var(--mini-shopcart-border, var(--mini-border, #eeeeee));
-    background: var(--mini-shopcart-footer-bg, var(--mini-bg-alt, #6470851a));
+    border-top: 1px solid var(--mini-shopcart-border, var(--mini-color-border));
+    background: var(--mini-shopcart-footer-bg, var(--mini-color-bg));
 }
 
 .crt-total-row {
@@ -215,8 +220,8 @@
 .crt-btn-main {
     width: 100%;
     padding: 12px;
-    background: var(--mini-shopcart-btn-bg, var(--mini-color-primary, #3b82f6));
-    color: var(--mini-shopcart-btn-text, var(--mini-color-white, #ffffff));
+    background: var(--mini-shopcart-btn-bg, var(--mini-color-primary));
+    color: var(--mini-shopcart-btn-text, var(--mini-color-white));
     border: none;
     border-radius: 6px;
     font-size: 1rem;
@@ -248,9 +253,9 @@
 .crt-input {
     width: 100%;
     padding: 10px;
-    background: var(--mini-shopcart-input-bg, rgba(255, 255, 255, 0.05));
-    border: 1px solid var(--mini-shopcart-border, var(--mini-border, #eeeeee));
-    color: var(--mini-shopcart-input-text, var(--mini-text, #ffffff));
+    background: var(--mini-shopcart-input-bg, var(--mini-color-bg));
+    border: 1px solid var(--mini-shopcart-border, var(--mini-color-border));
+    color: var(--mini-shopcart-input-text, var(--mini-color-text));
     border-radius: 4px;
     box-sizing: border-box;
 }
@@ -264,8 +269,8 @@
     position: fixed;
     bottom: 90px;
     right: 20px;
-    background: var(--mini-shopcart-toast-bg, var(--mini-bg-inverse, #333333));
-    color: var(--mini-shopcart-toast-text, var(--mini-text-inverse, #ffffff));
+    background: var(--mini-shopcart-toast-bg, var(--mini-color-text));
+    color: var(--mini-shopcart-toast-text, var(--mini-color-white));
     padding: 12px 20px;
     border-radius: 8px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
@@ -274,7 +279,7 @@
     opacity: 0;
     transition: 0.3s;
     pointer-events: none;
-    font-family: var(--mini-shopcart-font, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif);
+    font-family: var(--mini-shopcart-font, var(--mini-font-family));
 }
 
 .crt-toast.visible {

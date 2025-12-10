@@ -32,8 +32,11 @@ Instant page display without Carrd's loading delay.
 window.CarrdPluginOptions = {
     noLoadwaiting: {
         animationDuration: 750,
-        observerTimeout: 5000
-    }
+    observerTimeout: 5000,
+    scrollPulseInterval: 60,
+    scrollPulseCount: 10,
+    rafPulseCount: 4
+}
 };
 </script>
 ```
@@ -42,5 +45,8 @@ window.CarrdPluginOptions = {
 
 | Option | Default | Description |
 |--------|---------|-------------|
-| `animationDuration` | `750` | Entry animation duration (ms) |
-| `observerTimeout` | `5000` | Observer auto-disconnect (ms) |
+| `animationDuration` | `750` | Duration for `is-playing` class (ms) |
+| `observerTimeout` | `5000` | Stop watching for changes after (ms) |
+| `scrollPulseInterval` | `60` | Check interval for scroll/resize fix (ms) |
+| `scrollPulseCount` | `10` | Number of check intervals |
+| `rafPulseCount` | `4` | Number of animation frame checks |

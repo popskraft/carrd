@@ -6,7 +6,7 @@
   // CONFIGURATION
   // ==========================================
   
-  var DEFAULTS = {
+  const DEFAULTS = {
     animationDuration: 750,      // Duration for is-playing class (ms)
     observerTimeout: 5000,       // Auto-disconnect observers after this time (ms)
     scrollPulseInterval: 60,     // Interval between scroll/resize pulses (ms)
@@ -15,12 +15,12 @@
   };
 
   // Merge with external options
-  var externalOptions = (typeof window !== 'undefined' && 
+  const externalOptions = (typeof window !== 'undefined' && 
     window.CarrdPluginOptions && 
     window.CarrdPluginOptions.noLoadwaiting) || {};
     
-  var CONFIG = {};
-  for (var key in DEFAULTS) {
+  const CONFIG = {};
+  for (const key in DEFAULTS) {
     CONFIG[key] = externalOptions.hasOwnProperty(key) ? externalOptions[key] : DEFAULTS[key];
   }
 
@@ -28,8 +28,8 @@
   // PLUGIN LOGIC
   // ==========================================
 
-  var initialized = false;
-  var cachedBody = null;
+  let initialized = false;
+  let cachedBody = null;
 
   function getBody() {
     if (cachedBody && cachedBody.isConnected) return cachedBody;
@@ -45,7 +45,7 @@
   // The `is-playing` class is kept for visual animation purposes but no longer
   // blocks the initial paint.
   function markReadyNow() {
-    var body = getBody();
+    const body = getBody();
     if (!body) return;
 
     body.classList.remove("is-loading", "with-loader");
@@ -63,7 +63,7 @@
   }
 
   function hideLoaderIfPresent() {
-    var loader = document.getElementById("loader");
+    const loader = document.getElementById("loader");
     if (!loader) return false;
 
     // Instead of removing, we just hide it.
@@ -74,9 +74,9 @@
   }
 
   function kickScrollHandlers() {
-    var pulses = 0;
+    let pulses = 0;
 
-    var timer = setInterval(function () {
+    const timer = setInterval(function () {
       if (++pulses >= CONFIG.scrollPulseCount) {
         clearInterval(timer);
         return;
@@ -84,7 +84,7 @@
       dispatchLayoutEvents();
     }, CONFIG.scrollPulseInterval);
 
-    var rafPulses = 0;
+    let rafPulses = 0;
     (function rafTick() {
       dispatchLayoutEvents();
       if (++rafPulses < CONFIG.rafPulseCount) requestAnimationFrame(rafTick);
@@ -101,16 +101,16 @@
   }
 
   function setupObservers() {
-    var body = getBody();
+    const body = getBody();
     if (!body) return;
 
-    var classObserver = new MutationObserver(function () {
+    const classObserver = new MutationObserver(function () {
       if (body.classList.contains("with-loader")) {
         body.classList.remove("with-loader");
       }
     });
 
-    var childObserver = new MutationObserver(function () {
+    const childObserver = new MutationObserver(function () {
       if (hideLoaderIfPresent()) {
         childObserver.disconnect();
       }

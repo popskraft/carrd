@@ -10,8 +10,8 @@ Floating cart widget with native Carrd form integration.
 
 ## Setup
 
-1. Create a **Form** element with ID `form-shopping-cart`
-2. Add a **Textarea** field with ID `order-details`
+1. Create a **Form** element with ID `form-shopping-cart` (optional, for semantics)
+2. Add a **Textarea** field with **Name** set to `order-details` (or ID `order-details`)
 3. Create a **Section** named `#shopping-cart`
 4. Use `CartPlugin.add('Product', Price)` in button On Click
 
@@ -44,13 +44,14 @@ window.CarrdPluginOptions = {
         currencyPosition: 'before',
         position: 'top-right',
         storageKey: 'carrd_cart_v1',
-        orderInputSelector: '#form-shopping-cart-order-details',
+        orderInputSelector: '[name="order-details"]',
         texts: {
             title: 'Shopping Cart',
             empty: 'Your cart is empty.',
             checkout: 'Checkout',
             total: 'Total',
-            remove: 'Remove'
+            remove: 'Remove',
+            addedToCart: 'Added "${name}" to cart'
         }
     }
 };

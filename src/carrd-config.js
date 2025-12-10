@@ -15,7 +15,12 @@ window.CarrdPluginOptions.shoppingCart = {
         checkout: 'Checkout',
         total: 'Total',
         remove: 'Remove',
-        required: 'Required'
+        required: 'Required',
+        addedToCart: 'Added "${name}" to cart',
+        errorName: 'Invalid product name',
+        errorPrice: 'Invalid price for ${name}',
+        errorForm: 'Error: Could not find the order form. Please contact support.',
+        consoleErrorForm: 'Carrd Cart: Could not find "Order Details" field. Please ensure a Textarea with name="order-details" or ID="order-details" exists.'
     }
 };
 
@@ -38,5 +43,8 @@ window.CarrdPluginOptions.columns = {
 /* No-loadwaiting */
 window.CarrdPluginOptions.noLoadwaiting = {
     animationDuration: 750,
-    observerTimeout: 5000
+    observerTimeout: 5000,
+    scrollPulseInterval: 60,
+    scrollPulseCount: 10,
+    rafPulseCount: 4
 };

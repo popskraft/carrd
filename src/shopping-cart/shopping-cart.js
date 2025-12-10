@@ -35,6 +35,11 @@
             total: 'Total',
             remove: 'Remove',
             required: 'Required',
+            addedToCart: 'Added "${name}" to cart',
+            errorName: 'Invalid product name',
+            errorPrice: 'Invalid price for ${name}',
+            errorForm: 'Error: Could not find the order form. Please contact support.',
+            consoleErrorForm: 'Carrd Cart: Could not find "Order Details" field. Please ensure a Textarea with name="order-details" or ID="order-details" exists.'
         }
     };
 
@@ -153,7 +158,7 @@
         add: function(name, price) {
             // Validate name
             if (typeof name !== 'string' || name.trim().length === 0) {
-                console.error('Invalid product name');
+                console.error(CONFIG.texts.errorName);
                 return;
             }
             name = name.trim();
@@ -165,7 +170,7 @@
             // Validate price
             price = parseFloat(price);
             if (isNaN(price) || price < 0) {
-                console.error('Invalid price for ' + name);
+                console.error(CONFIG.texts.errorPrice.replace('${name}', name));
                 return;
             }
 
@@ -177,7 +182,7 @@
             }
 
             saveState();
-            showToast(`Added "${name}" to cart`);
+            showToast(CONFIG.texts.addedToCart.replace('${name}', name));
             
             // Auto open if first item (optional, implies better UX)
             if (state.cart.length === 1 && state.cart[0].qty === 1) {
@@ -238,15 +243,16 @@
             ].join('\n');
 
             // 2. Find the native Carrd form field
-            // Priority: Config ID -> Config Class -> Default Name attribute
+            // Priority: Config ID -> Config Class -> Name attribute (standard) -> ID (standard)
             const orderField = 
                 document.querySelector(CONFIG.orderInputSelector) || 
                 document.querySelector(CONFIG.orderInputClass) || 
-                document.querySelector('[name="order-details"]');
+                document.querySelector('[name="order-details"]') ||
+                document.querySelector('#order-details');
             
             if (!orderField) {
-                console.error('Carrd Cart: Could not find "Order Details" field (#form-shopping-cart-order-details). Please ensure it exists.');
-                alert('Error: Could not find the order form. Please contact support.');
+                console.error(CONFIG.texts.consoleErrorForm);
+                alert(CONFIG.texts.errorForm);
                 return;
             }
 

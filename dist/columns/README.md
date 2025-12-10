@@ -53,6 +53,7 @@ window.CarrdPluginOptions = {
 | `gridClasses` | `['grid-2'...'grid-6']` | Classes for grid detection |
 | `cardSelector` | `.cards` | Cards container selector |
 | `defaultCardBg` | CSS variable | Default card background |
+| `widthClasses` | `{ 'w-20': '20%' ... }` | Map of class names to width percentages |
 
 ## CSS Variables
 
