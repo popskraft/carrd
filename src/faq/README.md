@@ -16,38 +16,28 @@ Converts `FAQContainer` blocks into accessible accordions with smooth animations
 
 ### Option 1: CDN (Recommended)
 
-**1. Styles**
-Add an **Embed** element:
-- **Type**: Code
-- **Style**: Hidden, Head
-- **Code**:
-```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/faq/faq.min.css">
-```
-
-**2. Script**
+**CDN Styles + Script**
 Add an **Embed** element:
 - **Type**: Code
 - **Style**: Hidden, Body End
 - **Code**:
 ```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/faq/faq.min.css">
 <script src="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/faq/faq.min.js" defer></script>
 ```
 
-### Option 2: Direct Code
+### Option 2: Direct Code (Robust)
 Copy the content of the file directly into the Embed element.
 
-**1. Styles**
+**Styles + Script**
+Add an **Embed** element:
+- **Type**: Code
+- **Style**: Hidden, Body End
 - **Code**:
 ```html
 <style>
 /* Copy content from dist/faq/faq.min.css */
 </style>
-```
-
-**2. Script**
-- **Code**:
-```html
 <script>
 /* Copy content from dist/faq/faq.min.js */
 </script>

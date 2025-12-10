@@ -14,20 +14,25 @@ Forces Carrd pages to load instantly by bypassing the default loader.
 
 ### Option 1: CDN (Recommended)
 
+**CDN Script**
+Add an **Embed** element:
+- **Type**: Code
+- **Style**: Hidden, Body End
+- **Code**:
+```html
 <script src="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/no-loadwaiting/no-loadwaiting.min.js" defer></script>
 ```
 
-### Option 2: Direct Code
+### Option 2: Direct Code (Robust)
 Copy the content of the file directly into the Embed element.
 
-**1. Script**
+**Script**
+Add an **Embed** element:
+- **Type**: Code
+- **Style**: Hidden, Body End
 - **Code**:
 ```html
 <script>
 /* Copy content from dist/no-loadwaiting/no-loadwaiting.min.js */
 </script>
 ```
-
-## Notes
-- **Video Autoplay**: Browsers may still pause videos requiring interaction.
-- **Custom Loaders**: Ensure your loader has `id="loader"` for the script to remove it.

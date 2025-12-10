@@ -17,6 +17,7 @@
     const CONFIG = {
         currency: '$',
         currencyPosition: 'before', // 'before' ($10) or 'after' (10$)
+        position: 'top-right', // 'bottom-right', 'top-right', 'bottom-left', 'bottom-center'
 
         storageKey: 'carrd_cart_v1',
         
@@ -286,9 +287,18 @@
         const container = document.getElementById('crt-container');
         if (!container) return;
 
-        // Update badge
-        const totalQty = state.cart.reduce((s, i) => s + i.qty, 0);
+        const widget = container.querySelector('.crt-widget');
         const badge = container.querySelector('.crt-badge');
+        const totalQty = state.cart.reduce((s, i) => s + i.qty, 0);
+
+        // Update Visibility (Auto-hide if empty)
+        if (state.cart.length > 0) {
+            widget.classList.add('visible');
+        } else {
+            widget.classList.remove('visible');
+        }
+
+        // Update badge
         if (badge) {
             badge.textContent = totalQty;
             badge.style.display = totalQty > 0 ? 'block' : 'none';
@@ -327,8 +337,18 @@
     function createWidget() {
         const div = document.createElement('div');
         div.id = 'crt-container';
+        
+        // Map position config to class
+        const posMap = {
+            'bottom-right': 'crt-pos-br',
+            'top-right': 'crt-pos-tr',
+            'bottom-left': 'crt-pos-bl',
+            'bottom-center': 'crt-pos-bc'
+        };
+        const posClass = posMap[CONFIG.position] || 'crt-pos-br';
+
         div.innerHTML = `
-            <div class="crt-widget" data-action="open" role="button" aria-label="Open Shopping Cart" tabindex="0">
+            <div class="crt-widget ${posClass}" data-action="open" role="button" aria-label="Open Shopping Cart" tabindex="0">
                 ${ICONS.cart}
                 <div class="crt-badge" style="display:none">0</div>
             </div>
