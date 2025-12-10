@@ -25,7 +25,7 @@ Plugins work out-of-the-box. To customize them, use the separate config files pr
 ### 1. Customize Appearance (CSS)
 
 Use `dist/carrd-theme.css` as a template.
-1. Open [carrd-theme.css](dist/carrd-theme.css).
+1. Open [carrd-theme.css](./carrd-theme.css).
 2. Copy the variables you want to change.
 3. Paste them into a **HEAD** Embed element:
 
@@ -42,7 +42,7 @@ Use `dist/carrd-theme.css` as a template.
 ### 2. Customize Behavior (JS)
 
 Use `dist/carrd-config.js` as a template.
-1. Open [carrd-config.js](dist/carrd-config.js).
+1. Open [carrd-config.js](./carrd-config.js).
 2. Copy the options object.
 3. Paste it into a **BODY END** Embed element (BEFORE the plugin script):
 

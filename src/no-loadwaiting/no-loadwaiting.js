@@ -2,12 +2,31 @@
 (function () {
   "use strict";
 
-  // Configuration constants
-  var ANIMATION_DURATION_MS = 750;      // Duration for is-playing class
-  var OBSERVER_TIMEOUT_MS = 5000;       // Auto-disconnect observers after this time
-  var SCROLL_PULSE_INTERVAL_MS = 60;    // Interval between scroll/resize pulses
-  var SCROLL_PULSE_COUNT = 10;          // Number of interval pulses
-  var RAF_PULSE_COUNT = 4;              // Number of requestAnimationFrame pulses
+  // ==========================================
+  // CONFIGURATION
+  // ==========================================
+  
+  var DEFAULTS = {
+    animationDuration: 750,      // Duration for is-playing class (ms)
+    observerTimeout: 5000,       // Auto-disconnect observers after this time (ms)
+    scrollPulseInterval: 60,     // Interval between scroll/resize pulses (ms)
+    scrollPulseCount: 10,        // Number of interval pulses
+    rafPulseCount: 4             // Number of requestAnimationFrame pulses
+  };
+
+  // Merge with external options
+  var externalOptions = (typeof window !== 'undefined' && 
+    window.CarrdPluginOptions && 
+    window.CarrdPluginOptions.noLoadwaiting) || {};
+    
+  var CONFIG = {};
+  for (var key in DEFAULTS) {
+    CONFIG[key] = externalOptions.hasOwnProperty(key) ? externalOptions[key] : DEFAULTS[key];
+  }
+
+  // ==========================================
+  // PLUGIN LOGIC
+  // ==========================================
 
   var initialized = false;
   var cachedBody = null;
@@ -39,7 +58,7 @@
       body.classList.add("is-playing");
       setTimeout(function () {
         body.classList.remove("is-playing");
-      }, ANIMATION_DURATION_MS);
+      }, CONFIG.animationDuration);
     }
   }
 
@@ -58,17 +77,17 @@
     var pulses = 0;
 
     var timer = setInterval(function () {
-      if (++pulses >= SCROLL_PULSE_COUNT) {
+      if (++pulses >= CONFIG.scrollPulseCount) {
         clearInterval(timer);
         return;
       }
       dispatchLayoutEvents();
-    }, SCROLL_PULSE_INTERVAL_MS);
+    }, CONFIG.scrollPulseInterval);
 
     var rafPulses = 0;
     (function rafTick() {
       dispatchLayoutEvents();
-      if (++rafPulses < RAF_PULSE_COUNT) requestAnimationFrame(rafTick);
+      if (++rafPulses < CONFIG.rafPulseCount) requestAnimationFrame(rafTick);
     })();
   }
 
@@ -106,7 +125,7 @@
     setTimeout(function () {
       classObserver.disconnect();
       childObserver.disconnect();
-    }, OBSERVER_TIMEOUT_MS);
+    }, CONFIG.observerTimeout);
   }
 
   function init() {

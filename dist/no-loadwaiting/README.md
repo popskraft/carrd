@@ -1,38 +1,46 @@
-# No Load Waiting
+# No-loadwaiting
 
-Forces Carrd pages to load instantly by bypassing the default loader.
+Instant page display without Carrd's loading delay.
 
 ## Features
-- **Instant Load**: Removes the "black screen" delay.
-- **Compatibility**: Fires synthetic scroll/resize events to trigger animations.
-
-## Setup
-1. **Editor**: Keep the default Carrd loader **Enabled**.
-2. **Embed**: Add the plugin script to the page.
+- **Faster FCP**: Fixes Lighthouse NO_FCP warning
+- **Smooth Animations**: Entry animations still work
+- **Automatic**: No setup required
 
 ## Installation
 
-### Option 1: CDN (Recommended)
+### As Part of Mini Theme
 
-**CDN Script**
-Add an **Embed** element:
-- **Type**: Code
-- **Style**: Hidden, Body End
-- **Code**:
 ```html
-<script src="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/no-loadwaiting/no-loadwaiting.min.js" defer></script>
+<!-- HEAD -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/mini-core.min.css">
+
+<!-- BODY END -->
+<script src="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/mini-core.min.js"></script>
 ```
 
-### Option 2: Direct Code (Robust)
-Copy the content of the file directly into the Embed element.
+### Standalone
 
-**Script**
-Add an **Embed** element:
-- **Type**: Code
-- **Style**: Hidden, Body End
-- **Code**:
+```html
+<script src="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/no-loadwaiting/no-loadwaiting.min.js"></script>
+```
+
+## Configuration
+
 ```html
 <script>
-/* Copy content from dist/no-loadwaiting/no-loadwaiting.min.js */
+window.CarrdPluginOptions = {
+    noLoadwaiting: {
+        animationDuration: 750,
+        observerTimeout: 5000
+    }
+};
 </script>
 ```
+
+### Options
+
+| Option | Default | Description |
+|--------|---------|-------------|
+| `animationDuration` | `750` | Entry animation duration (ms) |
+| `observerTimeout` | `5000` | Observer auto-disconnect (ms) |

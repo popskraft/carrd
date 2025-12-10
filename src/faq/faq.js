@@ -1,12 +1,32 @@
 (function () {
   'use strict';
-  // FAQ Toggle: turn divider-delimited sections inside .FAQContainer into accessible accordions.
-  const CONTAINER_SELECTOR = '.FAQContainer';
-  const DIVIDER_SELECTOR = 'hr.divider-component';
-  const HEADER_TAGS = new Set(['H1', 'H2', 'H3']);
-  let answerIdCounter = 0;
 
-  const containers = document.querySelectorAll(CONTAINER_SELECTOR);
+  // ==========================================
+  // CONFIGURATION
+  // ==========================================
+  
+  const DEFAULTS = {
+    containerSelector: '.FAQContainer',
+    dividerSelector: 'hr.divider-component',
+    headerTags: ['H1', 'H2', 'H3'],
+    allowMultipleOpen: false,
+    defaultOpen: false  // Open first question by default
+  };
+
+  // Merge with external options
+  const externalOptions = (typeof window !== 'undefined' && 
+    window.CarrdPluginOptions && 
+    window.CarrdPluginOptions.faq) || {};
+    
+  const CONFIG = { ...DEFAULTS, ...externalOptions };
+  const HEADER_TAGS = new Set(CONFIG.headerTags);
+
+  // ==========================================
+  // PLUGIN LOGIC
+  // ==========================================
+  
+  let answerIdCounter = 0;
+  const containers = document.querySelectorAll(CONFIG.containerSelector);
   if (!containers.length) return;
 
   const openAnswers = new Set();
@@ -32,9 +52,11 @@
         })
       : null;
 
+  let firstQuestion = true;
+
   containers.forEach(container => {
-    const dividers = Array.from(container.querySelectorAll(DIVIDER_SELECTOR)).filter(
-      divider => divider.closest(CONTAINER_SELECTOR) === container
+    const dividers = Array.from(container.querySelectorAll(CONFIG.dividerSelector)).filter(
+      divider => divider.closest(CONFIG.containerSelector) === container
     );
     if (!dividers.length) return;
 
@@ -55,7 +77,9 @@
         return;
       }
 
-      prepareToggle(header, answerWrapper);
+      const shouldOpenByDefault = CONFIG.defaultOpen && firstQuestion;
+      prepareToggle(header, answerWrapper, shouldOpenByDefault);
+      firstQuestion = false;
     });
   });
 
@@ -127,27 +151,43 @@
     return wrapper;
   }
 
-  function prepareToggle(header, answer) {
+  function prepareToggle(header, answer, openByDefault = false) {
     header.classList.add('faq-question');
     header.dataset.faqBound = 'true';
-    header.classList.add('is-closed');
+    
     if (!header.hasAttribute('tabindex')) {
       header.setAttribute('tabindex', '0');
     }
     header.setAttribute('role', 'button');
-    header.setAttribute('aria-expanded', 'false');
 
     if (!answer.id) {
       answerIdCounter += 1;
       answer.id = `faq-answer-${answerIdCounter}`;
     }
-    answer.setAttribute('aria-hidden', 'true');
-    answer.classList.add('is-closed');
-
     header.setAttribute('aria-controls', answer.id);
 
     if (answerResizeObserver) {
       answerResizeObserver.observe(answer);
+    }
+
+    // Set initial state
+    if (openByDefault) {
+      header.classList.add('is-open');
+      header.classList.remove('is-closed');
+      answer.classList.add('is-open');
+      answer.classList.remove('is-closed');
+      header.setAttribute('aria-expanded', 'true');
+      answer.setAttribute('aria-hidden', 'false');
+      openAnswers.add(answer);
+      // Delay height calculation to ensure DOM is ready
+      requestFrame(() => adjustHeight(answer));
+    } else {
+      header.classList.add('is-closed');
+      header.classList.remove('is-open');
+      answer.classList.add('is-closed');
+      answer.classList.remove('is-open');
+      header.setAttribute('aria-expanded', 'false');
+      answer.setAttribute('aria-hidden', 'true');
     }
 
     const toggle = () => toggleAnswer(header, answer);
@@ -163,6 +203,26 @@
 
   function toggleAnswer(header, answer) {
     const willOpen = !header.classList.contains('is-open');
+    
+    // Close others if not allowMultipleOpen
+    if (willOpen && !CONFIG.allowMultipleOpen) {
+      openAnswers.forEach(openAnswer => {
+        if (openAnswer !== answer) {
+          const openHeader = document.querySelector(`[aria-controls="${openAnswer.id}"]`);
+          if (openHeader) {
+            openHeader.classList.remove('is-open');
+            openHeader.classList.add('is-closed');
+            openHeader.setAttribute('aria-expanded', 'false');
+          }
+          openAnswer.classList.remove('is-open');
+          openAnswer.classList.add('is-closed');
+          openAnswer.setAttribute('aria-hidden', 'true');
+          openAnswer.style.maxHeight = '0px';
+          openAnswers.delete(openAnswer);
+        }
+      });
+    }
+
     header.classList.toggle('is-open', willOpen);
     header.classList.toggle('is-closed', !willOpen);
     answer.classList.toggle('is-open', willOpen);

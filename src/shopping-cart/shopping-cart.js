@@ -14,7 +14,9 @@
     // ==========================================
     // CONFIGURATION
     // ==========================================
-    const CONFIG = {
+    
+    // Default configuration (used when no external options provided)
+    const DEFAULTS = {
         currency: '$',
         currencyPosition: 'before', // 'before' ($10) or 'after' (10$)
         position: 'top-right', // 'bottom-right', 'top-right', 'bottom-left', 'bottom-center'
@@ -35,6 +37,35 @@
             required: 'Required',
         }
     };
+
+    /**
+     * Deep merge utility for nested configuration objects
+     * @param {Object} target - Base/default object
+     * @param {Object} source - Override object
+     * @returns {Object} - Merged object
+     */
+    function deepMerge(target, source) {
+        if (!source || typeof source !== 'object') return target;
+        const result = { ...target };
+        for (const key in source) {
+            if (Object.prototype.hasOwnProperty.call(source, key)) {
+                if (source[key] && typeof source[key] === 'object' && !Array.isArray(source[key])) {
+                    result[key] = deepMerge(target[key] || {}, source[key]);
+                } else {
+                    result[key] = source[key];
+                }
+            }
+        }
+        return result;
+    }
+
+    // Get external options if available (loaded before this script)
+    const externalOptions = (typeof window !== 'undefined' && 
+        window.CarrdPluginOptions && 
+        window.CarrdPluginOptions.shoppingCart) || {};
+
+    // Final merged configuration
+    const CONFIG = deepMerge(DEFAULTS, externalOptions);
 
     // ==========================================
     // SECURITY UTILITIES
@@ -229,6 +260,25 @@
             // We use the hash '#shopping-cart' to trigger Carrd's internal script 
             // which handles efficient section switching/display.
             window.location.href = '#shopping-cart';
+        },
+
+        /**
+         * Configure plugin options at runtime
+         * @param {Object} options - Configuration options to merge
+         */
+        configure: function(options) {
+            if (!options || typeof options !== 'object') return;
+            const merged = deepMerge(CONFIG, options);
+            Object.assign(CONFIG, merged);
+            updateUI(); // Re-render with new settings
+        },
+
+        /**
+         * Get current configuration
+         * @returns {Object} - Current configuration object (copy)
+         */
+        getConfig: function() {
+            return JSON.parse(JSON.stringify(CONFIG));
         }
     };
 

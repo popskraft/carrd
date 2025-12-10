@@ -12,7 +12,7 @@
 */
 (function() {
 'use strict';
-const CONFIG = {
+const DEFAULTS = {
 currency: '$',
 currencyPosition: 'before', // 'before' ($10) or 'after' (10$)
 position: 'top-right', // 'bottom-right', 'top-right', 'bottom-left', 'bottom-center'
@@ -28,6 +28,30 @@ remove: 'Remove',
 required: 'Required',
 }
 };
+/**
+* Deep merge utility for nested configuration objects
+* @param {Object} target - Base/default object
+* @param {Object} source - Override object
+* @returns {Object} - Merged object
+*/
+function deepMerge(target, source) {
+if (!source || typeof source !== 'object') return target;
+const result = { ...target };
+for (const key in source) {
+if (Object.prototype.hasOwnProperty.call(source, key)) {
+if (source[key] && typeof source[key] === 'object' && !Array.isArray(source[key])) {
+result[key] = deepMerge(target[key] || {}, source[key]);
+} else {
+result[key] = source[key];
+}
+}
+}
+return result;
+}
+const externalOptions = (typeof window !== 'undefined' &&
+window.CarrdPluginOptions &&
+window.CarrdPluginOptions.shoppingCart) || {};
+const CONFIG = deepMerge(DEFAULTS, externalOptions);
 /**
 * Escapes HTML special characters to prevent XSS attacks
 * @param {string} str - Input string
@@ -173,6 +197,23 @@ return;
 orderField.value = summary;
 this.close();
 window.location.href = '#shopping-cart';
+},
+/**
+* Configure plugin options at runtime
+* @param {Object} options - Configuration options to merge
+*/
+configure: function(options) {
+if (!options || typeof options !== 'object') return;
+const merged = deepMerge(CONFIG, options);
+Object.assign(CONFIG, merged);
+updateUI(); // Re-render with new settings
+},
+/**
+* Get current configuration
+* @returns {Object} - Current configuration object (copy)
+*/
+getConfig: function() {
+return JSON.parse(JSON.stringify(CONFIG));
 }
 };
 window.CartPlugin = CartAPI;

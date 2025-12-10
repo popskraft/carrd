@@ -1,46 +1,117 @@
 # Shopping Cart
 
-A lightweight, dependency-free shopping cart for Carrd sites.
+Floating cart widget with native Carrd form integration.
 
 ## Features
-- **No Dependencies**: Pure JavaScript and CSS.
-- **Responsive**: Works on desktop and mobile.
-- **Customizable**: Easy to change colors and fonts via CSS variables.
-- **Native Integration**: Uses standard Carrd forms for order submission.
+- **No Dependencies**: Pure JavaScript and CSS
+- **Responsive**: Works on desktop and mobile
+- **Form Integration**: Uses standard Carrd forms for checkout
+- **Configurable**: Currency, position, all text labels
 
 ## Setup
-1. **Form**: Create a **Form** element in Carrd with ID `form-shopping-cart`.
-2. **Textarea**: Add a **Textarea** field with ID `order-details`.
-3. **Section**: Create a **Section** named `#shopping-cart` for the cart panel.
-4. **Trigger**: Use `CartPlugin.add('Product', Price)` in an element's On Click event.
+
+1. Create a **Form** element with ID `form-shopping-cart`
+2. Add a **Textarea** field with ID `order-details`
+3. Create a **Section** named `#shopping-cart`
+4. Use `CartPlugin.add('Product', Price)` in button On Click
 
 ## Installation
 
-### Option 1: CDN (Recommended)
+### As Part of Mini Theme
 
-**CDN Styles + Script**
-Add an **Embed** element:
-- **Type**: Code
-- **Style**: Hidden, Body End
-- **Code**:
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/shopping-cart/shopping-cart.min.css">
-<script src="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/shopping-cart/shopping-cart.min.js" defer></script>
+<!-- HEAD -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/mini-core.min.css">
+
+<!-- BODY END -->
+<script src="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/mini-core.min.js"></script>
 ```
 
-### Option 2: Direct Code (Robust)
-Copy the content of the file directly into the Embed element.
+### Standalone
 
-**Styles + Script**
-Add an **Embed** element:
-- **Type**: Code
-- **Style**: Hidden, Body End
-- **Code**:
 ```html
-<style>
-/* Copy content from dist/shopping-cart/shopping-cart.min.css */
-</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/shopping-cart/shopping-cart.min.css">
+<script src="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/shopping-cart/shopping-cart.min.js"></script>
+```
+
+## Configuration
+
+```html
 <script>
-/* Copy content from dist/shopping-cart/shopping-cart.min.js */
+window.CarrdPluginOptions = {
+    shoppingCart: {
+        currency: '$',
+        currencyPosition: 'before',
+        position: 'top-right',
+        storageKey: 'carrd_cart_v1',
+        orderInputSelector: '#form-shopping-cart-order-details',
+        texts: {
+            title: 'Shopping Cart',
+            empty: 'Your cart is empty.',
+            checkout: 'Checkout',
+            total: 'Total',
+            remove: 'Remove'
+        }
+    }
+};
+</script>
+```
+
+### Options
+
+| Option | Default | Description |
+|--------|---------|-------------|
+| `currency` | `$` | Currency symbol |
+| `currencyPosition` | `before` | `before` ($10) or `after` (10€) |
+| `position` | `top-right` | Widget position |
+| `storageKey` | `carrd_cart_v1` | LocalStorage key |
+| `texts.*` | English | All UI text labels |
+
+### Position Values
+
+`top-right`, `top-left`, `bottom-right`, `bottom-left`, `bottom-center`
+
+## JavaScript API
+
+```javascript
+CartPlugin.add('Product', 29.99);  // Add item
+CartPlugin.remove('Product');       // Remove item
+CartPlugin.updateQty('Product', 1); // Change quantity
+CartPlugin.clear();                 // Clear cart
+CartPlugin.getCart();               // Get all items
+CartPlugin.getTotal();              // Get total price
+CartPlugin.open();                  // Open panel
+CartPlugin.close();                 // Close panel
+CartPlugin.checkout();              // Trigger checkout
+```
+
+## CSS Variables
+
+```css
+:root {
+    --mini-shopcart-bg: #ffffff;
+    --mini-shopcart-text: #4D535C;
+    --mini-shopcart-accent: #5c9dff;
+    --mini-shopcart-btn-bg: #5c9dff;
+    --mini-shopcart-overlay-bg: rgba(218, 225, 228, 0.8);
+}
+```
+
+## Localization Example
+
+```html
+<script>
+window.CarrdPluginOptions = {
+    shoppingCart: {
+        currency: '€',
+        currencyPosition: 'after',
+        texts: {
+            title: 'Warenkorb',
+            empty: 'Ihr Warenkorb ist leer.',
+            checkout: 'Zur Kasse',
+            total: 'Gesamt'
+        }
+    }
+};
 </script>
 ```

@@ -1,44 +1,70 @@
 # FAQ
 
-Converts `FAQContainer` blocks into accessible accordions with smooth animations.
+Accordion-style expandable Q&A sections.
 
 ## Features
-- **Automatic Toggles**: Turns `divider` + `heading` patterns into interactive questions.
-- **Accessible**: Manages ARIA attributes and keyboard navigation.
-- **Mini Theme**: Inherits shared palette and motion if Mini Theme is loaded.
+- **Accessible**: Keyboard navigation, ARIA attributes
+- **Animated**: Smooth expand/collapse transitions
+- **Configurable**: Multiple open, default open, custom selectors
 
 ## Setup
-1. **Container**: Add a Container element with class `FAQContainer`.
-2. **Structure**: Sequence elements as: `Divider` → `Heading (H1-H3)` → `Content` → `Divider`.
-3. **Content**: Any Carrd components between the heading and the next divider become the answer.
+
+1. Add class `.FAQContainer` to a Carrd container
+2. Use **Divider** elements to separate questions
+3. Add **Heading** (H1-H3) for each question
+4. Content after heading becomes the answer
 
 ## Installation
 
-### Option 1: CDN (Recommended)
+### As Part of Mini Theme
 
-**CDN Styles + Script**
-Add an **Embed** element:
-- **Type**: Code
-- **Style**: Hidden, Body End
-- **Code**:
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/faq/faq.min.css">
-<script src="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/faq/faq.min.js" defer></script>
+<!-- HEAD -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/mini-core.min.css">
+
+<!-- BODY END -->
+<script src="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/mini-core.min.js"></script>
 ```
 
-### Option 2: Direct Code (Robust)
-Copy the content of the file directly into the Embed element.
+### Standalone
 
-**Styles + Script**
-Add an **Embed** element:
-- **Type**: Code
-- **Style**: Hidden, Body End
-- **Code**:
 ```html
-<style>
-/* Copy content from dist/faq/faq.min.css */
-</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/faq/faq.min.css">
+<script src="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/faq/faq.min.js"></script>
+```
+
+## Configuration
+
+```html
 <script>
-/* Copy content from dist/faq/faq.min.js */
+window.CarrdPluginOptions = {
+    faq: {
+        containerSelector: '.FAQContainer',
+        dividerSelector: 'hr.divider-component',
+        headerTags: ['H1', 'H2', 'H3'],
+        allowMultipleOpen: false,
+        defaultOpen: false
+    }
+};
 </script>
+```
+
+### Options
+
+| Option | Default | Description |
+|--------|---------|-------------|
+| `containerSelector` | `.FAQContainer` | FAQ container selector |
+| `dividerSelector` | `hr.divider-component` | Question divider selector |
+| `headerTags` | `['H1','H2','H3']` | Tags treated as questions |
+| `allowMultipleOpen` | `false` | Allow multiple answers open |
+| `defaultOpen` | `false` | Open first question by default |
+
+## CSS Variables
+
+```css
+:root {
+    --mini-faq-spacing: 0.75rem;
+    --mini-faq-icon-size: 1.75rem;
+    --mini-faq-icon-color: var(--mini-color-primary);
+}
 ```

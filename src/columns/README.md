@@ -1,44 +1,79 @@
 # Columns
 
-Combines Grid Cluster and Cards functionality into a single package to optimize resource loading.
+Grid layout with optional Cards styling.
 
 ## Features
-- **Grid Cluster**: Wraps consecutive `.grid-*` classes (e.g., `.grid-2`, `.grid-3`) into a responsive grid layout. Supports width helpers like `.w-50`.
-- **Cards**: Applies advanced styling to container elements marked with `.cards`. Supports `data-padding`, `data-color`, and mobile overrides.
-- **Unified**: Replaces the need for separate `grid-cluster` and `cards` plugins, reducing HTTP requests.
+- **Responsive Grid**: 2-6 column layouts with breakpoints
+- **Cards**: Auto-styled items with padding, radius, backgrounds
+- **Flexible Widths**: Custom column widths via classes
 
 ## Setup
-1. **Grid**: Add Container elements with classes like `grid-2`, `grid-3`, `grid-4`, etc.
-2. **Cards**: Add a Container element with class `cards`. Use `.inner` container for items.
-3. **Attributes**: Configure spacing and colors using data attributes (`data-padding="2rem"`, `data-color="#f0f0f0"`).
+
+1. Add class `.grid-2` to `.grid-6` to consecutive containers
+2. For cards: add class `.cards` to a container
+3. Optional: use `data-padding`, `data-color` attributes
 
 ## Installation
 
-### Option 1: CDN (Recommended)
+### As Part of Mini Theme
 
-**CDN Styles + Script**
-Add an **Embed** element:
-- **Type**: Code
-- **Style**: Hidden, Body End
-- **Code**:
+```html
+<!-- HEAD -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/mini-core.min.css">
+
+<!-- BODY END -->
+<script src="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/mini-core.min.js"></script>
+```
+
+### Standalone
+
 ```html
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/columns/columns.min.css">
-<script src="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/columns/columns.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/columns/columns.min.js"></script>
 ```
 
-### Option 2: Direct Code (Robust)
-Copy the content of the file directly into the Embed element.
+## Configuration
 
-**Styles + Script**
-Add an **Embed** element:
-- **Type**: Code
-- **Style**: Hidden, Body End
-- **Code**:
 ```html
-<style>
-/* Copy content from dist/columns/columns.min.css */
-</style>
 <script>
-/* Copy content from dist/columns/columns.min.js */
+window.CarrdPluginOptions = {
+    columns: {
+        gridClasses: ['grid-2', 'grid-3', 'grid-4', 'grid-5', 'grid-6'],
+        cardSelector: '.cards',
+        defaultCardBg: 'var(--mini-card-bg-default)'
+    }
+};
 </script>
 ```
+
+### Options
+
+| Option | Default | Description |
+|--------|---------|-------------|
+| `gridClasses` | `['grid-2'...'grid-6']` | Classes for grid detection |
+| `cardSelector` | `.cards` | Cards container selector |
+| `defaultCardBg` | CSS variable | Default card background |
+
+## CSS Variables
+
+```css
+:root {
+    --mini-card-padding: 2rem;
+    --mini-card-padding-mobile: 1rem;
+    --mini-card-border-radius: 0;
+    --mini-card-bg-default: #f5f5f5;
+    --mini-grid-row-gap: 1rem;
+    --mini-grid-column-gap: 1rem;
+    --mini-grid-row-gap-desktop: 2rem;
+    --mini-grid-column-gap-desktop: 1.5rem;
+}
+```
+
+## Data Attributes
+
+| Attribute | Description |
+|-----------|-------------|
+| `data-padding` | Card padding (e.g., "2 3" = 2rem 3rem) |
+| `data-padding-mobile` | Mobile padding |
+| `data-color` | Background color for all cards |
+| `data-color-1`, `data-color-2`... | Individual card colors |

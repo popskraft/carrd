@@ -8,19 +8,40 @@
 (function() {
   'use strict';
 
-  // --- Grid Cluster Logic ---
-  const GRID_CLASSES = ['grid-2', 'grid-3', 'grid-4', 'grid-5', 'grid-6'];
-  const WIDTH_CLASS_MAP = {
-    'w-20': '20%',
-    'w-25': '25%',
-    'w-30': '33%',
-    'w-40': '40%',
-    'w-50': '50%',
-    'w-60': '60%',
-    'w-70': '67%',
-    'w-75': '75%',
-    'w-80': '80%',
+  // ==========================================
+  // CONFIGURATION
+  // ==========================================
+  
+  const DEFAULTS = {
+    gridClasses: ['grid-2', 'grid-3', 'grid-4', 'grid-5', 'grid-6'],
+    cardSelector: '.cards',
+    defaultCardBg: 'var(--mini-card-bg-default)',
+    widthClasses: {
+      'w-20': '20%',
+      'w-25': '25%',
+      'w-30': '33%',
+      'w-40': '40%',
+      'w-50': '50%',
+      'w-60': '60%',
+      'w-70': '67%',
+      'w-75': '75%',
+      'w-80': '80%'
+    }
   };
+
+  // Merge with external options
+  const externalOptions = (typeof window !== 'undefined' && 
+    window.CarrdPluginOptions && 
+    window.CarrdPluginOptions.columns) || {};
+    
+  const CONFIG = { ...DEFAULTS, ...externalOptions };
+
+  // ==========================================
+  // GRID CLUSTER LOGIC
+  // ==========================================
+  
+  const GRID_CLASSES = CONFIG.gridClasses;
+  const WIDTH_CLASS_MAP = CONFIG.widthClasses;
   const GRID_SELECTOR = GRID_CLASSES.map(cls => `.${cls}`).join(',');
   const WIDTH_CLASSES = Object.keys(WIDTH_CLASS_MAP);
 
@@ -96,11 +117,8 @@
       const baseSize = getGridSize(block);
       let sibling = block.nextElementSibling;
       
-      // Look ahead for siblings that match the grid criteria
       while (isGridBlock(sibling)) {
         const siblingSize = getGridSize(sibling);
-        // We only group if they have the same base grid size (e.g. all grid-3)
-        // Adjust logic if you want to support mixed grid sizes in one cluster (usually not desired)
         if (baseSize !== null && siblingSize !== baseSize) {
           break;
         }
@@ -117,14 +135,17 @@
     constrainImageFrames();
   }
 
-  // --- Cards Logic ---
+  // ==========================================
+  // CARDS LOGIC
+  // ==========================================
+  
   const parsePadding = (val) => {
     if (!val) return null;
     return val.split(' ').map(v => !isNaN(v) ? v + 'rem' : v).join(' ');
   };
 
   const initCards = () => {
-    const cardContainers = document.querySelectorAll('.cards');
+    const cardContainers = document.querySelectorAll(CONFIG.cardSelector);
 
     cardContainers.forEach(container => {
       if (container.dataset.cardsInitialized === 'true') return;
@@ -178,8 +199,7 @@
         } else if (backgroundColor && backgroundColor !== 'rgba(0, 0, 0, 0)' && backgroundColor !== 'transparent') {
           cardItem.style.backgroundColor = backgroundColor;
         } else {
-          // Fallback to theme variable or default gray
-          cardItem.style.backgroundColor = 'var(--mini-card-bg-default, #cccccc)';
+          cardItem.style.backgroundColor = CONFIG.defaultCardBg;
         }
 
         // Border Radius
@@ -224,7 +244,10 @@
     });
   };
 
-  // --- Initialization ---
+  // ==========================================
+  // INITIALIZATION
+  // ==========================================
+  
   function init() {
     initGridCluster();
     initCards();
