@@ -104,7 +104,7 @@
 
 /* Ensure the parent columns container handles height correctly */
 .cards .inner {
-  align-items: stretch;
+  align-items: stretch !important;
 }
 
 /* Mobile breakpoint for Carrd (usually <= 736px) */

@@ -3,9 +3,6 @@
  * Paste this into a "Embed" element set to "Type: Code" and "Style: Hidden (Head)".
  * IMPORTANT: Wrap this in <style> and </style> tags if the field expects HTML.
  */
-
-
-
 .crt-widget {
     position: fixed;
     z-index: 999990;
@@ -82,7 +79,7 @@
     font-size: 12px;
     font-weight: bold;
     border: 2px solid var(--mini-shopcart-badge-border, var(--mini-color-white));
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-family: var(--mini-shopcart-font, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif);
 }
 
 .crt-overlay {
