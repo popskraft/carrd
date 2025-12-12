@@ -6,8 +6,8 @@
 .crt-widget {
     position: fixed;
     z-index: 999990;
-    background: var(--mini-shopcart-icon-bg, var(--mini-color-primary));
-    color: var(--mini-shopcart-icon-text, var(--mini-color-white));
+    background: var(--mini-color-primary-dark, #041838);
+    color: var(--mini-color-white, #ffffff);
     width: 60px;
     height: 60px;
     border-radius: 50%;
@@ -70,26 +70,24 @@
     position: absolute;
     top: -5px;
     right: -5px;
-    top: -5px;
-    right: -5px;
-    background: var(--mini-shopcart-badge-bg, var(--mini-color-danger));
-    color: var(--mini-shopcart-badge-text, var(--mini-color-white));
+    background: var(--mini-shopcart-badge-bg, #ef4444);
+    color: var(--mini-shopcart-badge-text, #ffffff);
     border-radius: 10px;
     padding: 2px 6px;
     font-size: 12px;
     font-weight: bold;
-    border: 2px solid var(--mini-shopcart-badge-border, var(--mini-color-white));
+    border: 2px solid var(--mini-shopcart-badge-border, #ffffff);
     font-family: var(--mini-shopcart-font, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif);
 }
 
 .crt-overlay {
     position: fixed;
     inset: 0;
-    background: var(--mini-shopcart-overlay-bg, var(--mini-overlay-bg));
+    background: var(--mini-shopcart-overlay-bg, rgba(218, 225, 228, 0.792));
+    backdrop-filter: blur(20px);
     z-index: 999998;
     opacity: 0;
     pointer-events: none;
-    backdrop-filter: blur(20px);
     transition: opacity 0.3s;
 }
 
@@ -104,14 +102,12 @@
     right: 0;
     bottom: 0;
     width: 100%;
-    width: 100%;
     max-width: 500px;
-    background: var(--mini-shopcart-bg, var(--mini-color-bg));
-    color: var(--mini-shopcart-text, var(--mini-color-text));
+    background: var(--mini-shopcart-bg, #ffffff);
+    color: var(--mini-shopcart-text, #4D535C);
     z-index: 999999;
     transform: translateX(110%);
     transition: transform 0.3s ease-in-out;
-    box-shadow: -4px 0 15px rgba(11, 41, 68, 0.3);
     display: flex;
     flex-direction: column;
     font-family: var(--mini-shopcart-font, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif);
@@ -123,7 +119,7 @@
 
 .crt-header {
     padding: 20px;
-    border-bottom: 1px solid var(--mini-shopcart-border, var(--mini-color-border));
+    border-bottom: 1px solid var(--mini-shopcart-border, #efefef);
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -153,9 +149,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 15px 0;
-    align-items: center;
-    padding: 15px 0;
-    border-bottom: 1px solid var(--mini-shopcart-border, var(--mini-color-border));
+    border-bottom: 1px solid var(--mini-shopcart-border, #efefef);
 }
 
 .crt-item-info {
@@ -180,12 +174,12 @@
 }
 
 .crt-btn-qty {
-    background: var(--mini-shopcart-qty-bg, var(--mini-bg-shade, rgba(255, 255, 255, 0.1)));
+    background: var(--mini-shopcart-qty-bg, var(--mini-bg-shade, rgba(227, 228, 230, 0.2)));
     border: none;
     color: inherit;
     width: 24px;
     height: 24px;
-    border-radius: 4px;
+    border-radius: var(--mini-shopcart-btn-radius, .125rem);
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -193,7 +187,7 @@
 }
 
 .crt-btn-qty:hover {
-    background: var(--mini-shopcart-qty-hover-bg, var(--mini-bg-shade-hover, rgba(255, 255, 255, 0.2)));
+    background: var(--mini-shopcart-qty-hover-bg, var(--mini-bg-shade-hover, rgba(227, 228, 230, 0.4)));
 }
 
 .crt-btn-remove {
@@ -202,8 +196,8 @@
 
 .crt-footer {
     padding: 20px;
-    border-top: 1px solid var(--mini-shopcart-border, var(--mini-color-border));
-    background: var(--mini-shopcart-footer-bg, var(--mini-color-bg));
+    border-top: 1px solid var(--mini-shopcart-border, #efefef);
+    background: var(--mini-shopcart-footer-bg, #f5f5f5);
 }
 
 .crt-total-row {
@@ -216,19 +210,20 @@
 
 .crt-btn-main {
     width: 100%;
-    padding: 12px;
-    background: var(--mini-shopcart-btn-bg, var(--mini-color-primary));
-    color: var(--mini-shopcart-btn-text, var(--mini-color-white));
+    padding: .75rem 1.5rem;
+    background: var(--mini-shopcart-btn-bg, #10b981);
+    color: var(--mini-shopcart-btn-text, #ffffff);
     border: none;
-    border-radius: 6px;
+    border-radius: 5px;
     font-size: 1rem;
-    font-weight: 600;
+    font-weight: bold;
     cursor: pointer;
     transition: opacity 0.2s;
+    opacity: 0.9;
 }
 
 .crt-btn-main:hover {
-    opacity: 0.9;
+    opacity: 1;
 }
 
 .crt-btn-main:disabled {
@@ -268,8 +263,8 @@
     right: 20px;
     background: var(--mini-shopcart-toast-bg, var(--mini-color-text));
     color: var(--mini-shopcart-toast-text, var(--mini-color-white));
-    padding: 12px 20px;
-    border-radius: 8px;
+    padding: 1rem 1.5rem;
+    border-radius: var(--mini-shopcart-btn-radius, .125rem);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
     z-index: 999999;
     transform: translateY(20px);
