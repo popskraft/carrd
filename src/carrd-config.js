@@ -59,3 +59,19 @@ window.CarrdPluginOptions.noLoadwaiting = {
     scrollPulseCount: 10,
     rafPulseCount: 4
 };
+
+/* Slider */
+window.CarrdPluginOptions.slider = {
+    slideSelector: '.slider',
+    showDots: true,
+    showArrows: true,
+    loop: false,
+    autoplay: false,
+    autoplayInterval: 5000,
+    gap: 16,
+    slidesPerView: 1,
+    breakpoints: {
+        737: { slidesPerView: 3 },   // Tablet/Mobile
+        1280: { slidesPerView: 4 }   // Desktop M
+    }
+};

@@ -85,7 +85,7 @@ window.CarrdPluginOptions = {
 
 | Attribute | Description |
 |-----------|-------------|
-| `data-padding` | Card padding (e.g., "2 3" = 2rem 3rem) |
+| `data-padding` | Card padding (e.g., data-padding=2rem 3rem) |
 | `data-padding-mobile` | Mobile padding |
 | `data-color` | Background color for all cards |
 | `data-color-1`, `data-color-2`... | Individual card colors |

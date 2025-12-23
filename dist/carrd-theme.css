@@ -71,4 +71,34 @@
   /* Generic backgrounds for fallbacks */
   --mini-bg-shade: rgba(255, 255, 255, 0.1);
   --mini-bg-shade-hover: rgba(255, 255, 255, 0.2);
+
+  /* Slider */
+  --mini-slider-slide-width: 80%;
+  --mini-slider-slide-width-mobile: 85%;
+  --mini-slider-gap: 1rem;
+  --mini-slider-gap-mobile: 0.75rem;
+  --mini-slider-dot-size: 10px;
+  --mini-slider-dot-bg: rgba(0, 0, 0, 0.2);
+  --mini-slider-dot-hover-bg: rgba(0, 0, 0, 0.4);
+  --mini-slider-dot-active-bg: var(--mini-color-primary);
+  --mini-slider-dots-margin: 1rem;
+  --mini-slider-arrow-size: 40px;
+  --mini-slider-arrow-bg: rgba(255, 255, 255, 0.9);
+  --mini-slider-arrow-color: #333;
+  --mini-slider-arrow-offset: 0.5rem;
+
+  /* Modal */
+  --mini-modal-overlay-bg: var(--mini-overlay-bg);
+  --mini-modal-max-width: 600px;
+  --mini-modal-max-height: 90vh;
+  --mini-modal-padding: 1rem;
+  --mini-modal-close-size: 32px;
+  --mini-modal-close-bg: rgba(0, 0, 0, 0.1);
+  --mini-modal-close-hover-bg: rgba(0, 0, 0, 0.2);
+  --mini-modal-close-color: var(--mini-color-text);
+  --mini-modal-close-top: 1rem;
+  --mini-modal-close-right: 1rem;
+  --mini-modal-padding-mobile: 0.5rem;
+  --mini-modal-max-height-mobile: 85vh;
+  --mini-modal-border-radius-mobile: 1rem 1rem 0 0;
 }

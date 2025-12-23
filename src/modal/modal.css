@@ -1,0 +1,163 @@
+/* 
+ * Modal Plugin CSS
+ * Provides overlay, centering, and animations for modal containers.
+ * 
+ * IMPORTANT: For instant hiding before content loads, add this to HEAD:
+ * <style>.container-component.modal { display: none !important; }</style>
+ */
+
+/* ==========================================
+   MODAL CONTAINER - Hidden by default
+   ========================================== */
+.container-component.modal {
+  display: none !important;
+}
+
+/* Open State - Acts as the positioning container */
+.container-component.modal.is-open {
+  display: flex !important;
+  position: fixed;
+  inset: 0;
+  z-index: 1000001;
+  align-items: center;
+  justify-content: center;
+  padding: var(--mini-modal-padding, 1rem);
+
+  /* Let clicks pass through to the overlay behind */
+  pointer-events: none;
+
+  /* Reset Carrd container styles that might interfere */
+  margin: 0 !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  height: 100% !important;
+  background: transparent !important;
+}
+
+/* ==========================================
+   OVERLAY
+   ========================================== */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: var(--mini-modal-overlay-bg, var(--mini-overlay-bg, rgba(218, 225, 228, 0.792)));
+  backdrop-filter: blur(0);
+  -webkit-backdrop-filter: blur(0);
+  z-index: 1000000;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: auto;
+  /* Clickable to close */
+  transition: opacity 0.3s ease, visibility 0.3s ease, backdrop-filter 0.3s ease;
+  will-change: opacity, backdrop-filter;
+}
+
+.modal-overlay.is-open {
+  opacity: 1;
+  visibility: visible;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+/* ==========================================
+   MODAL CONTENT (.wrapper inside)
+   ========================================== */
+.container-component.modal>.wrapper {
+  /* This is the actual card */
+  pointer-events: auto;
+  /* Re-enable clicks */
+  position: relative;
+  width: 100%;
+  max-width: var(--mini-modal-max-width, 600px);
+  max-height: var(--mini-modal-max-height, 90vh);
+  overflow-y: auto;
+
+  /* Ensure it has a background if Carrd style is missing/transparent */
+  /* But usually Carrd styles apply here. We add a fallback just in case */
+  /* background: var(--mini-modal-bg, #fff); */
+
+  /* Animation defaults */
+  transform: translateY(-60px);
+  opacity: 0;
+  transition: transform 0.5s ease, opacity 0.5s ease;
+  will-change: transform, opacity;
+}
+
+.container-component.modal.is-visible>.wrapper {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* ==========================================
+   CLOSE BUTTON
+   ========================================== */
+.modal-close {
+  position: absolute;
+  top: var(--mini-modal-close-top, 1rem);
+  right: var(--mini-modal-close-right, 1rem);
+  z-index: 10;
+  width: var(--mini-modal-close-size, 32px);
+  height: var(--mini-modal-close-size, 32px);
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: var(--mini-modal-close-bg, rgba(0, 0, 0, 0.1));
+  color: var(--mini-modal-close-color, currentColor);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.modal-close:hover {
+  background: var(--mini-modal-close-hover-bg, rgba(0, 0, 0, 0.2));
+  transform: scale(1.1);
+}
+
+.modal-close:focus {
+  outline: 2px solid var(--mini-color-primary, #5c9dff);
+  outline-offset: 2px;
+}
+
+.modal-close svg {
+  width: 16px;
+  height: 16px;
+  stroke: currentColor;
+  stroke-width: 2;
+  fill: none;
+}
+
+/* ==========================================
+   BODY SCROLL LOCK
+   ========================================== */
+body.modal-open {
+  overflow: hidden;
+}
+
+/* ==========================================
+   RESPONSIVE
+   ========================================== */
+@media (max-width: 736px) {
+  .container-component.modal.is-open {
+    padding: var(--mini-modal-padding-mobile, 0.5rem);
+    align-items: flex-end;
+  }
+
+  .container-component.modal>.wrapper {
+    max-height: var(--mini-modal-max-height-mobile, 85vh);
+    border-radius: var(--mini-modal-border-radius-mobile, 1rem 1rem 0 0);
+  }
+
+  /* Mobile slide-up animation */
+  .container-component.modal:not(.is-visible)>.wrapper {
+    transform: translateY(100%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .modal-overlay,
+  .container-component.modal>.wrapper {
+    transition: none;
+  }
+}
