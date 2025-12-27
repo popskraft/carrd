@@ -68,7 +68,7 @@
   /* Re-enable clicks */
   position: relative;
   width: 100%;
-  max-width: var(--mini-modal-max-width, 600px);
+  max-width: var(--mini-modal-max-width, 1200px);
   max-height: var(--mini-modal-max-height, 90vh);
   overflow-y: auto;
 
@@ -96,12 +96,12 @@
   top: var(--mini-modal-close-top, 1rem);
   right: var(--mini-modal-close-right, 1rem);
   z-index: 10;
-  width: var(--mini-modal-close-size, 32px);
-  height: var(--mini-modal-close-size, 32px);
+  width: var(--mini-modal-close-size, 40px);
+  height: var(--mini-modal-close-size, 40px);
   padding: 0;
   border: none;
   border-radius: 50%;
-  background: var(--mini-modal-close-bg, rgba(0, 0, 0, 0.1));
+  background: var(--mini-modal-close-bg, #ffffff);
   color: var(--mini-modal-close-color, currentColor);
   cursor: pointer;
   display: flex;
@@ -111,18 +111,17 @@
 }
 
 .modal-close:hover {
-  background: var(--mini-modal-close-hover-bg, rgba(0, 0, 0, 0.2));
+  background: var(--mini-modal-close-hover-bg, #f5f5f5);
   transform: scale(1.1);
 }
 
 .modal-close:focus {
-  outline: 2px solid var(--mini-color-primary, #5c9dff);
-  outline-offset: 2px;
+  outline: none;
 }
 
 .modal-close svg {
-  width: 16px;
-  height: 16px;
+  width: 24px;
+  height: 24px;
   stroke: currentColor;
   stroke-width: 2;
   fill: none;
@@ -140,22 +139,23 @@ body.modal-open {
    ========================================== */
 @media (max-width: 736px) {
   .container-component.modal.is-open {
-    padding: var(--mini-modal-padding-mobile, 0.5rem);
-    align-items: flex-end;
+    padding: var(--mini-modal-padding-mobile, 1rem);
+    align-items: center;
   }
 
   .container-component.modal>.wrapper {
-    max-height: var(--mini-modal-max-height-mobile, 85vh);
-    border-radius: var(--mini-modal-border-radius-mobile, 1rem 1rem 0 0);
+    max-height: var(--mini-modal-max-height-mobile, 90vh);
+    border-radius: var(--mini-modal-border-radius-mobile, 1rem);
   }
 
-  /* Mobile slide-up animation */
+  /* Use same animation start state as desktop/default for consistency */
   .container-component.modal:not(.is-visible)>.wrapper {
-    transform: translateY(100%);
+    transform: translateY(-20px);
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
+
   .modal-overlay,
   .container-component.modal>.wrapper {
     transition: none;

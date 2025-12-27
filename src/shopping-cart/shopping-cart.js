@@ -243,12 +243,26 @@
             ].join('\n');
 
             // 2. Find the native Carrd form field
-            // Priority: Config ID -> Config Class -> Name attribute (standard) -> ID (standard)
-            const orderField = 
+            // Priority: Config ID -> Config Class -> Name attribute -> ID -> Fuzzy Search
+            let orderField = 
                 document.querySelector(CONFIG.orderInputSelector) || 
                 document.querySelector(CONFIG.orderInputClass) || 
                 document.querySelector('[name="order-details"]') ||
                 document.querySelector('#order-details');
+            
+            // Fuzzy fallback: look for any textarea with "order" in name or id
+            if (!orderField) {
+                const candidates = document.querySelectorAll('textarea');
+                for (const el of candidates) {
+                    const id = (el.id || '').toLowerCase();
+                    const name = (el.name || '').toLowerCase();
+                    if (id.includes('order') || name.includes('order') || id.includes('cart') || name.includes('cart')) {
+                        orderField = el;
+                        console.log('Carrd Cart: Found order field via fuzzy search:', el);
+                        break;
+                    }
+                }
+            }
             
             if (!orderField) {
                 console.error(CONFIG.texts.consoleErrorForm);

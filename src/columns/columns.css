@@ -70,10 +70,9 @@
 }
 
 .custom-grid-container>.container-component>.wrapper {
-  width: 100% !important;
-  display: flex;
-  flex-direction: column;
-  height: 100%;
+  /* display: flex; */
+  /* flex-direction: column; */
+  /* height: 100%; */
 }
 
 .custom-grid-container>.container-component {

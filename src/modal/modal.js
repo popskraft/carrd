@@ -1,16 +1,5 @@
 /**
  * Modal Plugin
- * Opens modal containers when clicking elements with href="#modalId"
- * 
- * Targets: .container-component.modal with specific ID (e.g., #modalContact)
- * 
- * Features:
- * - Click to open via href="#modalId"
- * - Close on overlay click
- * - Close on Escape key
- * - Close button
- * - Body scroll lock
- * - Smooth animations
  */
 (function() {
     'use strict';
@@ -82,6 +71,9 @@
                 this.close();
             }
             
+            // Store previous focus to restore later
+            this.lastFocus = document.activeElement;
+            
             // Ensure overlay sits with the active modal to avoid stacking issues
             ensureOverlayPlacement(modal);
 
@@ -92,8 +84,12 @@
             
             // Open modal
             modal.classList.add('is-open');
+            modal.setAttribute('aria-hidden', 'false');
+            
             requestAnimationFrame(() => {
-                modal.classList.add('is-visible');
+                requestAnimationFrame(() => {
+                    modal.classList.add('is-visible');
+                });
             });
             
             // Lock body scroll
@@ -106,7 +102,44 @@
             // Focus management
             const firstFocusable = modal.querySelector('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
             if (firstFocusable) {
-                setTimeout(() => firstFocusable.focus(), 100);
+                // Wait slightly for transition
+                setTimeout(() => firstFocusable.focus(), 50);
+            } else {
+                 // Fallback to modal itself if no focusable content
+                 modal.setAttribute('tabindex', '-1');
+                 modal.focus();
+            }
+            
+            // Add Focus Trap listener
+            document.addEventListener('keydown', this.handleTabKey);
+        },
+
+        /**
+         * Connection for Tab Key trap (bound to 'this')
+         */
+        handleTabKey: function(e) {
+            if (e.key !== 'Tab' || !activeModal) return;
+
+            const modal = modalWrappers.get(activeModal);
+            const focusables = modal.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+            if (focusables.length === 0) {
+                e.preventDefault();
+                return;
+            }
+
+            const first = focusables[0];
+            const last = focusables[focusables.length - 1];
+
+            if (e.shiftKey) {
+                if (document.activeElement === first) {
+                    e.preventDefault();
+                    last.focus();
+                }
+            } else {
+                if (document.activeElement === last) {
+                    e.preventDefault();
+                    first.focus();
+                }
             }
         },
 
@@ -118,6 +151,9 @@
             
             const modal = modalWrappers.get(activeModal);
             
+            // Remove Trap
+            document.removeEventListener('keydown', this.handleTabKey);
+            
             // Close overlay
             if (overlay) {
                 overlay.classList.remove('is-open');
@@ -127,6 +163,7 @@
             if (modal) {
                 modal.classList.remove('is-visible');
                 modal.classList.remove('is-open');
+                modal.setAttribute('aria-hidden', 'true');
             }
             
             // Unlock body scroll
@@ -135,6 +172,12 @@
             }
             
             activeModal = null;
+            
+            // Restore Focus
+            if (this.lastFocus && typeof this.lastFocus.focus === 'function') {
+                this.lastFocus.focus();
+                this.lastFocus = null;
+            }
         },
 
         /**
@@ -232,6 +275,11 @@
                 }
             }
         }
+        
+        // Initial ARIA setup
+        modal.setAttribute('role', 'dialog');
+        modal.setAttribute('aria-modal', 'true');
+        modal.setAttribute('aria-hidden', 'true');
         
         // Store reference
         modalWrappers.set(modalId, modal);
