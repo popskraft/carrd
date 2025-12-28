@@ -17,10 +17,6 @@
   // ==========================================
   
   const DEFAULTS = {
-    slideSelector: '.slider',
-    wrapperClass: 'slider-wrapper',
-    trackClass: 'slider-track',
-    slideClass: 'slider-slide',
     showDots: true,
     showArrows: true,
     loop: false,
@@ -47,10 +43,18 @@
     window.CarrdPluginOptions.slider) || {};
   
   // Deep merge for breakpoints
-  const CONFIG = { 
+  const BASE_CONFIG = { 
     ...DEFAULTS, 
     ...externalOptions,
     breakpoints: { ...DEFAULTS.breakpoints, ...(externalOptions.breakpoints || {}) }
+  };
+  const INSTANCE_CONFIGS = externalOptions.instances || {};
+  
+  const SELECTORS = {
+    slideSelector: '.slider',
+    wrapperClass: 'slider-wrapper',
+    trackClass: 'slider-track',
+    slideClass: 'slider-slide'
   };
 
   // ==========================================
@@ -67,15 +71,16 @@
   // ==========================================
   
   class Slider {
-    constructor(slides) {
+    constructor(slides, config) {
       this.slides = slides;
+      this.config = config;
       this.currentIndex = 0;
       this.isDragging = false;
       this.startX = 0;
       this.currentX = 0;
       this.translateX = 0;
       this.autoplayTimer = null;
-      this.slidesPerView = CONFIG.slidesPerView;
+      this.slidesPerView = this.config.slidesPerView;
       
       this.init();
     }
@@ -85,11 +90,11 @@
       this.createTrack();
       this.wrapSlides();
       
-      if (CONFIG.showDots && this.slides.length > 1) {
+      if (this.config.showDots && this.slides.length > 1) {
         this.createDots();
       }
       
-      if (CONFIG.showArrows && this.slides.length > 1) {
+      if (this.config.showArrows && this.slides.length > 1) {
         this.createArrows();
       }
       
@@ -97,16 +102,16 @@
       this.updateSlidesPerView();
       this.updateSlider();
       
-      if (CONFIG.autoplay && this.slides.length > 1) {
+      if (this.config.autoplay && this.slides.length > 1) {
         this.startAutoplay();
       }
     }
     
     createWrapper() {
       this.wrapper = document.createElement('div');
-      this.wrapper.className = CONFIG.wrapperClass;
+      this.wrapper.className = SELECTORS.wrapperClass;
       
-      if (CONFIG.equalHeight) {
+      if (this.config.equalHeight) {
         this.wrapper.classList.add('is-equal-height');
       }
       
@@ -116,14 +121,14 @@
     
     createTrack() {
       this.track = document.createElement('div');
-      this.track.className = CONFIG.trackClass;
+      this.track.className = SELECTORS.trackClass;
       this.wrapper.appendChild(this.track);
     }
     
     wrapSlides() {
       this.slides.forEach((slide, index) => {
         const slideWrapper = document.createElement('div');
-        slideWrapper.className = CONFIG.slideClass;
+        slideWrapper.className = SELECTORS.slideClass;
         slideWrapper.dataset.slideIndex = index;
         
         // Move the container into the slide wrapper
@@ -131,7 +136,7 @@
         this.track.appendChild(slideWrapper);
       });
       
-      this.slideElements = Array.from(this.track.querySelectorAll(`.${CONFIG.slideClass}`));
+      this.slideElements = Array.from(this.track.querySelectorAll(`.${SELECTORS.slideClass}`));
     }
     
     createDots() {
@@ -220,7 +225,7 @@
       });
       
       // Pause autoplay on hover
-      if (CONFIG.autoplay) {
+      if (this.config.autoplay) {
         this.wrapper.addEventListener('mouseenter', () => this.stopAutoplay());
         this.wrapper.addEventListener('mouseleave', () => this.startAutoplay());
       }
@@ -238,23 +243,23 @@
     
     updateSlidesPerView() {
       const windowWidth = window.innerWidth;
-      let newSlidesPerView = CONFIG.slidesPerView;
+      let newSlidesPerView = this.config.slidesPerView;
       
       // Sort breakpoints in ascending order
-      const breakpointKeys = Object.keys(CONFIG.breakpoints)
+      const breakpointKeys = Object.keys(this.config.breakpoints)
         .map(Number)
         .sort((a, b) => a - b);
       
       // Find the applicable breakpoint
       for (const bp of breakpointKeys) {
         if (windowWidth >= bp) {
-          newSlidesPerView = CONFIG.breakpoints[bp].slidesPerView || newSlidesPerView;
+          newSlidesPerView = this.config.breakpoints[bp].slidesPerView || newSlidesPerView;
         }
       }
       
       // Add peek value if configured
-      if (CONFIG.peek) {
-        newSlidesPerView += CONFIG.peek;
+      if (this.config.peek) {
+        newSlidesPerView += this.config.peek;
       }
       
       // Don't exceed the number of slides
@@ -274,7 +279,7 @@
     }
     
     updateSlideWidths() {
-      const gap = CONFIG.gap;
+      const gap = this.config.gap;
       const totalGaps = Math.ceil(this.slidesPerView) - 1;
       const slideWidth = `calc((100% - ${totalGaps * gap}px) / ${this.slidesPerView})`;
       
@@ -336,7 +341,7 @@
       
       const diff = this.currentX - this.startX;
       const slideWidth = this.getSlideWidth();
-      const threshold = slideWidth * CONFIG.snapThreshold;
+      const threshold = slideWidth * this.config.snapThreshold;
       
       if (Math.abs(diff) > threshold) {
         if (diff > 0) {
@@ -350,7 +355,7 @@
       }
       
       // Resume autoplay
-      if (CONFIG.autoplay) {
+      if (this.config.autoplay) {
         this.startAutoplay();
       }
     }
@@ -361,7 +366,7 @@
     
     getSlideWidth() {
       if (!this.slideElements || !this.slideElements[0]) return 0;
-      return this.slideElements[0].offsetWidth + CONFIG.gap;
+      return this.slideElements[0].offsetWidth + this.config.gap;
     }
     
     getMinTranslate() {
@@ -373,9 +378,9 @@
       const maxIndex = this.getTotalPages() - 1;
       
       if (index < 0) {
-        index = CONFIG.loop ? maxIndex : 0;
+        index = this.config.loop ? maxIndex : 0;
       } else if (index > maxIndex) {
-        index = CONFIG.loop ? 0 : maxIndex;
+        index = this.config.loop ? 0 : maxIndex;
       }
       
       this.currentIndex = index;
@@ -403,7 +408,7 @@
       }
       
       // Update arrows
-      if (this.prevBtn && this.nextBtn && !CONFIG.loop) {
+      if (this.prevBtn && this.nextBtn && !this.config.loop) {
         this.prevBtn.disabled = this.currentIndex === 0;
         this.nextBtn.disabled = this.currentIndex >= this.getTotalPages() - 1;
       }
@@ -413,7 +418,7 @@
       this.stopAutoplay();
       this.autoplayTimer = setInterval(() => {
         this.next();
-      }, CONFIG.autoplayInterval);
+      }, this.config.autoplayInterval);
     }
     
     stopAutoplay() {
@@ -429,7 +434,7 @@
   // ==========================================
   
   function findSliderClusters() {
-    const allSliders = document.querySelectorAll(CONFIG.slideSelector);
+    const allSliders = document.querySelectorAll(SELECTORS.slideSelector);
     if (!allSliders.length) return [];
     
     const clusters = [];
@@ -460,6 +465,18 @@
     return clusters;
   }
 
+  function buildInstanceConfig(instanceId) {
+    const instanceOptions = (instanceId && INSTANCE_CONFIGS[instanceId]) || {};
+    return {
+      ...BASE_CONFIG,
+      ...instanceOptions,
+      breakpoints: {
+        ...BASE_CONFIG.breakpoints,
+        ...(instanceOptions.breakpoints || {})
+      }
+    };
+  }
+
   // ==========================================
   // INITIALIZATION
   // ==========================================
@@ -469,7 +486,9 @@
     
     clusters.forEach(cluster => {
       if (cluster.length >= 1) {
-        new Slider(cluster);
+        const instanceId = cluster[0].dataset.sliderId || '';
+        const instanceConfig = buildInstanceConfig(instanceId);
+        new Slider(cluster, instanceConfig);
       }
     });
   }
