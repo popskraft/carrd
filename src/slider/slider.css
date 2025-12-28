@@ -6,6 +6,7 @@
   overflow: hidden;
   width: 100%;
   cursor: grab;
+  touch-action: pan-y;
   -webkit-user-select: none;
   user-select: none;
 }
@@ -19,6 +20,7 @@
   display: flex;
   transition: transform 0.3s ease-out;
   will-change: transform;
+  touch-action: pan-y;
 }
 
 .slider-wrapper.is-dragging .slider-track {
@@ -29,6 +31,26 @@
 .slider-track>.slider-slide {
   flex: 0 0 auto;
   box-sizing: border-box;
+  touch-action: pan-y;
+  position: relative;
+  /* Ensure z-index works locally if needed */
+}
+
+/* Equal height option */
+.slider-wrapper.is-equal-height .slider-slide {
+  display: flex;
+  flex-direction: column;
+  height: auto;
+}
+
+.slider-wrapper.is-equal-height .slider-slide>.container-component {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.slider-wrapper.is-equal-height .slider-slide>.container-component>.wrapper {
+  flex-grow: 1;
 }
 
 /* Navigation Dots */

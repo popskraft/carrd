@@ -1,5 +1,5 @@
 <style>
-.slider-wrapper{position:relative;overflow:hidden;width:100%;cursor:grab;-webkit-user-select:none;user-select:none}.slider-wrapper.is-dragging{cursor:grabbing}.slider-track{display:flex;transition:transform 0.3s ease-out;will-change:transform}.slider-wrapper.is-dragging .slider-track{transition:none}.slider-track>.slider-slide{flex:0 0 auto;box-sizing:border-box}.slider-dots{display:flex;justify-content:center;gap:0.5rem;margin-top:var(--mini-slider-dots-margin, 1rem);padding:0.5rem 0}.slider-dot{width:var(--mini-slider-dot-size, 10px);height:var(--mini-slider-dot-size, 10px);border-radius:50%;background:var(--mini-slider-dot-bg, rgba(0, 0, 0, 0.2));border:none;padding:0;cursor:pointer;transition:background 0.2s ease, transform 0.2s ease}.slider-dot:hover{background:var(--mini-slider-dot-hover-bg, rgba(0, 0, 0, 0.4))}.slider-dot.is-active{background:var(--mini-slider-dot-active-bg, var(--mini-color-primary, #5c9dff));transform:scale(1.2)}.slider-nav{position:absolute;top:50%;transform:translateY(-50%);width:var(--mini-slider-arrow-size, 40px);height:var(--mini-slider-arrow-size, 40px);background:var(--mini-slider-arrow-bg, rgba(255, 255, 255, 0.9));border:none;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0, 0, 0, 0.15);transition:opacity 0.2s ease, transform 0.2s ease;z-index:10;opacity:0;pointer-events:none}.slider-wrapper:hover .slider-nav{opacity:1;pointer-events:auto}.slider-nav:hover{transform:translateY(-50%) scale(1.1)}.slider-nav:disabled{opacity:0 !important;visibility:hidden;pointer-events:none}.slider-nav--prev{left:var(--mini-slider-arrow-offset, 0.5rem)}.slider-nav--next{right:var(--mini-slider-arrow-offset, 0.5rem)}.slider-nav svg{width:20px;height:20px;stroke:var(--mini-slider-arrow-color, #333);stroke-width:2;fill:none}.slider-slide>.container-component{margin:0 !important}.slider-slide>.container-component>.wrapper{width:100% !important}@media screen and (max-width:736px){.slider-nav{display:none}.slider-dots{margin-top:var(--mini-slider-dots-margin-mobile, 0.75rem)}}@media (prefers-reduced-motion:reduce){.slider-track{transition:none}.slider-dot, .slider-nav{transition:none}}
+.slider-wrapper{position:relative;overflow:hidden;width:100%;cursor:grab;touch-action:pan-y;-webkit-user-select:none;user-select:none}.slider-wrapper.is-dragging{cursor:grabbing}.slider-track{display:flex;transition:transform 0.3s ease-out;will-change:transform;touch-action:pan-y}.slider-wrapper.is-dragging .slider-track{transition:none}.slider-track>.slider-slide{flex:0 0 auto;box-sizing:border-box;touch-action:pan-y;position:relative}.slider-wrapper.is-equal-height .slider-slide{display:flex;flex-direction:column;height:auto}.slider-wrapper.is-equal-height .slider-slide>.container-component{flex-grow:1;display:flex;flex-direction:column}.slider-wrapper.is-equal-height .slider-slide>.container-component>.wrapper{flex-grow:1}.slider-dots{display:flex;justify-content:center;gap:0.5rem;margin-top:var(--mini-slider-dots-margin, 1rem);padding:0.5rem 0}.slider-dot{width:var(--mini-slider-dot-size, 10px);height:var(--mini-slider-dot-size, 10px);border-radius:50%;background:var(--mini-slider-dot-bg, rgba(0, 0, 0, 0.2));border:none;padding:0;cursor:pointer;transition:background 0.2s ease, transform 0.2s ease}.slider-dot:hover{background:var(--mini-slider-dot-hover-bg, rgba(0, 0, 0, 0.4))}.slider-dot.is-active{background:var(--mini-slider-dot-active-bg, var(--mini-color-primary, #5c9dff));transform:scale(1.2)}.slider-nav{position:absolute;top:50%;transform:translateY(-50%);width:var(--mini-slider-arrow-size, 40px);height:var(--mini-slider-arrow-size, 40px);background:var(--mini-slider-arrow-bg, rgba(255, 255, 255, 0.9));border:none;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0, 0, 0, 0.15);transition:opacity 0.2s ease, transform 0.2s ease;z-index:10;opacity:0;pointer-events:none}.slider-wrapper:hover .slider-nav{opacity:1;pointer-events:auto}.slider-nav:hover{transform:translateY(-50%) scale(1.1)}.slider-nav:disabled{opacity:0 !important;visibility:hidden;pointer-events:none}.slider-nav--prev{left:var(--mini-slider-arrow-offset, 0.5rem)}.slider-nav--next{right:var(--mini-slider-arrow-offset, 0.5rem)}.slider-nav svg{width:20px;height:20px;stroke:var(--mini-slider-arrow-color, #333);stroke-width:2;fill:none}.slider-slide>.container-component{margin:0 !important}.slider-slide>.container-component>.wrapper{width:100% !important}@media screen and (max-width:736px){.slider-nav{display:none}.slider-dots{margin-top:var(--mini-slider-dots-margin-mobile, 0.75rem)}}@media (prefers-reduced-motion:reduce){.slider-track{transition:none}.slider-dot, .slider-nav{transition:none}}
 </style>
 <script>
 /**
@@ -29,6 +29,8 @@ dragThreshold: 50,
 snapThreshold: 0.3,
 gap: 16, // Gap between slides in pixels
 slidesPerView: 1,
+peek: 0, // Fraction of next slide to show (e.g. 0.1 for 10%)
+equalHeight: false, // Stretch slides to same height
 breakpoints: {
 737: { slidesPerView: 3 },
 1280: { slidesPerView: 4 }
@@ -78,6 +80,9 @@ this.startAutoplay();
 createWrapper() {
 this.wrapper = document.createElement('div');
 this.wrapper.className = CONFIG.wrapperClass;
+if (CONFIG.equalHeight) {
+this.wrapper.classList.add('is-equal-height');
+}
 this.slides[0].parentNode.insertBefore(this.wrapper, this.slides[0]);
 }
 createTrack() {
@@ -137,14 +142,16 @@ this.wrapper.appendChild(this.prevBtn);
 this.wrapper.appendChild(this.nextBtn);
 }
 bindEvents() {
-this.track.addEventListener('touchstart', this.onDragStart.bind(this), { passive: true });
-this.track.addEventListener('touchmove', this.onDragMove.bind(this), { passive: false });
-this.track.addEventListener('touchend', this.onDragEnd.bind(this));
-this.track.addEventListener('mousedown', this.onDragStart.bind(this));
-this.track.addEventListener('mousemove', this.onDragMove.bind(this));
-this.track.addEventListener('mouseup', this.onDragEnd.bind(this));
-this.track.addEventListener('mouseleave', this.onDragEnd.bind(this));
-this.track.addEventListener('dragstart', (e) => e.preventDefault());
+const dragTarget = this.wrapper;
+dragTarget.addEventListener('touchstart', this.onDragStart.bind(this), { passive: true, capture: true });
+dragTarget.addEventListener('touchmove', this.onDragMove.bind(this), { passive: false, capture: true });
+dragTarget.addEventListener('touchend', this.onDragEnd.bind(this), { capture: true });
+dragTarget.addEventListener('touchcancel', this.onDragEnd.bind(this), { capture: true });
+dragTarget.addEventListener('mousedown', this.onDragStart.bind(this), { capture: true });
+dragTarget.addEventListener('mousemove', this.onDragMove.bind(this), { capture: true });
+dragTarget.addEventListener('mouseup', this.onDragEnd.bind(this), { capture: true });
+dragTarget.addEventListener('mouseleave', this.onDragEnd.bind(this), { capture: true });
+dragTarget.addEventListener('dragstart', (e) => e.preventDefault());
 this.wrapper.setAttribute('tabindex', '0');
 this.wrapper.addEventListener('keydown', (e) => {
 if (e.key === 'ArrowLeft') this.prev();
@@ -174,6 +181,9 @@ if (windowWidth >= bp) {
 newSlidesPerView = CONFIG.breakpoints[bp].slidesPerView || newSlidesPerView;
 }
 }
+if (CONFIG.peek) {
+newSlidesPerView += CONFIG.peek;
+}
 this.slidesPerView = Math.min(newSlidesPerView, this.slides.length);
 this.updateSlideWidths();
 this.updateDots();
@@ -184,7 +194,7 @@ this.currentIndex = Math.max(0, maxIndex);
 }
 updateSlideWidths() {
 const gap = CONFIG.gap;
-const totalGaps = this.slidesPerView - 1;
+const totalGaps = Math.ceil(this.slidesPerView) - 1;
 const slideWidth = `calc((100% - ${totalGaps * gap}px) / ${this.slidesPerView})`;
 this.slideElements.forEach((slide, index) => {
 slide.style.flex = `0 0 ${slideWidth}`;
@@ -193,7 +203,7 @@ slide.style.marginRight = index < this.slides.length - 1 ? `${gap}px` : '0';
 });
 }
 getTotalPages() {
-return Math.max(1, this.slides.length - this.slidesPerView + 1);
+return Math.ceil(Math.max(1, this.slides.length - this.slidesPerView + 1));
 }
 onDragStart(e) {
 if (this.slides.length <= 1) return;
@@ -216,7 +226,7 @@ newTranslate = maxTranslate + (diff * 0.2);
 newTranslate = minTranslate + ((newTranslate - minTranslate) * 0.2);
 }
 this.track.style.transform = `translateX(${newTranslate}px)`;
-if (Math.abs(diff) > 10) {
+if (e.cancelable && Math.abs(diff) > 10) {
 e.preventDefault();
 }
 }

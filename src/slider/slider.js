@@ -31,6 +31,8 @@
     gap: 16, // Gap between slides in pixels
     // Responsive slides per view
     slidesPerView: 1,
+    peek: 0, // Fraction of next slide to show (e.g. 0.1 for 10%)
+    equalHeight: false, // Stretch slides to same height
     breakpoints: {
       // Tablet/Mobile (737px+)
       737: { slidesPerView: 3 },
@@ -103,6 +105,10 @@
     createWrapper() {
       this.wrapper = document.createElement('div');
       this.wrapper.className = CONFIG.wrapperClass;
+      
+      if (CONFIG.equalHeight) {
+        this.wrapper.classList.add('is-equal-height');
+      }
       
       // Insert wrapper before first slide
       this.slides[0].parentNode.insertBefore(this.wrapper, this.slides[0]);
@@ -189,19 +195,22 @@
     }
     
     bindEvents() {
-      // Touch events
-      this.track.addEventListener('touchstart', this.onDragStart.bind(this), { passive: true });
-      this.track.addEventListener('touchmove', this.onDragMove.bind(this), { passive: false });
-      this.track.addEventListener('touchend', this.onDragEnd.bind(this));
+      const dragTarget = this.wrapper;
+      
+      // Touch events (capture to avoid inner elements blocking the drag start)
+      dragTarget.addEventListener('touchstart', this.onDragStart.bind(this), { passive: true, capture: true });
+      dragTarget.addEventListener('touchmove', this.onDragMove.bind(this), { passive: false, capture: true });
+      dragTarget.addEventListener('touchend', this.onDragEnd.bind(this), { capture: true });
+      dragTarget.addEventListener('touchcancel', this.onDragEnd.bind(this), { capture: true });
       
       // Mouse events
-      this.track.addEventListener('mousedown', this.onDragStart.bind(this));
-      this.track.addEventListener('mousemove', this.onDragMove.bind(this));
-      this.track.addEventListener('mouseup', this.onDragEnd.bind(this));
-      this.track.addEventListener('mouseleave', this.onDragEnd.bind(this));
+      dragTarget.addEventListener('mousedown', this.onDragStart.bind(this), { capture: true });
+      dragTarget.addEventListener('mousemove', this.onDragMove.bind(this), { capture: true });
+      dragTarget.addEventListener('mouseup', this.onDragEnd.bind(this), { capture: true });
+      dragTarget.addEventListener('mouseleave', this.onDragEnd.bind(this), { capture: true });
       
       // Prevent image dragging
-      this.track.addEventListener('dragstart', (e) => e.preventDefault());
+      dragTarget.addEventListener('dragstart', (e) => e.preventDefault());
       
       // Keyboard navigation
       this.wrapper.setAttribute('tabindex', '0');
@@ -243,6 +252,11 @@
         }
       }
       
+      // Add peek value if configured
+      if (CONFIG.peek) {
+        newSlidesPerView += CONFIG.peek;
+      }
+      
       // Don't exceed the number of slides
       this.slidesPerView = Math.min(newSlidesPerView, this.slides.length);
       
@@ -261,7 +275,7 @@
     
     updateSlideWidths() {
       const gap = CONFIG.gap;
-      const totalGaps = this.slidesPerView - 1;
+      const totalGaps = Math.ceil(this.slidesPerView) - 1;
       const slideWidth = `calc((100% - ${totalGaps * gap}px) / ${this.slidesPerView})`;
       
       this.slideElements.forEach((slide, index) => {
@@ -273,7 +287,7 @@
     
     getTotalPages() {
       // Number of "stops" - each stop shows slidesPerView slides
-      return Math.max(1, this.slides.length - this.slidesPerView + 1);
+      return Math.ceil(Math.max(1, this.slides.length - this.slidesPerView + 1));
     }
     
     onDragStart(e) {
@@ -308,8 +322,8 @@
       
       this.track.style.transform = `translateX(${newTranslate}px)`;
       
-      // Prevent scrolling while dragging
-      if (Math.abs(diff) > 10) {
+      // Prevent scrolling while dragging (only if event is cancelable)
+      if (e.cancelable && Math.abs(diff) > 10) {
         e.preventDefault();
       }
     }
