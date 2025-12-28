@@ -7,23 +7,9 @@ Instant page display without Carrd's loading delay.
 - **Smooth Animations**: Entry animations still work
 - **Automatic**: No setup required
 
-## Installation
+## Carrd Admin Settings
 
-### As Part of Mini Theme
-
-```html
-<!-- HEAD -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/mini-core.min.css">
-
-<!-- BODY END -->
-<script src="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/mini-core.min.js"></script>
-```
-
-### Standalone
-
-```html
-<script src="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/no-loadwaiting/no-loadwaiting.min.js"></script>
-```
+No admin steps required. Install the script and publish.
 
 ## Configuration
 
@@ -32,11 +18,11 @@ Instant page display without Carrd's loading delay.
 window.CarrdPluginOptions = {
     noLoadwaiting: {
         animationDuration: 750,
-    observerTimeout: 5000,
-    scrollPulseInterval: 60,
-    scrollPulseCount: 10,
-    rafPulseCount: 4
-}
+        observerTimeout: 5000,
+        scrollPulseInterval: 60,
+        scrollPulseCount: 10,
+        rafPulseCount: 4
+    }
 };
 </script>
 ```

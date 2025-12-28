@@ -8,31 +8,11 @@ Floating cart widget with native Carrd form integration.
 - **Form Integration**: Uses standard Carrd forms for checkout
 - **Configurable**: Currency, position, all text labels
 
-## Setup
-
+## Carrd Admin Settings
 1. Create a **Form** element with ID `form-shopping-cart` (optional, for semantics)
 2. Add a **Textarea** field with **Name** set to `order-details` (or ID `order-details`)
 3. Create a **Section** named `#shopping-cart`
 4. Use `CartPlugin.add('Product', Price)` in button On Click
-
-## Installation
-
-### As Part of Mini Theme
-
-```html
-<!-- HEAD -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/mini-core.min.css">
-
-<!-- BODY END -->
-<script src="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/mini-core.min.js"></script>
-```
-
-### Standalone
-
-```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/shopping-cart/shopping-cart.min.css">
-<script src="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/shopping-cart/shopping-cart.min.js"></script>
-```
 
 ## Configuration
 

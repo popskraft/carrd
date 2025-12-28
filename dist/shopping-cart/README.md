@@ -1,19 +1,26 @@
 # Shopping Cart
 
-Floating cart widget with native Carrd form integration.
+## Version
 
-## Features
-- **No Dependencies**: Pure JavaScript and CSS
-- **Responsive**: Works on desktop and mobile
-- **Form Integration**: Uses standard Carrd forms for checkout
-- **Configurable**: Currency, position, all text labels
+- Version: `0.0.0`
+- Build date (UTC): `2025-12-28`
 
-## Setup
+## Quick Start (Beginner-Friendly)
 
-1. Create a **Form** element with ID `form-shopping-cart` (optional, for semantics)
-2. Add a **Textarea** field with **Name** set to `order-details` (or ID `order-details`)
-3. Create a **Section** named `#shopping-cart`
-4. Use `CartPlugin.add('Product', Price)` in button On Click
+1. In Carrd, click **+ Add Element**.
+2. Choose **Embed → Code**.
+3. Add any required **CSS** in **Hidden → Head** (see **Installation** below).
+4. Add required **JS** in **Hidden → Body End** (see **Installation** below).
+5. Publish the site and refresh the page.
+
+Optional: if you want a single snippet, open
+`dist/shopping-cart/shopping-cart-embed.html`, copy everything, and paste it
+into **Hidden → Body End**.
+
+Important: if you use `window.CarrdPluginOptions`, place it **before** the plugin
+`<script>` tag in **Hidden → Body End**.
+
+---
 
 ## Installation
 
@@ -33,6 +40,22 @@ Floating cart widget with native Carrd form integration.
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/shopping-cart/shopping-cart.min.css">
 <script src="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/shopping-cart/shopping-cart.min.js"></script>
 ```
+
+---
+
+Floating cart widget with native Carrd form integration.
+
+## Features
+- **No Dependencies**: Pure JavaScript and CSS
+- **Responsive**: Works on desktop and mobile
+- **Form Integration**: Uses standard Carrd forms for checkout
+- **Configurable**: Currency, position, all text labels
+
+## Carrd Admin Settings
+1. Create a **Form** element with ID `form-shopping-cart` (optional, for semantics)
+2. Add a **Textarea** field with **Name** set to `order-details` (or ID `order-details`)
+3. Create a **Section** named `#shopping-cart`
+4. Use `CartPlugin.add('Product', Price)` in button On Click
 
 ## Configuration
 
@@ -122,3 +145,13 @@ window.CarrdPluginOptions = {
 };
 </script>
 ```
+
+---
+
+## Troubleshooting
+
+- Nothing happens: confirm the class name or selector in **Carrd Admin Settings** matches your Carrd elements.
+- Styles missing: CSS must be in **Hidden → Head**, not in **Body End**.
+- Config not applied: `window.CarrdPluginOptions` must appear **before** the plugin script.
+- Embed not available: you may need a Carrd plan that supports **Embed → Code**.
+- CDN blocked: try opening the CDN URL directly and confirm it loads.

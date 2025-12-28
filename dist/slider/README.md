@@ -1,27 +1,26 @@
 # Slider
 
-Horizontal slider/carousel from consecutive Carrd containers with responsive slides per view.
+## Version
 
-## Features
-- **Touch Support**: Swipe gestures on mobile
-- **Mouse Drag**: Click and drag on desktop
-- **Responsive**: Different slides per view at different breakpoints
-- **Navigation**: Dots and optional arrow controls
-- **Auto-clustering**: Groups consecutive `.slider` containers
+- Version: `0.0.0`
+- Build date (UTC): `2025-12-28`
 
-## Setup
+## Quick Start (Beginner-Friendly)
 
-1. Add class `.slider` to consecutive containers in Carrd
-2. Each container becomes a slide in the carousel
-3. (Optional) Add `data-slider-id="your-id"` to the first container in a cluster to use per-instance settings
+1. In Carrd, click **+ Add Element**.
+2. Choose **Embed → Code**.
+3. Add any required **CSS** in **Hidden → Head** (see **Installation** below).
+4. Add required **JS** in **Hidden → Body End** (see **Installation** below).
+5. Publish the site and refresh the page.
 
-## Default Responsive Behavior
+Optional: if you want a single snippet, open
+`dist/slider/slider-embed.html`, copy everything, and paste it
+into **Hidden → Body End**.
 
-| Screen Size | Breakpoint | Slides Visible |
-|-------------|------------|----------------|
-| Mobile XS | < 737px | 1 |
-| Tablet/Mobile | ≥ 737px | 3 |
-| Desktop M | ≥ 1280px | 4 |
+Important: if you use `window.CarrdPluginOptions`, place it **before** the plugin
+`<script>` tag in **Hidden → Body End**.
+
+---
 
 ## Installation
 
@@ -41,6 +40,30 @@ Horizontal slider/carousel from consecutive Carrd containers with responsive sli
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/slider/slider.min.css">
 <script src="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/slider/slider.min.js"></script>
 ```
+
+---
+
+Horizontal slider/carousel from consecutive Carrd containers with responsive slides per view.
+
+## Features
+- **Touch Support**: Swipe gestures on mobile
+- **Mouse Drag**: Click and drag on desktop
+- **Responsive**: Different slides per view at different breakpoints
+- **Navigation**: Dots and optional arrow controls
+- **Auto-clustering**: Groups consecutive `.slider` containers
+
+## Carrd Admin Settings
+1. Add class `.slider` to consecutive containers in Carrd
+2. Each container becomes a slide in the carousel
+3. (Optional) Add `data-slider-id="your-id"` to the first container in a cluster to use per-instance settings
+
+## Default Responsive Behavior
+
+| Screen Size | Breakpoint | Slides Visible |
+|-------------|------------|----------------|
+| Mobile XS | < 737px | 1 |
+| Tablet/Mobile | ≥ 737px | 3 |
+| Desktop M | ≥ 1280px | 4 |
 
 ## Configuration
 
@@ -135,7 +158,16 @@ On tablet (≥ 737px): 3 slides visible at once
 On desktop (≥ 1280px): 4 slides visible at once
 ### Per-Instance Settings
 
-Use `data-slider-id` on the first slide in a cluster to apply overrides:
+Use `data-slider-id` on the first slide in a cluster to apply overrides. Full process:
+
+1. Add class `.slider` to all containers that form the cluster (as usual).
+2. On the first container of that cluster, add `data-slider-id="your-id"`.
+3. In `window.CarrdPluginOptions.slider.instances`, add a key with the same id.
+4. Put any overrides inside that key (only the options you want to change).
+
+Notes:
+- Only the first container in the cluster needs `data-slider-id`.
+- If an id is missing from `instances`, the global defaults apply.
 
 ```html
 <!-- Cluster A -->
@@ -160,3 +192,13 @@ window.CarrdPluginOptions = {
     }
 };
 ```
+
+---
+
+## Troubleshooting
+
+- Nothing happens: confirm the class name or selector in **Carrd Admin Settings** matches your Carrd elements.
+- Styles missing: CSS must be in **Hidden → Head**, not in **Body End**.
+- Config not applied: `window.CarrdPluginOptions` must appear **before** the plugin script.
+- Embed not available: you may need a Carrd plan that supports **Embed → Code**.
+- CDN blocked: try opening the CDN URL directly and confirm it loads.

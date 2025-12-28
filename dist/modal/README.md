@@ -1,5 +1,48 @@
 # Modal
 
+## Version
+
+- Version: `0.0.0`
+- Build date (UTC): `2025-12-28`
+
+## Quick Start (Beginner-Friendly)
+
+1. In Carrd, click **+ Add Element**.
+2. Choose **Embed → Code**.
+3. Add any required **CSS** in **Hidden → Head** (see **Installation** below).
+4. Add required **JS** in **Hidden → Body End** (see **Installation** below).
+5. Publish the site and refresh the page.
+
+Optional: if you want a single snippet, open
+`dist/modal/modal-embed.html`, copy everything, and paste it
+into **Hidden → Body End**.
+
+Important: if you use `window.CarrdPluginOptions`, place it **before** the plugin
+`<script>` tag in **Hidden → Body End**.
+
+---
+
+## Installation
+
+### As Part of Mini Theme
+
+```html
+<!-- HEAD -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/mini-core.min.css">
+
+<!-- BODY END -->
+<script src="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/mini-core.min.js"></script>
+```
+
+### Standalone
+
+```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/modal/modal.min.css">
+<script src="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/modal/modal.min.js"></script>
+```
+
+---
+
 A plugin for displaying modal dialogs from Carrd container components.
 
 ## Features
@@ -11,6 +54,13 @@ A plugin for displaying modal dialogs from Carrd container components.
 - **Body Scroll Lock**: Prevents background scrolling when modal is open
 - **Mobile Optimized**: Slide-up animation on mobile devices
 - **Instant Hide**: Modals are hidden before content loads (no flash)
+
+## Carrd Admin Settings
+
+1. Create a Carrd container and add the class `modal`.
+2. Give it a unique ID (for example `modalContact`).
+3. Add a link or button that points to the modal ID, for example:
+   `href="#modalContact"` or `data-modal="modalContact"`.
 
 ## HTML Structure
 
@@ -36,30 +86,9 @@ Any link with `href` pointing to the modal ID:
 <button data-modal="modalContact">Open Modal</button>
 ```
 
-## Installation
+## Optional: Instant Hide
 
-### As Part of Mini Theme (Recommended)
-
-All plugins work together with shared configuration:
-
-```html
-<!-- HEAD -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/mini-core.min.css">
-
-<!-- BODY END -->
-<script src="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/mini-core.min.js"></script>
-```
-
-### Standalone Plugin
-
-```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/modal/modal.min.css">
-<script src="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/modal/modal.min.js"></script>
-```
-
-### Instant Hide (Recommended for HEAD)
-
-To prevent modals from flashing before CSS loads, add this to `<head>`:
+To prevent modals from flashing before CSS loads, add this to **Hidden → Head**:
 
 ```html
 <style>.container-component.modal { display: none !important; }</style>
@@ -148,3 +177,13 @@ Add these variables to `carrd-theme.css`:
     --mini-modal-close-hover-bg: rgba(255, 255, 255, 0.3);
 }
 ```
+
+---
+
+## Troubleshooting
+
+- Nothing happens: confirm the class name or selector in **Carrd Admin Settings** matches your Carrd elements.
+- Styles missing: CSS must be in **Hidden → Head**, not in **Body End**.
+- Config not applied: `window.CarrdPluginOptions` must appear **before** the plugin script.
+- Embed not available: you may need a Carrd plan that supports **Embed → Code**.
+- CDN blocked: try opening the CDN URL directly and confirm it loads.

@@ -7,31 +7,11 @@ Accordion-style expandable Q&A sections.
 - **Animated**: Smooth expand/collapse transitions
 - **Configurable**: Multiple open, default open, custom selectors
 
-## Setup
-
+## Carrd Admin Settings
 1. Add class `.FAQContainer` to a Carrd container
 2. Use **Divider** elements to separate questions
 3. Add **Heading** (H1-H3) for each question
 4. Content after heading becomes the answer
-
-## Installation
-
-### As Part of Mini Theme
-
-```html
-<!-- HEAD -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/mini-core.min.css">
-
-<!-- BODY END -->
-<script src="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/mini-core.min.js"></script>
-```
-
-### Standalone
-
-```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/faq/faq.min.css">
-<script src="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/faq/faq.min.js"></script>
-```
 
 ## Configuration
 

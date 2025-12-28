@@ -9,8 +9,7 @@ Horizontal slider/carousel from consecutive Carrd containers with responsive sli
 - **Navigation**: Dots and optional arrow controls
 - **Auto-clustering**: Groups consecutive `.slider` containers
 
-## Setup
-
+## Carrd Admin Settings
 1. Add class `.slider` to consecutive containers in Carrd
 2. Each container becomes a slide in the carousel
 3. (Optional) Add `data-slider-id="your-id"` to the first container in a cluster to use per-instance settings
@@ -22,25 +21,6 @@ Horizontal slider/carousel from consecutive Carrd containers with responsive sli
 | Mobile XS | < 737px | 1 |
 | Tablet/Mobile | ≥ 737px | 3 |
 | Desktop M | ≥ 1280px | 4 |
-
-## Installation
-
-### As Part of Mini Theme
-
-```html
-<!-- HEAD -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/mini-core.min.css">
-
-<!-- BODY END -->
-<script src="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/mini-core.min.js"></script>
-```
-
-### Standalone
-
-```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/slider/slider.min.css">
-<script src="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/slider/slider.min.js"></script>
-```
 
 ## Configuration
 

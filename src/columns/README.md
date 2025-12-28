@@ -7,30 +7,11 @@ Grid layout with optional Cards styling.
 - **Cards**: Auto-styled items with padding, radius, backgrounds
 - **Flexible Widths**: Custom column widths via classes
 
-## Setup
-
+## Carrd Admin Settings
 1. Add class `.grid-2` to `.grid-6` to consecutive containers
 2. For cards: add class `.cards` to a container
 3. Optional: use `data-padding`, `data-color` attributes
 
-## Installation
-
-### As Part of Mini Theme
-
-```html
-<!-- HEAD -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/mini-core.min.css">
-
-<!-- BODY END -->
-<script src="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/mini-core.min.js"></script>
-```
-
-### Standalone
-
-```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/columns/columns.min.css">
-<script src="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/columns/columns.min.js"></script>
-```
 
 ## Configuration
 

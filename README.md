@@ -74,6 +74,10 @@ window.CarrdPluginOptions = {
 | **FAQ** | `dist/faq/` |
 | **Columns** | `dist/columns/` |
 | **No-loadwaiting** | `dist/no-loadwaiting/` |
+| **Modal** | `dist/modal/` |
+| **Slider** | `dist/slider/` |
+
+Note: `no-loadwaiting` is not included in the `mini-core` bundle. Use its standalone script.
 
 ---
 
@@ -90,8 +94,8 @@ If you don't need the full bundle, you can use individual plugins:
 
 ```
 dist/
-├── mini-core.min.js       # All plugins bundled (CDN)
-├── mini-core.min.css      # All styles bundled (CDN)
+├── mini-core.min.js       # Core plugins bundled (excludes no-loadwaiting)
+├── mini-core.min.css      # Core styles bundled (excludes no-loadwaiting)
 ├── carrd-config.js        # CONFIG TEMPLATE (Copy content to Embed)
 ├── carrd-theme.css        # THEME TEMPLATE (Copy content to Embed)
 └── [plugin]/              # Standalone files

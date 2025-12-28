@@ -12,6 +12,13 @@ A plugin for displaying modal dialogs from Carrd container components.
 - **Mobile Optimized**: Slide-up animation on mobile devices
 - **Instant Hide**: Modals are hidden before content loads (no flash)
 
+## Carrd Admin Settings
+
+1. Create a Carrd container and add the class `modal`.
+2. Give it a unique ID (for example `modalContact`).
+3. Add a link or button that points to the modal ID, for example:
+   `href="#modalContact"` or `data-modal="modalContact"`.
+
 ## HTML Structure
 
 Modals are standard Carrd container components with class `modal` and a unique ID:
@@ -36,30 +43,9 @@ Any link with `href` pointing to the modal ID:
 <button data-modal="modalContact">Open Modal</button>
 ```
 
-## Installation
+## Optional: Instant Hide
 
-### As Part of Mini Theme (Recommended)
-
-All plugins work together with shared configuration:
-
-```html
-<!-- HEAD -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/mini-core.min.css">
-
-<!-- BODY END -->
-<script src="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/mini-core.min.js"></script>
-```
-
-### Standalone Plugin
-
-```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/modal/modal.min.css">
-<script src="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/modal/modal.min.js"></script>
-```
-
-### Instant Hide (Recommended for HEAD)
-
-To prevent modals from flashing before CSS loads, add this to `<head>`:
+To prevent modals from flashing before CSS loads, add this to **Hidden → Head**:
 
 ```html
 <style>.container-component.modal { display: none !important; }</style>

@@ -1,17 +1,26 @@
 # Columns
 
-Grid layout with optional Cards styling.
+## Version
 
-## Features
-- **Responsive Grid**: 2-6 column layouts with breakpoints
-- **Cards**: Auto-styled items with padding, radius, backgrounds
-- **Flexible Widths**: Custom column widths via classes
+- Version: `0.0.0`
+- Build date (UTC): `2025-12-28`
 
-## Setup
+## Quick Start (Beginner-Friendly)
 
-1. Add class `.grid-2` to `.grid-6` to consecutive containers
-2. For cards: add class `.cards` to a container
-3. Optional: use `data-padding`, `data-color` attributes
+1. In Carrd, click **+ Add Element**.
+2. Choose **Embed → Code**.
+3. Add any required **CSS** in **Hidden → Head** (see **Installation** below).
+4. Add required **JS** in **Hidden → Body End** (see **Installation** below).
+5. Publish the site and refresh the page.
+
+Optional: if you want a single snippet, open
+`dist/columns/columns-embed.html`, copy everything, and paste it
+into **Hidden → Body End**.
+
+Important: if you use `window.CarrdPluginOptions`, place it **before** the plugin
+`<script>` tag in **Hidden → Body End**.
+
+---
 
 ## Installation
 
@@ -31,6 +40,21 @@ Grid layout with optional Cards styling.
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/columns/columns.min.css">
 <script src="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/columns/columns.min.js"></script>
 ```
+
+---
+
+Grid layout with optional Cards styling.
+
+## Features
+- **Responsive Grid**: 2-6 column layouts with breakpoints
+- **Cards**: Auto-styled items with padding, radius, backgrounds
+- **Flexible Widths**: Custom column widths via classes
+
+## Carrd Admin Settings
+1. Add class `.grid-2` to `.grid-6` to consecutive containers
+2. For cards: add class `.cards` to a container
+3. Optional: use `data-padding`, `data-color` attributes
+
 
 ## Configuration
 
@@ -89,3 +113,13 @@ window.CarrdPluginOptions = {
 | `data-padding-mobile` | Mobile padding |
 | `data-color` | Background color for all cards |
 | `data-color-1`, `data-color-2`... | Individual card colors |
+
+---
+
+## Troubleshooting
+
+- Nothing happens: confirm the class name or selector in **Carrd Admin Settings** matches your Carrd elements.
+- Styles missing: CSS must be in **Hidden → Head**, not in **Body End**.
+- Config not applied: `window.CarrdPluginOptions` must appear **before** the plugin script.
+- Embed not available: you may need a Carrd plan that supports **Embed → Code**.
+- CDN blocked: try opening the CDN URL directly and confirm it loads.
