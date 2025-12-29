@@ -1,5 +1,8 @@
-/**
- * Modal Plugin
+/*
+ * Plugin: Modal
+ * Version: 0.0.0
+ * Purpose: Modal open/close behavior with accessibility handling.
+ * Admin placement: Code element in BODY END.
  */
 (function() {
     'use strict';
@@ -46,10 +49,6 @@
     // ==========================================
     
     const ModalAPI = {
-        /**
-         * Open a modal by ID
-         * @param {string} modalId - The ID of the modal to open (without #)
-         */
         /**
          * Open a modal by ID
          * @param {string} modalId - The ID of the modal to open (without #)

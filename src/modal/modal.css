@@ -1,9 +1,10 @@
-/* 
- * Modal Plugin CSS
- * Provides overlay, centering, and animations for modal containers.
- * 
- * IMPORTANT: For instant hiding before content loads, add this to HEAD:
- * <style>.container-component.modal { display: none !important; }</style>
+/*
+ * Plugin: Modal
+ * Version: 0.0.0
+ * Purpose: Modal visual styles and transitions.
+ * Admin placement: Code element in HEAD.
+ *
+ * Note: To hide modals before load, set `.container-component.modal` to `display:none !important;`.
  */
 
 /* ==========================================

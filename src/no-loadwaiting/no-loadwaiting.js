@@ -1,4 +1,9 @@
-// No Load Waiting: force the ready state on DOMContentLoaded so animations run immediately after removing Carrd's loader.
+/*
+ * Plugin: No Load Waiting
+ * Version: 0.0.0
+ * Purpose: Mark the page ready immediately and skip loader delays.
+ * Admin placement: Code element in BODY END.
+ */
 (function () {
   "use strict";
 
@@ -21,7 +26,9 @@
     
   const CONFIG = {};
   for (const key in DEFAULTS) {
-    CONFIG[key] = externalOptions.hasOwnProperty(key) ? externalOptions[key] : DEFAULTS[key];
+    CONFIG[key] = Object.prototype.hasOwnProperty.call(externalOptions, key)
+      ? externalOptions[key]
+      : DEFAULTS[key];
   }
 
   // ==========================================

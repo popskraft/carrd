@@ -1,4 +1,10 @@
 /* Grid Cluster Styles */
+/*
+ * Plugin: Columns
+ * Version: 0.0.0
+ * Purpose: Grid and card visual styles.
+ * Admin placement: Code element in HEAD.
+ */
 .custom-grid-container {
   --grid-columns: 1;
 
@@ -67,12 +73,6 @@
   .custom-grid-container.custom-grid-container--desktop-widths {
     --grid-template: var(--custom-desktop-template);
   }
-}
-
-.custom-grid-container>.container-component>.wrapper {
-  /* display: flex; */
-  /* flex-direction: column; */
-  /* height: 100%; */
 }
 
 .custom-grid-container>.container-component {

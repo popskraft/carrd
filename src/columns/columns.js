@@ -1,7 +1,10 @@
-/**
- * Columns Plugin
- * Combines Grid Cluster and Cards functionality.
- * 
+/*
+ * Plugin: Columns
+ * Version: 0.0.0
+ * Purpose: Grid cluster wrapping and card styling.
+ * Admin placement: Code element in BODY END.
+ *
+ * Notes:
  * - Grid Cluster: Wraps consecutive `.grid-*` containers into a responsive grid.
  * - Cards: Applies styling (padding, border radius, background) to card items.
  */

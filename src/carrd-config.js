@@ -1,4 +1,9 @@
-/* Carrd Plugins Configuration - Load BEFORE main scripts */
+/*
+ * File: Carrd Plugin Config
+ * Version: 0.0.0
+ * Purpose: Global options for Carrd plugins.
+ * Admin placement: Code element in HEAD before plugin scripts.
+ */
 window.CarrdPluginOptions = window.CarrdPluginOptions || {};
 
 /* Shopping Cart */
@@ -41,11 +46,11 @@ window.CarrdPluginOptions.columns = {
     widthClasses: {
         'w-20': '20%',
         'w-25': '25%',
-        'w-30': '32%',
+        'w-30': '33%',
         'w-40': '40%',
         'w-50': '50%',
         'w-60': '60%',
-        'w-70': '68%',
+        'w-70': '67%',
         'w-75': '75%',
         'w-80': '80%'
     }

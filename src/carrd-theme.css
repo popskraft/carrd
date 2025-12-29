@@ -1,4 +1,9 @@
-/* Carrd Theme Variables - Optional CSS customization */
+/*
+ * File: Carrd Theme Variables
+ * Version: 0.0.0
+ * Purpose: Optional CSS variables for Mini theme plugins.
+ * Admin placement: Code element in HEAD.
+ */
 :root {
   /* Colors */
   --mini-color-primary: #5c9dff;

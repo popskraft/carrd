@@ -1,7 +1,8 @@
-/* 
- * Carrd Shopping Cart Plugin - CSS
- * Paste this into a "Embed" element set to "Type: Code" and "Style: Hidden (Head)".
- * IMPORTANT: Wrap this in <style> and </style> tags if the field expects HTML.
+/*
+ * Plugin: Shopping Cart
+ * Version: 0.0.0
+ * Purpose: Shopping cart UI styles.
+ * Admin placement: Code element in HEAD.
  */
 .crt-widget {
     position: fixed;
@@ -283,5 +284,14 @@
     .crt-panel {
         width: 100%;
         max-width: 100%;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .crt-widget,
+    .crt-overlay,
+    .crt-panel,
+    .crt-toast {
+        transition: none;
     }
 }

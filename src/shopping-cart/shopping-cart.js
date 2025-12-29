@@ -1,11 +1,12 @@
-
-/**
- * Carrd Shopping Cart Plugin - JS Logic
- * 
- * INSTRUCTIONS:
- * 1. JS: Copy this code (keeping the <script> tags) into a "Settings > Head" or "Embed" element.
- * 2. CSS: Copy the code from 'carrd-cart.css' into a separate "Embed" element (Type: Code, Style: Hidden Head).
- * 3. USAGE: Link a button to "On Click" -> CartPlugin.add('Item', 99)
+/*
+ * Plugin: Shopping Cart
+ * Version: 0.0.0
+ * Purpose: Cart UI, item state, and order details sync for Carrd forms.
+ * Admin placement: Code element in BODY END.
+ *
+ * Notes:
+ * - Load `shopping-cart.css` in HEAD.
+ * - Use `window.CarrdCart.add('Item', 99)` to add items.
  */
 
 (function() {
@@ -89,21 +90,6 @@
     }
 
     /**
-     * Escapes a string for use in JavaScript string literals (onclick handlers)
-     * @param {string} str - Input string
-     * @returns {string} - Escaped string safe for JS string context
-     */
-    function escapeJsString(str) {
-        if (typeof str !== 'string') return '';
-        return str
-            .replace(/\\/g, '\\\\')
-            .replace(/'/g, "\\'")
-            .replace(/"/g, '\\"')
-            .replace(/</g, '\\x3c')
-            .replace(/>/g, '\\x3e');
-    }
-
-    /**
      * Validates a cart item from localStorage
      * @param {Object} item - Cart item to validate
      * @returns {boolean} - True if valid
@@ -142,7 +128,9 @@
     const saveState = () => {
         try {
             localStorage.setItem(CONFIG.storageKey, JSON.stringify(state.cart));
-        } catch (e) {}
+        } catch (e) {
+            // Ignore storage errors (private mode, quota).
+        }
         updateUI();
     };
 
@@ -335,7 +323,6 @@
         }
         return state.cart.map(item => {
             const safeName = escapeHtml(item.name);
-            const safeNameJs = escapeJsString(item.name);
             return `
             <div class="crt-item">
                 <div class="crt-item-info">
@@ -394,7 +381,7 @@
         titleContent.textContent = CONFIG.texts.title;
         bodyContent.innerHTML = renderCartItems();
         footerContent.style.display = 'block';
-        container.querySelector('.crt-total-amount').textContent = formatPrice(CartPlugin.getTotal());
+        container.querySelector('.crt-total-amount').textContent = formatPrice(CartAPI.getTotal());
         
         const checkoutBtn = container.querySelector('.crt-btn-checkout');
         if (checkoutBtn) {
@@ -454,20 +441,21 @@
 
             switch (action) {
                 case 'open':
-                    CartPlugin.open();
+                    CartAPI.open();
                     break;
                 case 'close':
-                    CartPlugin.close();
+                    CartAPI.close();
                     break;
                 case 'checkout':
-                    CartPlugin.checkout();
+                    CartAPI.checkout();
                     break;
-                case 'update-qty':
+                case 'update-qty': {
                     const delta = parseInt(trigger.dataset.qty);
-                    if (name && !isNaN(delta)) CartPlugin.updateQty(name, delta);
+                    if (name && !isNaN(delta)) CartAPI.updateQty(name, delta);
                     break;
+                }
                 case 'remove':
-                    if (name) CartPlugin.remove(name);
+                    if (name) CartAPI.remove(name);
                     break;
             }
         });
@@ -478,7 +466,7 @@
                 const trigger = e.target.closest('[data-action="open"]');
                 if (trigger) {
                     e.preventDefault();
-                    CartPlugin.open();
+                    CartAPI.open();
                 }
              }
         });

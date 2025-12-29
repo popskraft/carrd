@@ -1,3 +1,9 @@
+/*
+ * Plugin: FAQ
+ * Version: 0.0.0
+ * Purpose: FAQ accordion styles.
+ * Admin placement: Code element in HEAD.
+ */
 .FAQContainer .faq-question {
   cursor: pointer;
   position: relative;

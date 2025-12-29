@@ -1,3 +1,9 @@
+/*
+ * Plugin: FAQ
+ * Version: 0.0.0
+ * Purpose: Accordion behavior for FAQ containers.
+ * Admin placement: Code element in BODY END.
+ */
 (function () {
   'use strict';
 

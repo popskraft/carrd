@@ -1,7 +1,9 @@
-/**
- * Slider Plugin
- * Creates horizontal sliders from consecutive containers with class "slider".
- * 
+/*
+ * Plugin: Slider
+ * Version: 0.0.0
+ * Purpose: Slider/carousel behavior for consecutive `.slider` containers.
+ * Admin placement: Code element in BODY END.
+ *
  * Features:
  * - Touch swipe support
  * - Mouse drag support
@@ -65,6 +67,7 @@
     prev: `<svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg>`,
     next: `<svg viewBox="0 0 24 24"><polyline points="9 6 15 12 9 18"></polyline></svg>`
   };
+  const SLIDER_INSTANCES = [];
 
   // ==========================================
   // SLIDER CLASS
@@ -81,6 +84,9 @@
       this.translateX = 0;
       this.autoplayTimer = null;
       this.slidesPerView = this.config.slidesPerView;
+      this.eventHandlers = [];
+      this.dotHandlers = [];
+      this.resizeTimeout = null;
       
       this.init();
     }
@@ -151,6 +157,7 @@
       if (!this.dotsContainer) return;
       
       // Clear existing dots
+      this.clearDotListeners();
       this.dotsContainer.innerHTML = '';
       
       // Calculate number of "pages"
@@ -172,7 +179,9 @@
         dot.setAttribute('aria-label', `Go to slide ${i + 1}`);
         dot.dataset.index = i;
         
-        dot.addEventListener('click', () => this.goToSlide(i));
+        const handler = () => this.goToSlide(i);
+        dot.addEventListener('click', handler);
+        this.dotHandlers.push({ element: dot, handler });
         
         this.dotsContainer.appendChild(dot);
       }
@@ -186,14 +195,16 @@
       this.prevBtn.className = 'slider-nav slider-nav--prev';
       this.prevBtn.setAttribute('aria-label', 'Previous slide');
       this.prevBtn.innerHTML = ICONS.prev;
-      this.prevBtn.addEventListener('click', () => this.prev());
+      this.prevHandler = () => this.prev();
+      this.addListener(this.prevBtn, 'click', this.prevHandler);
       
       // Next button
       this.nextBtn = document.createElement('button');
       this.nextBtn.className = 'slider-nav slider-nav--next';
       this.nextBtn.setAttribute('aria-label', 'Next slide');
       this.nextBtn.innerHTML = ICONS.next;
-      this.nextBtn.addEventListener('click', () => this.next());
+      this.nextHandler = () => this.next();
+      this.addListener(this.nextBtn, 'click', this.nextHandler);
       
       this.wrapper.appendChild(this.prevBtn);
       this.wrapper.appendChild(this.nextBtn);
@@ -201,44 +212,74 @@
     
     bindEvents() {
       const dragTarget = this.wrapper;
+      this.onDragStartHandler = this.onDragStart.bind(this);
+      this.onDragMoveHandler = this.onDragMove.bind(this);
+      this.onDragEndHandler = this.onDragEnd.bind(this);
+      this.onDragPreventHandler = (e) => e.preventDefault();
       
       // Touch events (capture to avoid inner elements blocking the drag start)
-      dragTarget.addEventListener('touchstart', this.onDragStart.bind(this), { passive: true, capture: true });
-      dragTarget.addEventListener('touchmove', this.onDragMove.bind(this), { passive: false, capture: true });
-      dragTarget.addEventListener('touchend', this.onDragEnd.bind(this), { capture: true });
-      dragTarget.addEventListener('touchcancel', this.onDragEnd.bind(this), { capture: true });
+      this.addListener(dragTarget, 'touchstart', this.onDragStartHandler, { passive: true, capture: true });
+      this.addListener(dragTarget, 'touchmove', this.onDragMoveHandler, { passive: false, capture: true });
+      this.addListener(dragTarget, 'touchend', this.onDragEndHandler, { capture: true });
+      this.addListener(dragTarget, 'touchcancel', this.onDragEndHandler, { capture: true });
       
       // Mouse events
-      dragTarget.addEventListener('mousedown', this.onDragStart.bind(this), { capture: true });
-      dragTarget.addEventListener('mousemove', this.onDragMove.bind(this), { capture: true });
-      dragTarget.addEventListener('mouseup', this.onDragEnd.bind(this), { capture: true });
-      dragTarget.addEventListener('mouseleave', this.onDragEnd.bind(this), { capture: true });
+      this.addListener(dragTarget, 'mousedown', this.onDragStartHandler, { capture: true });
+      this.addListener(dragTarget, 'mousemove', this.onDragMoveHandler, { capture: true });
+      this.addListener(dragTarget, 'mouseup', this.onDragEndHandler, { capture: true });
+      this.addListener(dragTarget, 'mouseleave', this.onDragEndHandler, { capture: true });
       
       // Prevent image dragging
-      dragTarget.addEventListener('dragstart', (e) => e.preventDefault());
+      this.addListener(dragTarget, 'dragstart', this.onDragPreventHandler);
       
       // Keyboard navigation
       this.wrapper.setAttribute('tabindex', '0');
-      this.wrapper.addEventListener('keydown', (e) => {
+      this.onKeydownHandler = (e) => {
         if (e.key === 'ArrowLeft') this.prev();
         if (e.key === 'ArrowRight') this.next();
-      });
+      };
+      this.addListener(this.wrapper, 'keydown', this.onKeydownHandler);
       
       // Pause autoplay on hover
       if (this.config.autoplay) {
-        this.wrapper.addEventListener('mouseenter', () => this.stopAutoplay());
-        this.wrapper.addEventListener('mouseleave', () => this.startAutoplay());
+        this.onMouseEnterHandler = () => this.stopAutoplay();
+        this.onMouseLeaveHandler = () => this.startAutoplay();
+        this.addListener(this.wrapper, 'mouseenter', this.onMouseEnterHandler);
+        this.addListener(this.wrapper, 'mouseleave', this.onMouseLeaveHandler);
       }
       
       // Resize handler for responsive slidesPerView
-      let resizeTimeout;
-      window.addEventListener('resize', () => {
-        clearTimeout(resizeTimeout);
-        resizeTimeout = setTimeout(() => {
+      this.onResizeHandler = () => {
+        clearTimeout(this.resizeTimeout);
+        this.resizeTimeout = setTimeout(() => {
           this.updateSlidesPerView();
           this.updateSlider();
         }, 100);
+      };
+      this.addListener(window, 'resize', this.onResizeHandler);
+    }
+
+    addListener(target, event, handler, options) {
+      target.addEventListener(event, handler, options);
+      this.eventHandlers.push({ target, event, handler, options });
+    }
+
+    clearDotListeners() {
+      this.dotHandlers.forEach(({ element, handler }) => {
+        element.removeEventListener('click', handler);
       });
+      this.dotHandlers = [];
+    }
+
+    destroy() {
+      this.stopAutoplay();
+      this.clearDotListeners();
+      this.eventHandlers.forEach(({ target, event, handler, options }) => {
+        target.removeEventListener(event, handler, options);
+      });
+      this.eventHandlers = [];
+      clearTimeout(this.resizeTimeout);
+      this.resizeTimeout = null;
     }
     
     updateSlidesPerView() {
@@ -361,7 +402,11 @@
     }
     
     getPositionX(e) {
-      return e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
+      if (e.type.includes('touch')) {
+        const touch = (e.touches && e.touches[0]) || (e.changedTouches && e.changedTouches[0]);
+        return touch ? touch.clientX : 0;
+      }
+      return e.clientX;
     }
     
     getSlideWidth() {
@@ -477,6 +522,27 @@
     };
   }
 
+  function registerInstance(instance, slides, instanceId) {
+    SLIDER_INSTANCES.push({ instance, slides, instanceId });
+  }
+
+  function destroyById(instanceId) {
+    const index = SLIDER_INSTANCES.findIndex(entry => entry.instanceId === instanceId);
+    if (index === -1) return false;
+    SLIDER_INSTANCES[index].instance.destroy();
+    SLIDER_INSTANCES.splice(index, 1);
+    return true;
+  }
+
+  function destroyAll() {
+    SLIDER_INSTANCES.forEach(entry => entry.instance.destroy());
+    SLIDER_INSTANCES.length = 0;
+  }
+
+  function getInstances() {
+    return SLIDER_INSTANCES.map(entry => entry.instance);
+  }
+
   // ==========================================
   // INITIALIZATION
   // ==========================================
@@ -488,10 +554,19 @@
       if (cluster.length >= 1) {
         const instanceId = cluster[0].dataset.sliderId || '';
         const instanceConfig = buildInstanceConfig(instanceId);
-        new Slider(cluster, instanceConfig);
+        const instance = new Slider(cluster, instanceConfig);
+        registerInstance(instance, cluster, instanceId);
       }
     });
   }
+
+  // Expose API for SPA/manual cleanup usage.
+  window.CarrdSlider = {
+    init,
+    destroyAll,
+    destroyById,
+    getInstances
+  };
 
   // Run on DOM ready
   if (document.readyState === 'loading') {
