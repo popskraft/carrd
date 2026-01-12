@@ -75,6 +75,7 @@ window.CarrdPluginOptions.slider = {
     autoplayInterval: 5000,
     gap: 16,
     slidesPerView: 1,
+    equalHeight: true,
     breakpoints: {
         737: { slidesPerView: 3 },   // Tablet/Mobile
         1280: { slidesPerView: 4 }   // Desktop M

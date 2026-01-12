@@ -2,7 +2,7 @@
 
 ## Version
 
-- Version: `0.0.0`
+- Version: `0.1.0`
 - Build date (UTC): `2026-01-12`
 
 ## Quick Start (Beginner-Friendly)

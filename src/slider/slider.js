@@ -30,7 +30,7 @@
     // Responsive slides per view
     slidesPerView: 1,
     peek: 0, // Fraction of next slide to show (e.g. 0.1 for 10%)
-    equalHeight: false, // Stretch slides to same height
+    equalHeight: true, // Stretch slides to same height
     breakpoints: {
       // Tablet/Mobile (737px+)
       737: { slidesPerView: 3 },
