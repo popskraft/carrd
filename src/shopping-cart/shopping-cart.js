@@ -412,7 +412,7 @@
             <div class="crt-overlay" data-action="close"></div>
             <div class="crt-panel">
                 <div class="crt-header">
-                    <h2 class="crt-title">${CONFIG.texts.title}</h2>
+                    <div class="crt-title">${CONFIG.texts.title}</div>
                     <button class="crt-close" data-action="close" aria-label="Close Cart">${ICONS.close}</button>
                 </div>
                 <div class="crt-body"></div>

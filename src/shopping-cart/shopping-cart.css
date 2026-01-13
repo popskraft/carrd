@@ -8,7 +8,7 @@
     position: fixed;
     z-index: 999990;
     background: var(--mini-color-primary-dark, #041838);
-    color: var(--mini-color-white, #ffffff);
+    color: var(#ffffff);
     width: 60px;
     height: 60px;
     border-radius: 50%;
@@ -78,7 +78,7 @@
     font-size: 12px;
     font-weight: bold;
     border: 2px solid var(--mini-shopcart-badge-border, #ffffff);
-    font-family: var(--mini-shopcart-font, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif);
+    font-family: var(--mini-shopcart-font, var(--mini-font-family, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif));
 }
 
 .crt-overlay {
@@ -111,7 +111,7 @@
     transition: transform 0.3s ease-in-out;
     display: flex;
     flex-direction: column;
-    font-family: var(--mini-shopcart-font, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif);
+    font-family: var(--mini-shopcart-font, var(--mini-font-family, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif));
 }
 
 .crt-panel.open {
@@ -126,9 +126,10 @@
     align-items: center;
 }
 
-.crt-header h2 {
+.crt-title {
     margin: 0;
     font-size: 1.25rem;
+    font-weight: bold;
 }
 
 .crt-close {
@@ -263,7 +264,7 @@
     bottom: 90px;
     right: 20px;
     background: var(--mini-shopcart-toast-bg, var(--mini-color-text));
-    color: var(--mini-shopcart-toast-text, var(--mini-color-white));
+    color: var(--mini-shopcart-toast-text, #ffffff);
     padding: 1rem 1.5rem;
     border-radius: var(--mini-shopcart-btn-radius, .125rem);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
@@ -288,6 +289,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+
     .crt-widget,
     .crt-overlay,
     .crt-panel,
