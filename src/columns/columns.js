@@ -189,7 +189,7 @@
         if (column.querySelector('.card-item')) return;
 
         const cardItem = document.createElement('div');
-        cardItem.classList.add('card-item');
+        cardItem.classList.add('theme-card-item');
 
         const specificColor = container.getAttribute(`data-color-${index + 1}`);
         const specificBorderColor = container.getAttribute(`data-border-color-${index + 1}`);

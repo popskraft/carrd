@@ -9,8 +9,8 @@
   --grid-columns: 1;
 
   /* Use theme variables with fallbacks */
-  --local-row-gap: var(--mini-grid-row-gap, 1rem);
-  --local-column-gap: var(--mini-grid-column-gap, 1rem);
+  --local-row-gap: var(--theme-grid-row-gap, 1rem);
+  --local-column-gap: var(--theme-grid-column-gap, 1rem);
 
   --grid-template: repeat(var(--grid-columns), minmax(0, 1fr));
   display: grid;
@@ -22,8 +22,8 @@
 @media (max-width: 736px) {
   .custom-grid-container.grid-sm-2 {
     --grid-columns: 2;
-    --local-row-gap: var(--mini-grid-row-gap, 1rem);
-    --local-column-gap: var(--mini-grid-column-gap-sm, 0.5rem);
+    --local-row-gap: var(--theme-grid-row-gap, 1rem);
+    --local-column-gap: var(--theme-grid-column-gap-sm, 0.5rem);
   }
 }
 
@@ -40,8 +40,8 @@
 
 @media (min-width: 1025px) {
   .custom-grid-container {
-    --local-row-gap: var(--mini-grid-row-gap-desktop, 2rem);
-    --local-column-gap: var(--mini-grid-column-gap-desktop, 1.5rem);
+    --local-row-gap: var(--theme-grid-row-gap-desktop, 2rem);
+    --local-column-gap: var(--theme-grid-column-gap-desktop, 1.5rem);
   }
 
   .custom-grid-container.grid-3,
@@ -57,17 +57,17 @@
 
 @media (min-width: 1280px) {
   .custom-grid-container {
-    --local-column-gap: var(--mini-grid-column-gap-desktop-large, 2rem);
+    --local-column-gap: var(--theme-grid-column-gap-desktop-large, 2rem);
   }
 
   .custom-grid-container.grid-5 {
     --grid-columns: 5;
-    --local-column-gap: var(--mini-grid-column-gap-desktop, 1.5rem);
+    --local-column-gap: var(--theme-grid-column-gap-desktop, 1.5rem);
   }
 
   .custom-grid-container.grid-6 {
     --grid-columns: 6;
-    --local-column-gap: var(--mini-grid-column-gap, 1rem);
+    --local-column-gap: var(--theme-grid-column-gap, 1rem);
   }
 
   .custom-grid-container.custom-grid-container--desktop-widths {
@@ -90,12 +90,12 @@
 }
 
 /* Cards Styles */
-.card-item {
+.theme-card-item {
   /* Padding with fallback to 2rem */
-  padding: var(--mini-card-padding, 2rem);
+  padding: var(--theme-card-padding, 2rem);
 
   /* Border radius will be set by JS via inline style or variable, fallback to 0 */
-  border-radius: var(--mini-card-border-radius, 0);
+  border-radius: var(--theme-card-border-radius, 0);
 
   height: 100%;
   box-sizing: border-box;
@@ -108,8 +108,8 @@
 
 /* Mobile breakpoint for Carrd (usually <= 736px) */
 @media screen and (max-width: 736px) {
-  .card-item {
+  .theme-card-item {
     /* Use mobile padding variable if defined, otherwise fallback to desktop padding */
-    padding: var(--mini-card-padding-mobile, var(--mini-card-padding, 2rem));
+    padding: var(--theme-card-padding-mobile, var(--theme-card-padding, 2rem));
   }
 }

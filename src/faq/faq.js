@@ -75,7 +75,7 @@
       }
 
       const answerWrapper =
-        header.nextElementSibling && header.nextElementSibling.classList.contains('faq-answer')
+        header.nextElementSibling && header.nextElementSibling.classList.contains('theme-faq-answer')
           ? header.nextElementSibling
           : wrapAnswerContent(header, endDivider);
 
@@ -135,7 +135,7 @@
   function wrapAnswerContent(header, endDivider) {
     let node = header.nextSibling;
     const wrapper = document.createElement('div');
-    wrapper.className = 'faq-answer';
+    wrapper.className = 'theme-faq-answer';
     let hasContent = false;
 
     while (node && node !== endDivider) {
@@ -158,7 +158,7 @@
   }
 
   function prepareToggle(header, answer, openByDefault = false) {
-    header.classList.add('faq-question');
+    header.classList.add('theme-faq-question');
     header.dataset.faqBound = 'true';
     
     if (!header.hasAttribute('tabindex')) {

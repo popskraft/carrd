@@ -54,9 +54,9 @@
   
   const SELECTORS = {
     slideSelector: '.slider',
-    wrapperClass: 'slider-wrapper',
-    trackClass: 'slider-track',
-    slideClass: 'slider-slide'
+    wrapperClass: 'theme-slider-wrapper',
+    trackClass: 'theme-slider-track',
+    slideClass: 'theme-slider-slide'
   };
 
   // ==========================================
@@ -147,7 +147,7 @@
     
     createDots() {
       this.dotsContainer = document.createElement('div');
-      this.dotsContainer.className = 'slider-dots';
+      this.dotsContainer.className = 'theme-slider-dots';
       
       // Dots will be regenerated based on slidesPerView
       this.wrapper.appendChild(this.dotsContainer);
@@ -172,7 +172,7 @@
       
       for (let i = 0; i < totalPages; i++) {
         const dot = document.createElement('button');
-        dot.className = 'slider-dot';
+        dot.className = 'theme-slider-dot';
         if (i === this.currentIndex) {
           dot.classList.add('is-active');
         }

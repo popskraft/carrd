@@ -218,7 +218,7 @@
      */
     function createOverlay() {
         overlay = document.createElement('div');
-        overlay.className = 'modal-overlay';
+        overlay.className = 'theme-modal-overlay';
         overlay.setAttribute('aria-hidden', 'true');
         
         if (CONFIG.closeOnOverlay) {
@@ -257,7 +257,7 @@
             // Check if button already exists (to avoid duplicates on re-init)
             if (!modal.querySelector('.modal-close')) {
                 const closeBtn = document.createElement('button');
-                closeBtn.className = 'modal-close';
+                closeBtn.className = 'theme-modal-close';
                 closeBtn.setAttribute('aria-label', 'Close modal');
                 closeBtn.innerHTML = ICONS.close;
                 closeBtn.addEventListener('click', (e) => {

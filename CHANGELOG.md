@@ -7,6 +7,30 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [0.1.4] - 2026-01-14
+
+### Changed
+
+- **Build System**: Extracted minification logic into separate `scripts/minifier.py` module (342 lines)
+  - `minify_plugins.py` reduced from 1120 → 825 lines
+  - Added docstrings and improved code organization
+  - No functional changes — output is byte-for-byte identical
+
+- **BREAKING (CSS only):** Renamed all `mini-` CSS variables to `theme-` prefix for consistency with file naming
+  - CSS variables: `--mini-color-*` → `--theme-color-*`, `--mini-ui-*` → `--theme-ui-*`, etc. (~80 variables)
+  - Utility classes: `.mini-text-body` → `.theme-text-body`, `.mini-icon-button` → `.theme-icon-button` (~15 classes)
+  - Plugin classes: `.slider-dot` → `.theme-slider-dot`, `.faq-question` → `.theme-faq-question`, etc. (~30 classes)
+  - **User-facing selectors unchanged:** `.FAQContainer`, `.slider`, `.cards`, `.grid-*` remain the same
+- Updated all source files (13 files) to use new `theme-` prefix
+- Rebuilt all distribution files with new naming convention
+
+### Fixed
+
+- Improved naming consistency across entire codebase (files, variables, and classes now all use `theme-` prefix)
+- Eliminated confusion between "mini" (small) and "Mini theme" naming
+
+---
+
 ## [0.1.3] - 2026-01-14
 
 ### Changed

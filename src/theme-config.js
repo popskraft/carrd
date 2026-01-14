@@ -42,7 +42,7 @@ window.CarrdPluginOptions.faq = {
 window.CarrdPluginOptions.columns = {
     gridClasses: ['grid-2', 'grid-3', 'grid-4', 'grid-5', 'grid-6'],
     cardSelector: '.cards',
-    defaultCardBg: 'var(--mini-card-bg-default)',
+    defaultCardBg: 'var(--theme-card-bg-default)',
     widthClasses: {
         'w-20': '20%',
         'w-25': '25%',
