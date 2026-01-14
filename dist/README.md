@@ -191,6 +191,18 @@ window.CarrdPluginOptions = {
 <script src="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/mini-core.min.js"></script>
 ```
 
+**Using Configuration File:**
+
+For convenience, use [theme-config.js](./theme-config.js) as a template with all available options:
+
+1. Open `dist/theme-config.js`
+2. Copy desired plugin configurations
+3. Paste into `<script>` block in **BODY END** before plugin scripts
+4. Modify values as needed
+
+> [!IMPORTANT]
+> Configuration must be loaded **before** plugin scripts, otherwise default values will be used.
+
 See all options in [theme-config.js](./theme-config.js) or individual plugin README files.
 
 ---
@@ -254,11 +266,21 @@ For detailed setup, see individual plugin READMEs in `dist/<plugin>/README.md`.
 Optional: if you want a single snippet, open
 `dist/<plugin>/<plugin>-embed.html`, copy everything, and paste it into
 **Hidden → Body End** (replace `<plugin>` with the plugin folder name).
-Note: embeds include `theme-ui.css` for convenience; if you already load it site-wide,
-you can remove the first `<style>` block from the embed.
 
-Important: if you use `window.CarrdPluginOptions`, place it **before** the
-plugin `<script>` tag.
+**Optional Configuration:**
+
+To customize plugin behavior, add `window.CarrdPluginOptions` **before** plugin scripts.  
+See `theme-config.js` for all available options, or copy plugin configurations from there.
+
+```html
+<script>
+window.CarrdPluginOptions = {
+  // Plugin configurations here
+};
+</script>
+<!-- Then load plugins -->
+<script src="..."></script>
+```
 
 ## Glossary
 
@@ -267,6 +289,8 @@ plugin `<script>` tag.
 - Hidden → Body End: Injects JS at the end of `<body>`.
 - Container/Section: The blocks you add in Carrd that can receive classes.
 - Class: A CSS class name you add in Carrd to target elements.
+- theme-config.js: Reference file containing all available plugin configuration options.
+- window.CarrdPluginOptions: JavaScript object for customizing plugin behavior.
 
 ## Troubleshooting
 

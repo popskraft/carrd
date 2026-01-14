@@ -18,11 +18,26 @@
 Optional: if you want a single snippet, open
 `dist/slider/slider-embed.html`, copy everything, and paste it
 into **Hidden → Body End**. Note: you still need `theme-design-tokens.css` in HEAD.
-The embed already includes `theme-ui.css` for convenience; if you already load it site-wide,
-you can remove the first `<style>` block from the embed.
 
-Important: if you use `window.CarrdPluginOptions`, place it **before** the plugin
-`<script>` tag in **Hidden → Body End**.
+**Configuration (Optional):**
+
+To customize plugin behavior, add `window.CarrdPluginOptions` **before** plugin scripts:
+
+```html
+<!-- BODY END: Configuration -->
+<script>
+window.CarrdPluginOptions = {
+  slider: {
+    // See Configuration section below for all options
+  }
+};
+</script>
+
+<!-- BODY END: Plugin script -->
+<script src="...slider.min.js"></script>
+```
+
+For all available options, see [theme-config.js](../theme-config.js) or the Configuration section below.
 
 ---
 
@@ -216,6 +231,7 @@ window.CarrdPluginOptions = {
 - **Styles look broken or missing colors:** Make sure `theme-design-tokens.css` and `theme-ui.css` are loaded **before** the plugin CSS.
 - Nothing happens: confirm the class name or selector in **Carrd Admin Settings** matches your Carrd elements.
 - Styles missing: CSS must be in **Hidden → Head**, not in **Body End**.
-- Config not applied: `window.CarrdPluginOptions` must appear **before** the plugin script.
+- Config not applied: `window.CarrdPluginOptions` must be defined **before** the plugin `<script>` tag. Check browser console for errors.
+- To see all available options: open `dist/theme-config.js` or check the Configuration section.
 - Embed not available: you may need a Carrd plan that supports **Embed → Code**.
 - CDN blocked: try opening the CDN URL directly and confirm it loads.

@@ -188,6 +188,18 @@ window.CarrdPluginOptions = {
 <script src="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/mini-core.min.js"></script>
 ```
 
+**Using Configuration File:**
+
+For convenience, use [theme-config.js](dist/theme-config.js) as a template with all available options:
+
+1. Open `dist/theme-config.js`
+2. Copy desired plugin configurations
+3. Paste into `<script>` block in **BODY END** before plugin scripts
+4. Modify values as needed
+
+> [!IMPORTANT]
+> Configuration must be loaded **before** plugin scripts, otherwise default values will be used.
+
 See all options in [theme-config.js](dist/theme-config.js) or individual plugin README files.
 
 ---
