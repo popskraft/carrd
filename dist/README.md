@@ -1,3 +1,11 @@
+## Version
+
+- Version: `0.1.3`
+- Build date (UTC): `2026-01-14`
+- [View Changelog](CHANGELOG.md)
+
+---
+
 # Carrd Plugins (Mini Theme)
 
 ## Version
@@ -128,21 +136,16 @@ Each plugin includes a ready-to-use embed file combining CSS + JS.
 
 ## Included Plugins
 
-| Plugin | Path | Included in mini-core? |
-| :--- | :--- | :---: |
-| **Shopping Cart** | `dist/shopping-cart/` | ✅ |
-| **FAQ** | `dist/faq/` | ✅ |
-| **Columns** | `dist/columns/` | ✅ |
-| **Modal** | `dist/modal/` | ✅ |
-| **Slider** | `dist/slider/` | ✅ |
-| **No-loadwaiting** | `dist/no-loadwaiting/` | ❌ Standalone only |
+| Plugin | Feature |
+|--------|---------|
+| **Columns** | `dist/columns/` |
+| **FAQ** | `dist/faq/` |
+| **Modal** | `dist/modal/` |
+| **No-loadwaiting** | `dist/no-loadwaiting/` |
+| **Shopping Cart** | `dist/shopping-cart/` |
+| **Slider** | `dist/slider/` |
 
-Each plugin folder contains:
-
-- `README.md` - Detailed documentation
-- `<plugin>.min.css` - Standalone CSS
-- `<plugin>.min.js` - Standalone JS
-- `<plugin>-embed.html` - Ready-to-use embed file
+Note: `no-loadwaiting` is not included in the `mini-core` bundle. Use its standalone script.
 
 ---
 
@@ -162,7 +165,7 @@ Override design tokens by adding a `<style>` block in **HEAD** after theme files
 </style>
 ```
 
-See all available variables in [theme-design-tokens.css](dist/theme-design-tokens.css).
+See all available variables in [theme-design-tokens.css](./theme-design-tokens.css).
 
 ### Plugin Options (JavaScript)
 
@@ -188,7 +191,7 @@ window.CarrdPluginOptions = {
 <script src="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/mini-core.min.js"></script>
 ```
 
-See all options in [theme-config.js](dist/theme-config.js) or individual plugin README files.
+See all options in [theme-config.js](./theme-config.js) or individual plugin README files.
 
 ---
 
@@ -236,3 +239,39 @@ For detailed setup, see individual plugin READMEs in `dist/<plugin>/README.md`.
 | **Console errors** | Check browser DevTools Console for specific error messages |
 
 **Still stuck?** Check individual plugin README: `dist/<plugin>/README.md`
+
+
+---
+
+## Step-by-Step for Beginners (Quick Summary)
+
+1. In Carrd, click **+ Add Element**.
+2. Choose **Embed → Code**.
+3. Add the **CSS** snippet in **Hidden → Head**.
+4. Add the **JS** snippet in **Hidden → Body End**.
+5. Publish the site and refresh the page.
+
+Optional: if you want a single snippet, open
+`dist/<plugin>/<plugin>-embed.html`, copy everything, and paste it into
+**Hidden → Body End** (replace `<plugin>` with the plugin folder name).
+Note: embeds include `theme-ui.css` for convenience; if you already load it site-wide,
+you can remove the first `<style>` block from the embed.
+
+Important: if you use `window.CarrdPluginOptions`, place it **before** the
+plugin `<script>` tag.
+
+## Glossary
+
+- Embed → Code: Carrd element for pasting HTML snippets.
+- Hidden → Head: Injects CSS or metadata in the document `<head>`.
+- Hidden → Body End: Injects JS at the end of `<body>`.
+- Container/Section: The blocks you add in Carrd that can receive classes.
+- Class: A CSS class name you add in Carrd to target elements.
+
+## Troubleshooting
+
+- Nothing happens: confirm the class name or selector matches your Carrd elements.
+- Styles missing: CSS must be in **Hidden → Head**, not in **Body End**.
+- Config not applied: `window.CarrdPluginOptions` must appear **before** the plugin script.
+- Embed not available: you need a Carrd plan that supports **Embed → Code**.
+- CDN blocked: open the CDN URL directly to confirm it loads.

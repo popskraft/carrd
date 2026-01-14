@@ -54,7 +54,7 @@ window.CarrdPluginOptions = {
     --mini-card-padding: 2rem;
     --mini-card-padding-mobile: 1rem;
     --mini-card-border-radius: 0;
-    --mini-card-bg-default: #f5f5f5;
+    --mini-card-bg-default: var(--mini-color-primary-light);
     --mini-grid-row-gap: 1rem;
     --mini-grid-column-gap: 1rem;
     --mini-grid-row-gap-desktop: 2rem;

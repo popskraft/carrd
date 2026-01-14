@@ -41,7 +41,7 @@
 .modal-overlay {
   position: fixed;
   inset: 0;
-  background: var(--mini-modal-overlay-bg, var(--mini-overlay-bg, rgba(218, 225, 228, 0.792)));
+  background: var(--mini-modal-overlay-bg, var(--mini-overlay-bg));
   backdrop-filter: blur(0);
   -webkit-backdrop-filter: blur(0);
   z-index: 1000000;
@@ -97,35 +97,11 @@
   top: var(--mini-modal-close-top, 1rem);
   right: var(--mini-modal-close-right, 1rem);
   z-index: 10;
-  width: var(--mini-modal-close-size, 40px);
-  height: var(--mini-modal-close-size, 40px);
   padding: 0;
-  border: none;
-  border-radius: 50%;
-  background: var(--mini-modal-close-bg, #ffffff);
-  color: var(--mini-modal-close-color, currentColor);
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background 0.2s ease, transform 0.2s ease;
-}
-
-.modal-close:hover {
-  background: var(--mini-modal-close-hover-bg, #f5f5f5);
-  transform: scale(1.1);
 }
 
 .modal-close:focus {
   outline: none;
-}
-
-.modal-close svg {
-  width: 24px;
-  height: 24px;
-  stroke: currentColor;
-  stroke-width: 2;
-  fill: none;
 }
 
 /* ==========================================

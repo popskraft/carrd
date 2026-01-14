@@ -1,5 +1,61 @@
 # Slider
 
+## Version
+
+- Version: `0.1.3`
+- Build date (UTC): `2026-01-14`
+
+## Quick Start (Beginner-Friendly)
+
+> **Note:** This plugin requires `theme-design-tokens.css` and `theme-ui.css` to be loaded first. These files contain essential CSS variables and shared UI styles used by all Mini theme plugins.
+
+1. In Carrd, click **+ Add Element**.
+2. Choose **Embed → Code**.
+3. In **Hidden → Head**, add the **Theme CSS** first, then the **Theme UI CSS**, then the **Plugin CSS** (see **Installation** below).
+4. In **Hidden → Body End**, add the **Plugin JS** (see **Installation** below).
+5. Publish the site and refresh the page.
+
+Optional: if you want a single snippet, open
+`dist/slider/slider-embed.html`, copy everything, and paste it
+into **Hidden → Body End**. Note: you still need `theme-design-tokens.css` in HEAD.
+The embed already includes `theme-ui.css` for convenience; if you already load it site-wide,
+you can remove the first `<style>` block from the embed.
+
+Important: if you use `window.CarrdPluginOptions`, place it **before** the plugin
+`<script>` tag in **Hidden → Body End**.
+
+---
+
+## Installation
+
+### As Part of Mini Theme
+
+```html
+<!-- HEAD -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/theme-design-tokens.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/theme-ui.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/mini-core.min.css">
+
+<!-- BODY END -->
+<script src="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/mini-core.min.js"></script>
+```
+
+### Standalone
+
+<!-- HEAD -->
+```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/theme-design-tokens.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/theme-ui.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/slider/slider.min.css">
+```
+
+<!-- BODY END -->
+```html
+<script src="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/slider/slider.min.js"></script>
+```
+
+---
+
 Horizontal slider/carousel from consecutive Carrd containers with responsive slides per view.
 
 ## Features
@@ -152,3 +208,14 @@ window.CarrdPluginOptions = {
     }
 };
 ```
+
+---
+
+## Troubleshooting
+
+- **Styles look broken or missing colors:** Make sure `theme-design-tokens.css` and `theme-ui.css` are loaded **before** the plugin CSS.
+- Nothing happens: confirm the class name or selector in **Carrd Admin Settings** matches your Carrd elements.
+- Styles missing: CSS must be in **Hidden → Head**, not in **Body End**.
+- Config not applied: `window.CarrdPluginOptions` must appear **before** the plugin script.
+- Embed not available: you may need a Carrd plan that supports **Embed → Code**.
+- CDN blocked: try opening the CDN URL directly and confirm it loads.

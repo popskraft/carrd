@@ -1,0 +1,92 @@
+/*
+ * File: Carrd Theme Variables
+ * Version: 0.0.0
+ * Purpose: Required CSS variables for Mini theme plugins.
+ * Admin placement: Code element in HEAD (load before plugin CSS).
+ */
+:root {
+  /* Colors */
+  --mini-color-primary: #EF4444;
+  --mini-color-primary-hover: #AD3624;
+  --mini-color-primary-dark: #041838;
+  --mini-color-primary-light: #f5f5f5;
+  --mini-color-text: #5D6878;
+  --mini-color-border: #efefef;
+  --mini-color-danger: #EF4444;
+  --mini-color-success: #10b981;
+  --mini-color-black: #000000;
+  --mini-color-bg: #ffffff;
+  --mini-color-accent: var(--mini-color-primary);
+  --mini-overlay-bg: rgba(218, 225, 228, 0.792);
+
+  /* Typography */
+  --mini-font-family: "Wix Madefor Display", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --mini-font-size-base: 16px;
+  --mini-line-height-base: 1.6;
+  --mini-text-size: var(--mini-font-size-base);
+  --mini-text-line-height: var(--mini-line-height-base);
+  --mini-text-body-color: var(--mini-color-text);
+  --mini-text-color: var(--mini-text-body-color);
+  --mini-text-muted-color: #8A94A6;
+  --mini-text-title-color: var(--mini-color-text);
+  --mini-text-title-size: 1.25rem;
+  --mini-text-title-weight: 600;
+  --mini-text-title-line-height: 1.3;
+  --mini-text-small-size: 0.875rem;
+  --mini-text-label-size: 0.8125rem;
+  --mini-text-label-letter-spacing: 0.02em;
+
+  /* Buttons */
+  --mini-btn-primary-bg: var(--mini-color-primary);
+  --mini-btn-primary-hover-bg: var(--mini-color-primary-hover);
+  --mini-btn-text: #ffffff;
+
+  /* Links */
+  --mini-link-color: var(--mini-color-primary);
+  --mini-link-hover-color: var(--mini-color-primary-hover);
+
+  /* UI Controls */
+  --mini-ui-control-size: 40px;
+  --mini-ui-control-radius: 999px;
+  --mini-ui-control-bg: var(--mini-color-bg);
+  --mini-ui-control-bg-hover: var(--mini-color-primary-light);
+  --mini-ui-control-color: var(--mini-color-text);
+  --mini-ui-control-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  --mini-ui-icon-size: 20px;
+  --mini-ui-icon-stroke: 2;
+
+  /* UI Dots */
+  --mini-ui-dot-size: 10px;
+  --mini-ui-dot-bg: rgba(0, 0, 0, 0.2);
+  --mini-ui-dot-hover-bg: rgba(0, 0, 0, 0.4);
+  --mini-ui-dot-active-bg: var(--mini-color-primary);
+
+  /* UI Surfaces */
+  --mini-ui-surface-muted: rgba(227, 228, 230, 0.2);
+  --mini-ui-surface-muted-hover: rgba(227, 228, 230, 0.4);
+
+  /* Slider Defaults */
+  --mini-slider-dot-size: var(--mini-ui-dot-size);
+  --mini-slider-dot-bg: var(--mini-ui-dot-bg);
+  --mini-slider-dot-hover-bg: var(--mini-ui-dot-hover-bg);
+  --mini-slider-dot-active-bg: var(--mini-ui-dot-active-bg);
+  --mini-slider-dots-margin: 1rem;
+  --mini-slider-dots-margin-mobile: 0.75rem;
+  --mini-slider-arrow-size: var(--mini-ui-control-size);
+  --mini-slider-arrow-bg: var(--mini-ui-control-bg);
+  --mini-slider-arrow-hover-bg: var(--mini-ui-control-bg-hover);
+  --mini-slider-arrow-color: var(--mini-ui-control-color);
+  --mini-slider-arrow-radius: var(--mini-ui-control-radius);
+  --mini-slider-arrow-shadow: var(--mini-ui-control-shadow);
+  --mini-slider-arrow-offset: 0.5rem;
+  --mini-slider-arrow-icon-size: var(--mini-ui-icon-size);
+
+  /* Modal Defaults */
+  --mini-modal-close-size: var(--mini-ui-control-size);
+  --mini-modal-close-bg: var(--mini-ui-control-bg);
+  --mini-modal-close-hover-bg: var(--mini-ui-control-bg-hover);
+  --mini-modal-close-color: var(--mini-ui-control-color);
+  --mini-modal-close-radius: var(--mini-ui-control-radius);
+  --mini-modal-close-icon-size: 24px;
+  --mini-modal-close-icon-stroke: var(--mini-ui-icon-stroke);
+}

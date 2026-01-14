@@ -13,7 +13,7 @@
 }
 
 .FAQContainer .faq-question:focus-visible {
-  outline: 2px solid var(--mini-color-primary, #5c9dff);
+  outline: 2px solid var(--mini-color-primary);
   outline-offset: 4px;
 }
 
@@ -25,7 +25,7 @@
   transform: translateY(-50%);
   font-size: var(--mini-faq-icon-size, 1.75rem);
   line-height: 1;
-  color: var(--mini-faq-icon-color, var(--mini-color-primary, #5c9dff));
+  color: var(--mini-faq-icon-color, var(--mini-color-primary));
   transition: transform 0.3s ease;
   font-weight: 400;
 }
