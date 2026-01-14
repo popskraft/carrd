@@ -1,6 +1,6 @@
 /*
  * Plugin: Slider
- * Version: 0.0.0
+ * Version: 0.1.6
  * Purpose: Slider/carousel behavior for consecutive `.slider` containers.
  * Admin placement: Code element in BODY END.
  *

@@ -1,6 +1,6 @@
 /*
  * File: Carrd Plugin Config
- * Version: 0.1.4
+ * Version: 0.1.6
  * Purpose: Global options for Carrd plugins.
  * Admin placement: Code element in HEAD before plugin scripts.
  */

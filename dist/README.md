@@ -1,6 +1,6 @@
 ## Version
 
-- Version: `0.1.4`
+- Version: `0.1.6`
 - Build date (UTC): `2026-01-14`
 - [View Changelog](CHANGELOG.md)
 
