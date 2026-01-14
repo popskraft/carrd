@@ -2,12 +2,12 @@
 
 ## Version
 
-- Version: `0.1.5`
+- Version: `0.1.4`
 - Build date (UTC): `2026-01-14`
 
 ## Quick Start (Beginner-Friendly)
 
-> **Note:** This plugin requires `theme-design-tokens.css` and `theme-ui.css` to be loaded first. These files contain essential CSS variables and shared UI styles used by all Mini theme plugins.
+> **Note:** This plugin requires `theme-design-tokens.css` and `theme-ui.css` to be loaded first. These files contain essential CSS variables and shared UI styles used by all theme plugins.
 
 1. In Carrd, click **+ Add Element**.
 2. Choose **Embed → Code**.
@@ -17,7 +17,7 @@
 
 Optional: if you want a single snippet, open
 `dist/columns/columns-embed.html`, copy everything, and paste it
-into **Hidden → Body End**. Note: you still need `theme-design-tokens.css` in HEAD.
+into **Hidden → Body End**. Note: you still need `theme-design-tokens.css` and `theme-ui.css` in HEAD.
 
 **Configuration (Optional):**
 
@@ -49,10 +49,10 @@ For all available options, see [theme-config.js](../theme-config.js) or the Conf
 <!-- HEAD -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/theme-design-tokens.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/theme-ui.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/mini-core.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/theme-core.min.css">
 
 <!-- BODY END -->
-<script src="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/mini-core.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/theme-core.min.js"></script>
 ```
 
 ### Standalone
@@ -92,7 +92,7 @@ window.CarrdPluginOptions = {
     columns: {
         gridClasses: ['grid-2', 'grid-3', 'grid-4', 'grid-5', 'grid-6'],
         cardSelector: '.cards',
-        defaultCardBg: 'var(--mini-card-bg-default)',
+        defaultCardBg: 'var(--theme-card-bg-default)',
         widthClasses: {
             'w-20': '20%',
             'w-25': '25%',
@@ -122,14 +122,14 @@ window.CarrdPluginOptions = {
 
 ```css
 :root {
-    --mini-card-padding: 2rem;
-    --mini-card-padding-mobile: 1rem;
-    --mini-card-border-radius: 0;
-    --mini-card-bg-default: var(--mini-color-primary-light);
-    --mini-grid-row-gap: 1rem;
-    --mini-grid-column-gap: 1rem;
-    --mini-grid-row-gap-desktop: 2rem;
-    --mini-grid-column-gap-desktop: 1.5rem;
+    --theme-card-padding: 2rem;
+    --theme-card-padding-mobile: 1rem;
+    --theme-card-border-radius: 0;
+    --theme-card-bg-default: var(--theme-color-primary-light);
+    --theme-grid-row-gap: 1rem;
+    --theme-grid-column-gap: 1rem;
+    --theme-grid-row-gap-desktop: 2rem;
+    --theme-grid-column-gap-desktop: 1.5rem;
 }
 ```
 

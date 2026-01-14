@@ -84,20 +84,20 @@ breakpoints: {
 ```css
 :root {
     /* Navigation dots */
-    --mini-slider-dot-size: var(--mini-ui-dot-size);
-    --mini-slider-dot-bg: var(--mini-ui-dot-bg);
-    --mini-slider-dot-hover-bg: var(--mini-ui-dot-hover-bg);
-    --mini-slider-dot-active-bg: var(--mini-ui-dot-active-bg);
-    --mini-slider-dots-margin: 1rem;
+    --theme-slider-dot-size: var(--theme-ui-dot-size);
+    --theme-slider-dot-bg: var(--theme-ui-dot-bg);
+    --theme-slider-dot-hover-bg: var(--theme-ui-dot-hover-bg);
+    --theme-slider-dot-active-bg: var(--theme-ui-dot-active-bg);
+    --theme-slider-dots-margin: 1rem;
     
     /* Navigation arrows */
-    --mini-slider-arrow-size: var(--mini-ui-control-size);
-    --mini-slider-arrow-bg: var(--mini-ui-control-bg);
-    --mini-slider-arrow-color: var(--mini-ui-control-color);
-    --mini-slider-arrow-shadow: var(--mini-ui-control-shadow);
-    --mini-slider-arrow-radius: var(--mini-ui-control-radius);
-    --mini-slider-arrow-icon-size: var(--mini-ui-icon-size);
-    --mini-slider-arrow-offset: 0.5rem;
+    --theme-slider-arrow-size: var(--theme-ui-control-size);
+    --theme-slider-arrow-bg: var(--theme-ui-control-bg);
+    --theme-slider-arrow-color: var(--theme-ui-control-color);
+    --theme-slider-arrow-shadow: var(--theme-ui-control-shadow);
+    --theme-slider-arrow-radius: var(--theme-ui-control-radius);
+    --theme-slider-arrow-icon-size: var(--theme-ui-icon-size);
+    --theme-slider-arrow-offset: 0.5rem;
 }
 ```
 

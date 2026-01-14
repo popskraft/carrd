@@ -76,11 +76,11 @@ CartPlugin.checkout();              // Trigger checkout
 
 ```css
 :root {
-    --mini-shopcart-bg: var(--mini-color-bg);
-    --mini-shopcart-text: var(--mini-color-text);
-    --mini-shopcart-accent: var(--mini-color-primary);
-    --mini-shopcart-btn-bg: var(--mini-color-success);
-    --mini-shopcart-overlay-bg: var(--mini-overlay-bg);
+    --theme-shopcart-bg: var(--theme-color-bg);
+    --theme-shopcart-text: var(--theme-color-text);
+    --theme-shopcart-accent: var(--theme-color-primary);
+    --theme-shopcart-btn-bg: var(--theme-color-success);
+    --theme-shopcart-overlay-bg: var(--theme-overlay-bg);
 }
 ```
 

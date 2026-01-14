@@ -15,6 +15,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - `minify_plugins.py` reduced from 1120 → 825 lines
   - Added docstrings and improved code organization
   - No functional changes — output is byte-for-byte identical
+- **Naming**: Renamed bundle files `mini-core.min.js/css` → `theme-core.min.js/css` for consistency
+  - All documentation updated with new bundle names
 
 - **BREAKING (CSS only):** Renamed all `mini-` CSS variables to `theme-` prefix for consistency with file naming
   - CSS variables: `--mini-color-*` → `--theme-color-*`, `--mini-ui-*` → `--theme-ui-*`, etc. (~80 variables)
@@ -42,7 +44,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Documentation**: Added Quick Start guide for beginners.
 - **Documentation**: Added Glossary section explaining Carrd-specific terminology.
 - **Documentation**: Added comprehensive Troubleshooting section.
-- **Documentation**: Enhanced Included Plugins table with mini-core bundle information.
+- **Documentation**: Enhanced Included Plugins table with theme-core bundle information.
 - **Documentation**: Clarified that `theme-design-tokens.css` and `theme-ui.css` are required for all installation methods.
 
 ---
@@ -86,6 +88,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **No-loadwaiting** plugin to skip Carrd's loading animation.
 - **Modal** plugin for popup/lightbox functionality.
 - **Slider** plugin with touch/drag support, navigation dots, and arrows.
-- Unified `mini-core.min.js` and `mini-core.min.css` bundles.
+- Unified `theme-core.min.js` and `theme-core.min.css` bundles.
 - Theme customization via CSS variables (`--mini-*`).
 - JS configuration via `window.CarrdPluginOptions`.

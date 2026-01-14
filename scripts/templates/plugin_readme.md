@@ -1,9 +1,9 @@
-# No-loadwaiting
+# [[PLUGIN_TITLE]]
 
 ## Version
 
-- Version: `0.1.4`
-- Build date (UTC): `2026-01-14`
+- Version: `[[VERSION]]`
+- Build date (UTC): `[[BUILD_DATE]]`
 
 ## Quick Start (Beginner-Friendly)
 
@@ -16,7 +16,7 @@
 5. Publish the site and refresh the page.
 
 Optional: if you want a single snippet, open
-`dist/no-loadwaiting/no-loadwaiting-embed.html`, copy everything, and paste it
+`dist/[[PLUGIN_SLUG]]/[[PLUGIN_SLUG]]-embed.html`, copy everything, and paste it
 into **Hidden → Body End**. Note: you still need `theme-design-tokens.css` and `theme-ui.css` in HEAD.
 
 **Configuration (Optional):**
@@ -27,73 +27,25 @@ To customize plugin behavior, add `window.CarrdPluginOptions` **before** plugin 
 <!-- BODY END: Configuration -->
 <script>
 window.CarrdPluginOptions = {
-  no-loadwaiting: {
+  [[PLUGIN_SLUG]]: {
     // See Configuration section below for all options
   }
 };
 </script>
 
 <!-- BODY END: Plugin script -->
-<script src="...no-loadwaiting.min.js"></script>
+<script src="...[[PLUGIN_SLUG]].min.js"></script>
 ```
 
 For all available options, see [theme-config.js](../theme-config.js) or the Configuration section below.
 
 ---
 
-## Installation
-
-### Standalone
-
-<!-- HEAD -->
-```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/theme-design-tokens.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/theme-ui.css">
-```
-
-<!-- BODY END -->
-```html
-<script src="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/no-loadwaiting/no-loadwaiting.min.js"></script>
-```
+[[INSTALLATION_SECTION]]
 
 ---
 
-Instant page display without Carrd's loading delay.
-
-## Features
-- **Faster FCP**: Fixes Lighthouse NO_FCP warning
-- **Smooth Animations**: Entry animations still work
-- **Automatic**: No setup required
-
-## Carrd Admin Settings
-
-No admin steps required. Install the script and publish.
-
-## Configuration
-
-```html
-<script>
-window.CarrdPluginOptions = {
-    noLoadwaiting: {
-        animationDuration: 750,
-        observerTimeout: 5000,
-        scrollPulseInterval: 60,
-        scrollPulseCount: 10,
-        rafPulseCount: 4
-    }
-};
-</script>
-```
-
-### Options
-
-| Option | Default | Description |
-|--------|---------|-------------|
-| `animationDuration` | `750` | Duration for `is-playing` class (ms) |
-| `observerTimeout` | `5000` | Stop watching for changes after (ms) |
-| `scrollPulseInterval` | `60` | Check interval for scroll/resize fix (ms) |
-| `scrollPulseCount` | `10` | Number of check intervals |
-| `rafPulseCount` | `4` | Number of animation frame checks |
+[[PLUGIN_BODY]]
 
 ---
 

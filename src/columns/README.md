@@ -21,7 +21,7 @@ window.CarrdPluginOptions = {
     columns: {
         gridClasses: ['grid-2', 'grid-3', 'grid-4', 'grid-5', 'grid-6'],
         cardSelector: '.cards',
-        defaultCardBg: 'var(--mini-card-bg-default)',
+        defaultCardBg: 'var(--theme-card-bg-default)',
         widthClasses: {
             'w-20': '20%',
             'w-25': '25%',
@@ -51,14 +51,14 @@ window.CarrdPluginOptions = {
 
 ```css
 :root {
-    --mini-card-padding: 2rem;
-    --mini-card-padding-mobile: 1rem;
-    --mini-card-border-radius: 0;
-    --mini-card-bg-default: var(--mini-color-primary-light);
-    --mini-grid-row-gap: 1rem;
-    --mini-grid-column-gap: 1rem;
-    --mini-grid-row-gap-desktop: 2rem;
-    --mini-grid-column-gap-desktop: 1.5rem;
+    --theme-card-padding: 2rem;
+    --theme-card-padding-mobile: 1rem;
+    --theme-card-border-radius: 0;
+    --theme-card-bg-default: var(--theme-color-primary-light);
+    --theme-grid-row-gap: 1rem;
+    --theme-grid-column-gap: 1rem;
+    --theme-grid-row-gap-desktop: 2rem;
+    --theme-grid-column-gap-desktop: 1.5rem;
 }
 ```
 

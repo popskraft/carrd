@@ -43,8 +43,8 @@ window.CarrdPluginOptions = {
 
 ```css
 :root {
-    --mini-faq-spacing: 0.75rem;
-    --mini-faq-icon-size: 1.75rem;
-    --mini-faq-icon-color: var(--mini-color-primary);
+    --theme-faq-spacing: 0.75rem;
+    --theme-faq-icon-size: 1.75rem;
+    --theme-faq-icon-color: var(--theme-color-primary);
 }
 ```

@@ -18,7 +18,7 @@
   const DEFAULTS = {
     gridClasses: ['grid-2', 'grid-3', 'grid-4', 'grid-5', 'grid-6'],
     cardSelector: '.cards',
-    defaultCardBg: 'var(--mini-card-bg-default)',
+    defaultCardBg: 'var(--theme-card-bg-default)',
     widthClasses: {
       'w-20': '20%',
       'w-25': '25%',
@@ -207,7 +207,7 @@
 
         // Border Radius
         if (borderRadius && borderRadius !== '0px') {
-          cardItem.style.setProperty('--mini-card-border-radius', borderRadius);
+          cardItem.style.setProperty('--theme-card-border-radius', borderRadius);
         }
 
         // Border
@@ -232,10 +232,10 @@
 
         // Padding
         if (dataPadding) {
-          cardItem.style.setProperty('--mini-card-padding', dataPadding);
+          cardItem.style.setProperty('--theme-card-padding', dataPadding);
         }
         if (dataPaddingMobile) {
-          cardItem.style.setProperty('--mini-card-padding-mobile', dataPaddingMobile);
+          cardItem.style.setProperty('--theme-card-padding-mobile', dataPaddingMobile);
         }
 
         // Move content

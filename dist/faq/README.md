@@ -2,12 +2,12 @@
 
 ## Version
 
-- Version: `0.1.5`
+- Version: `0.1.4`
 - Build date (UTC): `2026-01-14`
 
 ## Quick Start (Beginner-Friendly)
 
-> **Note:** This plugin requires `theme-design-tokens.css` and `theme-ui.css` to be loaded first. These files contain essential CSS variables and shared UI styles used by all Mini theme plugins.
+> **Note:** This plugin requires `theme-design-tokens.css` and `theme-ui.css` to be loaded first. These files contain essential CSS variables and shared UI styles used by all theme plugins.
 
 1. In Carrd, click **+ Add Element**.
 2. Choose **Embed → Code**.
@@ -17,7 +17,7 @@
 
 Optional: if you want a single snippet, open
 `dist/faq/faq-embed.html`, copy everything, and paste it
-into **Hidden → Body End**. Note: you still need `theme-design-tokens.css` in HEAD.
+into **Hidden → Body End**. Note: you still need `theme-design-tokens.css` and `theme-ui.css` in HEAD.
 
 **Configuration (Optional):**
 
@@ -49,10 +49,10 @@ For all available options, see [theme-config.js](../theme-config.js) or the Conf
 <!-- HEAD -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/theme-design-tokens.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/theme-ui.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/mini-core.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/theme-core.min.css">
 
 <!-- BODY END -->
-<script src="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/mini-core.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/theme-core.min.js"></script>
 ```
 
 ### Standalone
@@ -114,9 +114,9 @@ window.CarrdPluginOptions = {
 
 ```css
 :root {
-    --mini-faq-spacing: 0.75rem;
-    --mini-faq-icon-size: 1.75rem;
-    --mini-faq-icon-color: var(--mini-color-primary);
+    --theme-faq-spacing: 0.75rem;
+    --theme-faq-icon-size: 1.75rem;
+    --theme-faq-icon-color: var(--theme-color-primary);
 }
 ```
 

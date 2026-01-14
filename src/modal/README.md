@@ -99,25 +99,25 @@ ModalPlugin.isOpen('modalContact'); // Specific modal
 ```css
 :root {
     /* Overlay */
-    --mini-modal-overlay-bg: var(--mini-overlay-bg);
+    --theme-modal-overlay-bg: var(--theme-overlay-bg);
     
     /* Modal Box */
-    --mini-modal-max-width: 600px;
-    --mini-modal-max-height: 90vh;
-    --mini-modal-padding: 1rem;
+    --theme-modal-max-width: 600px;
+    --theme-modal-max-height: 90vh;
+    --theme-modal-padding: 1rem;
     
     /* Close Button */
-    --mini-modal-close-size: var(--mini-ui-control-size);
-    --mini-modal-close-bg: var(--mini-ui-control-bg);
-    --mini-modal-close-hover-bg: var(--mini-ui-control-bg-hover);
-    --mini-modal-close-color: var(--mini-ui-control-color);
-    --mini-modal-close-top: 1rem;
-    --mini-modal-close-right: 1rem;
+    --theme-modal-close-size: var(--theme-ui-control-size);
+    --theme-modal-close-bg: var(--theme-ui-control-bg);
+    --theme-modal-close-hover-bg: var(--theme-ui-control-bg-hover);
+    --theme-modal-close-color: var(--theme-ui-control-color);
+    --theme-modal-close-top: 1rem;
+    --theme-modal-close-right: 1rem;
     
     /* Mobile */
-    --mini-modal-padding-mobile: 0.5rem;
-    --mini-modal-max-height-mobile: 85vh;
-    --mini-modal-border-radius-mobile: 1rem 1rem 0 0;
+    --theme-modal-padding-mobile: 0.5rem;
+    --theme-modal-max-height-mobile: 85vh;
+    --theme-modal-border-radius-mobile: 1rem 1rem 0 0;
 }
 ```
 
@@ -128,9 +128,9 @@ Add these variables to `theme-design-tokens.css`:
 ```css
 :root {
     /* Modal */
-    --mini-modal-overlay-bg: var(--mini-overlay-bg);
-    --mini-modal-max-width: 600px;
-    --mini-modal-close-bg: var(--mini-ui-control-bg);
-    --mini-modal-close-hover-bg: var(--mini-ui-control-bg-hover);
+    --theme-modal-overlay-bg: var(--theme-overlay-bg);
+    --theme-modal-max-width: 600px;
+    --theme-modal-close-bg: var(--theme-ui-control-bg);
+    --theme-modal-close-hover-bg: var(--theme-ui-control-bg-hover);
 }
 ```

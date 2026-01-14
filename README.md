@@ -57,13 +57,13 @@ Load all plugins at once (excludes no-loadwaiting).
 ```html
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/theme-design-tokens.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/theme-ui.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/mini-core.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/theme-core.min.css">
 ```
 
 **BODY END:**
 
 ```html
-<script src="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/mini-core.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/theme-core.min.js"></script>
 ```
 
 > [!NOTE]
@@ -109,7 +109,7 @@ Each plugin includes a ready-to-use embed file combining CSS + JS.
 > ```
 
 > [!TIP]
-> Embed files include `theme-ui.css` inline. If you already load it site-wide, remove the first `<style>` block from the embed.
+> Embed files include only the plugin CSS/JS. You still need to load `theme-design-tokens.css` and `theme-ui.css` in HEAD.
 
 ---
 
@@ -128,7 +128,7 @@ Each plugin includes a ready-to-use embed file combining CSS + JS.
 
 ## Included Plugins
 
-| Plugin | Path | Included in mini-core? |
+| Plugin | Path | Included in theme-core? |
 | :--- | :--- | :---: |
 | **Shopping Cart** | `dist/shopping-cart/` | ✅ |
 | **FAQ** | `dist/faq/` | ✅ |
@@ -155,9 +155,9 @@ Override design tokens by adding a `<style>` block in **HEAD** after theme files
 ```html
 <style>
 :root {
-  --mini-color-primary: #ff0000;
-  --mini-card-padding: 3rem;
-  --mini-font-family: 'Your Custom Font', sans-serif;
+  --theme-color-primary: #ff0000;
+  --theme-card-padding: 3rem;
+  --theme-font-family: 'Your Custom Font', sans-serif;
 }
 </style>
 ```
@@ -185,7 +185,7 @@ window.CarrdPluginOptions = {
 };
 </script>
 <!-- THEN load plugin scripts -->
-<script src="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/mini-core.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/theme-core.min.js"></script>
 ```
 
 **Using Configuration File:**

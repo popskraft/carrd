@@ -2,12 +2,12 @@
 
 ## Version
 
-- Version: `0.1.5`
+- Version: `0.1.4`
 - Build date (UTC): `2026-01-14`
 
 ## Quick Start (Beginner-Friendly)
 
-> **Note:** This plugin requires `theme-design-tokens.css` and `theme-ui.css` to be loaded first. These files contain essential CSS variables and shared UI styles used by all Mini theme plugins.
+> **Note:** This plugin requires `theme-design-tokens.css` and `theme-ui.css` to be loaded first. These files contain essential CSS variables and shared UI styles used by all theme plugins.
 
 1. In Carrd, click **+ Add Element**.
 2. Choose **Embed → Code**.
@@ -17,7 +17,7 @@
 
 Optional: if you want a single snippet, open
 `dist/modal/modal-embed.html`, copy everything, and paste it
-into **Hidden → Body End**. Note: you still need `theme-design-tokens.css` in HEAD.
+into **Hidden → Body End**. Note: you still need `theme-design-tokens.css` and `theme-ui.css` in HEAD.
 
 **Configuration (Optional):**
 
@@ -49,10 +49,10 @@ For all available options, see [theme-config.js](../theme-config.js) or the Conf
 <!-- HEAD -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/theme-design-tokens.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/theme-ui.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/mini-core.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/theme-core.min.css">
 
 <!-- BODY END -->
-<script src="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/mini-core.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/theme-core.min.js"></script>
 ```
 
 ### Standalone
@@ -170,25 +170,25 @@ ModalPlugin.isOpen('modalContact'); // Specific modal
 ```css
 :root {
     /* Overlay */
-    --mini-modal-overlay-bg: var(--mini-overlay-bg);
+    --theme-modal-overlay-bg: var(--theme-overlay-bg);
     
     /* Modal Box */
-    --mini-modal-max-width: 600px;
-    --mini-modal-max-height: 90vh;
-    --mini-modal-padding: 1rem;
+    --theme-modal-max-width: 600px;
+    --theme-modal-max-height: 90vh;
+    --theme-modal-padding: 1rem;
     
     /* Close Button */
-    --mini-modal-close-size: var(--mini-ui-control-size);
-    --mini-modal-close-bg: var(--mini-ui-control-bg);
-    --mini-modal-close-hover-bg: var(--mini-ui-control-bg-hover);
-    --mini-modal-close-color: var(--mini-ui-control-color);
-    --mini-modal-close-top: 1rem;
-    --mini-modal-close-right: 1rem;
+    --theme-modal-close-size: var(--theme-ui-control-size);
+    --theme-modal-close-bg: var(--theme-ui-control-bg);
+    --theme-modal-close-hover-bg: var(--theme-ui-control-bg-hover);
+    --theme-modal-close-color: var(--theme-ui-control-color);
+    --theme-modal-close-top: 1rem;
+    --theme-modal-close-right: 1rem;
     
     /* Mobile */
-    --mini-modal-padding-mobile: 0.5rem;
-    --mini-modal-max-height-mobile: 85vh;
-    --mini-modal-border-radius-mobile: 1rem 1rem 0 0;
+    --theme-modal-padding-mobile: 0.5rem;
+    --theme-modal-max-height-mobile: 85vh;
+    --theme-modal-border-radius-mobile: 1rem 1rem 0 0;
 }
 ```
 
@@ -199,10 +199,10 @@ Add these variables to `theme-design-tokens.css`:
 ```css
 :root {
     /* Modal */
-    --mini-modal-overlay-bg: var(--mini-overlay-bg);
-    --mini-modal-max-width: 600px;
-    --mini-modal-close-bg: var(--mini-ui-control-bg);
-    --mini-modal-close-hover-bg: var(--mini-ui-control-bg-hover);
+    --theme-modal-overlay-bg: var(--theme-overlay-bg);
+    --theme-modal-max-width: 600px;
+    --theme-modal-close-bg: var(--theme-ui-control-bg);
+    --theme-modal-close-hover-bg: var(--theme-ui-control-bg-hover);
 }
 ```
 
