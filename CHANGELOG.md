@@ -7,6 +7,31 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [0.1.8a] - 2026-01-24
+
+### Added
+
+- **Cookie Banner**: Added animation for smoother appearance.
+- **Cookie Banner**: Added configuration options `showDelay` (default: 1000ms) and `fadeInDuration` (default: 400ms).
+- **QA**: Added automated workflows for code quality checks (`/css-consistency-check`, `/plugin-check`).
+
+### Fixed
+
+- **Slider**: Fixed bug where dot indicators would not update on mobile swipe (incorrect CSS selector).
+- **Slider**: Refactored internally to use consistent `SELECTORS` constants for all class names.
+- **Slider**: Updated CSS classes to use consistent `theme-` prefix (`.theme-slider-nav`, `.theme-slider-dot`).
+
+## [0.1.7] - 2026-01-15
+
+### Changed
+
+- **Typography**: Simplified `README.md` documentation
+  - Removed CSS variables section (tokens are no longer in final build)
+  - Removed unused configuration options (`paragraphSelector`, `wrapperClass`)
+  - Emphasized `.txt` class requirement for plugin activation
+
+---
+
 ## [0.1.5] - 2026-01-14
 
 ### Changed

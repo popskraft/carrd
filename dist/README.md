@@ -1,7 +1,7 @@
 ## Version
 
-- Version: `0.1.6`
-- Build date (UTC): `2026-01-14`
+- Version: `0.1.8a`
+- Build date (UTC): `2026-01-24`
 - [View Changelog](CHANGELOG.md)
 
 ---
@@ -139,11 +139,13 @@ Each plugin includes a ready-to-use embed file combining CSS + JS.
 | Plugin | Feature |
 |--------|---------|
 | **Columns** | `dist/columns/` |
+| **Cookie Banner** | `dist/cookie-banner/` |
 | **FAQ** | `dist/faq/` |
 | **Modal** | `dist/modal/` |
 | **No-loadwaiting** | `dist/no-loadwaiting/` |
 | **Shopping Cart** | `dist/shopping-cart/` |
 | **Slider** | `dist/slider/` |
+| **Typography** | `dist/typography/` |
 
 Note: `no-loadwaiting` is not included in the `theme-core` bundle. Use its standalone script.
 

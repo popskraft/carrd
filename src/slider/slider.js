@@ -1,6 +1,6 @@
 /*
  * Plugin: Slider
- * Version: 0.1.6
+ * Version: 0.1.8aaa
  * Purpose: Slider/carousel behavior for consecutive `.slider` containers.
  * Admin placement: Code element in BODY END.
  *
@@ -56,7 +56,12 @@
     slideSelector: '.slider',
     wrapperClass: 'theme-slider-wrapper',
     trackClass: 'theme-slider-track',
-    slideClass: 'theme-slider-slide'
+    slideClass: 'theme-slider-slide',
+    dotsContainerClass: 'theme-slider-dots',
+    dotClass: 'theme-slider-dot',
+    navClass: 'theme-slider-nav',
+    navPrevClass: 'theme-slider-nav--prev',
+    navNextClass: 'theme-slider-nav--next'
   };
 
   // ==========================================
@@ -147,7 +152,7 @@
     
     createDots() {
       this.dotsContainer = document.createElement('div');
-      this.dotsContainer.className = 'theme-slider-dots';
+      this.dotsContainer.className = SELECTORS.dotsContainerClass;
       
       // Dots will be regenerated based on slidesPerView
       this.wrapper.appendChild(this.dotsContainer);
@@ -172,7 +177,7 @@
       
       for (let i = 0; i < totalPages; i++) {
         const dot = document.createElement('button');
-        dot.className = 'theme-slider-dot';
+        dot.className = SELECTORS.dotClass;
         if (i === this.currentIndex) {
           dot.classList.add('is-active');
         }
@@ -186,13 +191,13 @@
         this.dotsContainer.appendChild(dot);
       }
       
-      this.dots = this.dotsContainer.querySelectorAll('.slider-dot');
+      this.dots = this.dotsContainer.querySelectorAll('.' + SELECTORS.dotClass);
     }
     
     createArrows() {
       // Previous button
       this.prevBtn = document.createElement('button');
-      this.prevBtn.className = 'slider-nav slider-nav--prev';
+      this.prevBtn.className = SELECTORS.navClass + ' ' + SELECTORS.navPrevClass;
       this.prevBtn.setAttribute('aria-label', 'Previous slide');
       this.prevBtn.innerHTML = ICONS.prev;
       this.prevHandler = () => this.prev();
@@ -200,7 +205,7 @@
       
       // Next button
       this.nextBtn = document.createElement('button');
-      this.nextBtn.className = 'slider-nav slider-nav--next';
+      this.nextBtn.className = SELECTORS.navClass + ' ' + SELECTORS.navNextClass;
       this.nextBtn.setAttribute('aria-label', 'Next slide');
       this.nextBtn.innerHTML = ICONS.next;
       this.nextHandler = () => this.next();

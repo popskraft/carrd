@@ -1,6 +1,6 @@
 /*
  * Plugin: Modal
- * Version: 0.1.6
+ * Version: 0.1.8aaa
  * Purpose: Modal open/close behavior with accessibility handling.
  * Admin placement: Code element in BODY END.
  */
@@ -58,7 +58,7 @@
                 return;
             }
             const id = modalId.replace(/^#/, '');
-            const modal = modalWrappers.get(id);
+            const modal = getOrInitModal(id);
             
             if (!modal) {
                 console.warn(`Modal: No modal found with id "${id}"`);
@@ -73,7 +73,10 @@
             // Store previous focus to restore later
             this.lastFocus = document.activeElement;
             
-            // Ensure overlay sits with the active modal to avoid stacking issues
+            // Ensure overlay exists and sits with the active modal to avoid stacking issues
+            if (!overlay) {
+                createOverlay();
+            }
             ensureOverlayPlacement(modal);
 
             // Open overlay
@@ -257,7 +260,7 @@
             // Check if button already exists (to avoid duplicates on re-init)
             if (!modal.querySelector('.modal-close')) {
                 const closeBtn = document.createElement('button');
-                closeBtn.className = 'theme-modal-close';
+                closeBtn.className = 'theme-modal-close modal-close';
                 closeBtn.setAttribute('aria-label', 'Close modal');
                 closeBtn.innerHTML = ICONS.close;
                 closeBtn.addEventListener('click', (e) => {
@@ -291,8 +294,8 @@
      * Bind click handlers for modal triggers
      */
     function bindTriggers() {
-        // Use event delegation for better performance
-        document.addEventListener('click', (e) => {
+        // Use event delegation for better performance (capture to beat Carrd's handlers)
+        const handler = (e) => {
             const trigger = e.target.closest('a[href^="#"], button[data-modal]');
             if (!trigger) return;
             
@@ -304,7 +307,7 @@
                 if (href && href.startsWith('#') && href.length > 1) {
                     const targetId = href.substring(1);
                     // Check if this ID corresponds to a modal
-                    if (modalWrappers.has(targetId)) {
+                    if (getOrInitModal(targetId)) {
                         modalId = targetId;
                     }
                 }
@@ -319,7 +322,25 @@
                 e.preventDefault();
                 ModalAPI.open(modalId);
             }
-        });
+        };
+        document.addEventListener('click', handler, true);
+    }
+
+    /**
+     * Open modal from hash (supports Carrd hash-based navigation)
+     */
+    function bindHashChange() {
+        const openFromHash = () => {
+            const hash = window.location.hash || '';
+            if (hash.length <= 1) return;
+            const id = hash.substring(1);
+            if (getOrInitModal(id)) {
+                ModalAPI.open(id);
+            }
+        };
+
+        window.addEventListener('hashchange', openFromHash);
+        openFromHash();
     }
 
     /**
@@ -342,21 +363,37 @@
     function init() {
         // Find all modal containers
         const modals = document.querySelectorAll(CONFIG.modalSelector);
-        
-        if (!modals.length) return;
-        
-        // Create shared overlay
-        createOverlay();
-        
+
         // Setup each modal
         modals.forEach(modal => {
             if (modal.dataset.modalInitialized === 'true') return;
             setupModal(modal);
         });
+
+        if (modals.length && !overlay) {
+            createOverlay();
+        }
         
         // Bind event handlers
         bindTriggers();
         bindKeyboard();
+        bindHashChange();
+    }
+
+    /**
+     * Fetch or initialize a modal by ID.
+     * @param {string} modalId - The modal ID without hash.
+     * @returns {HTMLElement|null}
+     */
+    function getOrInitModal(modalId) {
+        if (modalWrappers.has(modalId)) {
+            return modalWrappers.get(modalId);
+        }
+        const modal = document.getElementById(modalId);
+        if (modal && modal.matches && modal.matches(CONFIG.modalSelector)) {
+            return setupModal(modal);
+        }
+        return null;
     }
 
     // Run on DOM ready

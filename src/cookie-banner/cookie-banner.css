@@ -1,0 +1,52 @@
+/**
+ * Plugin: Cookie Banner
+ * Styles for the cookie consent banner
+ * 
+ * Main styles (size, color, fonts) are inherited from the Columns block in Carrd.
+ * This file only handles positioning and animations.
+ */
+
+/* ===========================================
+   BASE BANNER STYLES
+   =========================================== */
+
+#cookie-baner {
+  /* Positioning is set via JS for flexibility */
+  position: fixed;
+  z-index: 9999;
+
+  /* Fade-in animation */
+  opacity: 0;
+  animation: cookieBannerFadeIn 0.4s ease forwards;
+}
+
+/* ===========================================
+   ANIMATIONS
+   =========================================== */
+
+@keyframes cookieBannerFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(1rem);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===========================================
+   RESPONSIVE (mobile devices)
+   =========================================== */
+
+@media screen and (max-width: 736px) {
+  #cookie-baner {
+    /* On mobile — full width with padding */
+    left: 0.5rem !important;
+    right: 0.5rem !important;
+    max-width: calc(100vw - 1rem) !important;
+    transform: none !important;
+    /* Reset centering */
+  }
+}

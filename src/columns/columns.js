@@ -1,6 +1,6 @@
 /*
  * Plugin: Columns
- * Version: 0.1.6
+ * Version: 0.1.8aaa
  * Purpose: Grid cluster wrapping and card styling.
  * Admin placement: Code element in BODY END.
  *
