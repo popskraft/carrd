@@ -1,11 +1,11 @@
 /* Grid Cluster Styles */
 /*
  * Plugin: Columns
- * Version: 0.1.8aaaaaaaaaaaaaa
+ * Version: 0.1.9aaaaaaaaaaaaaaaaaaaaa
  * Purpose: Grid and card visual styles.
  * Admin placement: Code element in HEAD.
  */
-.custom-grid-container {
+.theme-columns-grid {
   --grid-columns: 1;
 
   /* Use theme variables with fallbacks */
@@ -20,7 +20,7 @@
 }
 
 @media (max-width: 736px) {
-  .custom-grid-container.grid-sm-2 {
+  .theme-columns-grid.grid-sm-2 {
     --grid-columns: 2;
     --local-row-gap: var(--theme-grid-row-gap, 1rem);
     --local-column-gap: var(--theme-grid-column-gap-sm, 0.5rem);
@@ -29,62 +29,62 @@
 
 @media (min-width: 737px) {
 
-  .custom-grid-container.grid-2,
-  .custom-grid-container.grid-3,
-  .custom-grid-container.grid-4,
-  .custom-grid-container.grid-5,
-  .custom-grid-container.grid-6 {
+  .theme-columns-grid.grid-2,
+  .theme-columns-grid.grid-3,
+  .theme-columns-grid.grid-4,
+  .theme-columns-grid.grid-5,
+  .theme-columns-grid.grid-6 {
     --grid-columns: 2;
   }
 }
 
 @media (min-width: 1025px) {
-  .custom-grid-container {
+  .theme-columns-grid {
     --local-row-gap: var(--theme-grid-row-gap-desktop, 2rem);
     --local-column-gap: var(--theme-grid-column-gap-desktop, 1.5rem);
   }
 
-  .custom-grid-container.grid-3,
-  .custom-grid-container.grid-5,
-  .custom-grid-container.grid-6 {
+  .theme-columns-grid.grid-3,
+  .theme-columns-grid.grid-5,
+  .theme-columns-grid.grid-6 {
     --grid-columns: 3;
   }
 
-  .custom-grid-container.grid-4 {
+  .theme-columns-grid.grid-4 {
     --grid-columns: 4;
   }
 }
 
 @media (min-width: 1280px) {
-  .custom-grid-container {
+  .theme-columns-grid {
     --local-column-gap: var(--theme-grid-column-gap-desktop-large, 2rem);
   }
 
-  .custom-grid-container.grid-5 {
+  .theme-columns-grid.grid-5 {
     --grid-columns: 5;
     --local-column-gap: var(--theme-grid-column-gap-desktop, 1.5rem);
   }
 
-  .custom-grid-container.grid-6 {
+  .theme-columns-grid.grid-6 {
     --grid-columns: 6;
     --local-column-gap: var(--theme-grid-column-gap, 1rem);
   }
 
-  .custom-grid-container.custom-grid-container--desktop-widths {
-    --grid-template: var(--custom-desktop-template);
+  .theme-columns-grid.theme-columns-grid--desktop-widths {
+    --grid-template: var(--theme-columns-desktop-template);
   }
 }
 
-.custom-grid-container>.container-component {
+.theme-columns-grid>.container-component {
   overflow: hidden;
   margin: 0;
 }
 
-.custom-grid-container+.custom-grid-container {
+.theme-columns-grid+.theme-columns-grid {
   margin-top: var(--local-row-gap);
 }
 
-.custom-grid-container .image-component>.frame.constrain-width {
+.theme-columns-grid .image-component>.frame.theme-columns-constrain {
   width: auto !important;
   max-width: 100%;
 }

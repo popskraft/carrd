@@ -7,6 +7,34 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [Unreleased]
+
+## [0.1.9] - 2026-02-06
+
+### Changed
+
+- **Public API**: Unified plugin globals to `window.Carrd<Plugin>` format for runtime consistency:
+  - `window.CarrdShoppingCart`
+  - `window.CarrdModal`
+  - `window.CarrdTypography`
+  - `window.CarrdSlider`
+- **Shopping Cart**: Replaced inline template styles with CSS classes to keep styles centralized.
+- **Typography**: Migrated default classes to plugin-scoped naming (`theme-typography-*`) for namespace safety.
+
+### Fixed
+
+- **Shopping Cart**: Removed hardcoded widget foreground color and switched to tokenized value `--theme-shopcart-widget-color`.
+
+### Breaking
+
+- **Public API**: Removed legacy global aliases:
+  - `window.CartPlugin`
+  - `window.CarrdCart`
+  - `window.ModalPlugin`
+  - `window.TypographyPlugin`
+  - Use the new `window.Carrd<Plugin>` globals instead.
+- **Typography CSS classes**: Replaced generic classes (`theme-h1`, `theme-ul`, `theme-hr`, etc.) with plugin-scoped classes (`theme-typography-h1`, `theme-typography-ul`, `theme-typography-hr`, etc.).
+
 ## [0.1.8a] - 2026-01-24
 
 ### Added

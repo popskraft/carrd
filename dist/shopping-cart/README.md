@@ -2,8 +2,8 @@
 
 ## Version
 
-- Version: `0.1.8a`
-- Build date (UTC): `2026-02-05`
+- Version: `0.1.9`
+- Build date (UTC): `2026-02-06`
 
 ## Quick Start (Beginner-Friendly)
 
@@ -83,7 +83,7 @@ Floating cart widget with native Carrd form integration.
 1. Create a **Form** element with ID `form-shopping-cart` (optional, for semantics)
 2. Add a **Textarea** field with **Name** set to `order-details` (or ID `order-details`)
 3. Create a **Section** named `#shopping-cart`
-4. Use `CartPlugin.add('Product', Price)` in button On Click
+4. Use `CarrdShoppingCart.add('Product', Price)` in button On Click
 
 ## Configuration
 
@@ -132,15 +132,15 @@ window.CarrdPluginOptions = {
 ## JavaScript API
 
 ```javascript
-CartPlugin.add('Product', 29.99);  // Add item
-CartPlugin.remove('Product');       // Remove item
-CartPlugin.updateQty('Product', 1); // Change quantity
-CartPlugin.clear();                 // Clear cart
-CartPlugin.getCart();               // Get all items
-CartPlugin.getTotal();              // Get total price
-CartPlugin.open();                  // Open panel
-CartPlugin.close();                 // Close panel
-CartPlugin.checkout();              // Trigger checkout
+CarrdShoppingCart.add('Product', 29.99);  // Add item
+CarrdShoppingCart.remove('Product');       // Remove item
+CarrdShoppingCart.updateQty('Product', 1); // Change quantity
+CarrdShoppingCart.clear();                 // Clear cart
+CarrdShoppingCart.getCart();               // Get all items
+CarrdShoppingCart.getTotal();              // Get total price
+CarrdShoppingCart.open();                  // Open panel
+CarrdShoppingCart.close();                 // Close panel
+CarrdShoppingCart.checkout();              // Trigger checkout
 ```
 
 ## CSS Variables

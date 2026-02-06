@@ -1,6 +1,6 @@
 /*
  * Plugin: Typography
- * Version: 0.1.8aaaaaaaaaaaaaa
+ * Version: 0.1.9aaaaaaaaaaaaaaaaaaaaa
  * Purpose: Parse pseudo-Markdown syntax in .txt containers and convert to semantic HTML.
  * Admin placement: Code element in BODY END.
  *
@@ -13,7 +13,7 @@
  *   - Item        → <ul><li>
  *   1. Item       → <ol><li>
  */
-(function () {
+(function() {
   'use strict';
 
   // Default configuration
@@ -21,17 +21,17 @@
     containerSelector: '.txt',
     paragraphSelector: 'span.p',
     headingClasses: {
-      h1: 'theme-h1',
-      h2: 'theme-h2',
-      h3: 'theme-h3',
-      h4: 'theme-h4'
+      h1: 'theme-typography-h1',
+      h2: 'theme-typography-h2',
+      h3: 'theme-typography-h3',
+      h4: 'theme-typography-h4'
     },
     listClasses: {
-      ul: 'theme-ul',
-      ol: 'theme-ol',
-      li: 'theme-li'
+      ul: 'theme-typography-ul',
+      ol: 'theme-typography-ol',
+      li: 'theme-typography-li'
     },
-    hrClass: 'theme-hr'
+    hrClass: 'theme-typography-hr'
   };
 
   // Merge with external options
@@ -136,8 +136,8 @@
     containers.forEach(processContainer);
   }
 
-  // Expose API
-  window.TypographyPlugin = {
+  // Expose public API
+  window.CarrdTypography = {
     init,
     process: processContainer,
     parseContent

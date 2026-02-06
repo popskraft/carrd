@@ -28,13 +28,50 @@ Responsive typography with Markdown-like parsing for `.txt` containers.
 | `- Item` | `<ul><li>Item</li></ul>` |
 | `1. Item` | `<ol><li>Item</li></ol>` |
 
+## Configuration
+
+```html
+<script>
+window.CarrdPluginOptions = {
+    typography: {
+        containerSelector: '.txt',
+        paragraphSelector: 'span.p',
+        headingClasses: { h1: 'theme-typography-h1', h2: 'theme-typography-h2', h3: 'theme-typography-h3', h4: 'theme-typography-h4' },
+        listClasses: { ul: 'theme-typography-ul', ol: 'theme-typography-ol', li: 'theme-typography-li' },
+        hrClass: 'theme-typography-hr'
+    }
+};
+</script>
+```
+
+### Options
+
+| Option | Default | Description |
+|--------|---------|-------------|
+| `containerSelector` | `.txt` | Selector for text containers |
+| `paragraphSelector` | `span.p` | Selector for paragraph spans |
+| `headingClasses` | `{ h1: 'theme-typography-h1', ... }` | CSS classes for headings |
+| `listClasses` | `{ ul: 'theme-typography-ul', ... }` | CSS classes for lists |
+| `hrClass` | `'theme-typography-hr'` | CSS class for horizontal rules |
+
 ## JavaScript API
 
 ```javascript
 // Re-initialize all containers
-TypographyPlugin.init();
+CarrdTypography.init();
 
 // Process a specific container
 const el = document.querySelector('.txt');
-TypographyPlugin.process(el);
+CarrdTypography.process(el);
 ```
+
+## CSS Variables
+
+```css
+:root {
+    --theme-color-headlines: #19355A;
+    --theme-color-border: #efefef;
+}
+```
+
+Typography uses shared theme tokens from `theme-design-tokens.css`. Headings inherit `--theme-color-headlines`, horizontal rules use `--theme-color-border`.

@@ -1,9 +1,8 @@
-/**
+/*
  * Plugin: Cookie Banner
- * Styles for the cookie consent banner
- * 
- * Main styles (size, color, fonts) are inherited from the Columns block in Carrd.
- * This file only handles positioning and animations.
+ * Version: 0.1.9aaaaaaaaaaaaaaaaaaaaa
+ * Purpose: Cookie consent banner positioning and animations.
+ * Admin placement: Code element in HEAD.
  */
 
 /* ===========================================
@@ -48,5 +47,12 @@
     max-width: calc(100vw - 1rem) !important;
     transform: none !important;
     /* Reset centering */
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #cookie-baner {
+    animation: none;
+    transition: none;
   }
 }

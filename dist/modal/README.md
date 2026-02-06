@@ -2,8 +2,8 @@
 
 ## Version
 
-- Version: `0.1.8a`
-- Build date (UTC): `2026-02-05`
+- Version: `0.1.9`
+- Build date (UTC): `2026-02-06`
 
 ## Quick Start (Beginner-Friendly)
 
@@ -152,17 +152,17 @@ window.CarrdPluginOptions = {
 
 ```javascript
 // Open a modal
-ModalPlugin.open('modalContact');
+CarrdModal.open('modalContact');
 
 // Close current modal
-ModalPlugin.close();
+CarrdModal.close();
 
 // Toggle modal
-ModalPlugin.toggle('modalContact');
+CarrdModal.toggle('modalContact');
 
 // Check if modal is open
-ModalPlugin.isOpen(); // Any modal
-ModalPlugin.isOpen('modalContact'); // Specific modal
+CarrdModal.isOpen(); // Any modal
+CarrdModal.isOpen('modalContact'); // Specific modal
 ```
 
 ## CSS Variables

@@ -38,21 +38,21 @@ window.CarrdPluginOptions = {
 
 ```css
 :root {
-    --mini-header-nav-toggle-top: 0.75rem;
-    --mini-header-nav-toggle-right: 0.75rem;
-    --mini-header-nav-toggle-size: 2.5rem;
-    --mini-header-nav-toggle-radius: 0.5rem;
-    --mini-header-nav-toggle-bg: transparent;
-    --mini-header-nav-toggle-outline: 2px solid currentColor;
-    --mini-header-nav-toggle-outline-offset: 2px;
+    --theme-header-nav-toggle-top: 0.75rem;
+    --theme-header-nav-toggle-right: 0.75rem;
+    --theme-header-nav-toggle-size: 2.5rem;
+    --theme-header-nav-toggle-radius: 0.5rem;
+    --theme-header-nav-toggle-bg: transparent;
+    --theme-header-nav-toggle-outline: 2px solid currentColor;
+    --theme-header-nav-toggle-outline-offset: 2px;
 
-    --mini-header-nav-bar-width: 22px;
-    --mini-header-nav-bar-height: 2px;
-    --mini-header-nav-bar-gap: 5px;
-    --mini-header-nav-bar-radius: 999px;
-    --mini-header-nav-bar-color: currentColor;
+    --theme-header-nav-bar-width: 22px;
+    --theme-header-nav-bar-height: 2px;
+    --theme-header-nav-bar-gap: 5px;
+    --theme-header-nav-bar-radius: 999px;
+    --theme-header-nav-bar-color: currentColor;
 
-    --mini-header-nav-duration: 300ms;
-    --mini-header-nav-max-height: 60vh;
+    --theme-header-nav-duration: 300ms;
+    --theme-header-nav-max-height: 60vh;
 }
 ```

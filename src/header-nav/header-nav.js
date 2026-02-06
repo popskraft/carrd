@@ -1,6 +1,6 @@
 /*
  * Plugin: Header Nav
- * Version: 0.1.8aaaaaaaaaaa
+ * Version: 0.1.9aaaaaaaaaaaaaaaaaaaaa
  * Purpose: Mobile hamburger toggle for #site-header navigation.
  * Admin placement: Code element in BODY END.
  */
@@ -64,8 +64,8 @@
 
     header.dataset.headerNavInitialized = 'true';
     header.classList.add(CLASSES.root);
-    header.style.setProperty('--mini-header-nav-duration', CONFIG.animationDuration + 'ms');
-    header.style.setProperty('--mini-header-nav-max-height', CONFIG.navMaxHeight);
+    header.style.setProperty('--theme-header-nav-duration', CONFIG.animationDuration + 'ms');
+    header.style.setProperty('--theme-header-nav-max-height', CONFIG.navMaxHeight);
     const initialHeaderHeight = header.style.height;
     const initialHeaderMaxHeight = header.style.maxHeight;
 
@@ -84,7 +84,7 @@
         header.style.maxHeight = 'none';
         const navHeight = nav.scrollHeight;
         if (navHeight) {
-          header.style.setProperty('--mini-header-nav-max-height', navHeight + 'px');
+          header.style.setProperty('--theme-header-nav-max-height', navHeight + 'px');
         }
       } else {
         header.style.height = initialHeaderHeight;

@@ -1,11 +1,11 @@
 /*
  * Plugin: No Load Waiting
- * Version: 0.1.8aaaaaaaaaaaaaa
+ * Version: 0.1.9aaaaaaaaaaaaaaaaaaaaa
  * Purpose: Mark the page ready immediately and skip loader delays.
  * Admin placement: Code element in BODY END.
  */
-(function () {
-  "use strict";
+(function() {
+  'use strict';
 
   // ==========================================
   // CONFIGURATION
@@ -55,35 +55,35 @@
     const body = getBody();
     if (!body) return;
 
-    body.classList.remove("is-loading", "with-loader");
+    body.classList.remove('is-loading', 'with-loader');
 
-    if (!body.classList.contains("is-ready")) {
+    if (!body.classList.contains('is-ready')) {
       // Add is-ready immediately so Lighthouse sees visible content (fixes NO_FCP)
-      body.classList.add("is-ready");
+      body.classList.add('is-ready');
 
       // Trigger Carrd's entry animations via is-playing class
-      body.classList.add("is-playing");
-      setTimeout(function () {
-        body.classList.remove("is-playing");
+      body.classList.add('is-playing');
+      setTimeout(function() {
+        body.classList.remove('is-playing');
       }, CONFIG.animationDuration);
     }
   }
 
   function hideLoaderIfPresent() {
-    const loader = document.getElementById("loader");
+    const loader = document.getElementById('loader');
     if (!loader) return false;
 
     // Instead of removing, we just hide it.
     // This prevents "NotFoundError: Failed to execute 'removeChild'" if Carrd's native script
     // tries to remove it later.
-    loader.style.cssText = "display:none !important; visibility:hidden !important; opacity:0 !important; pointer-events:none !important;";
+    loader.style.cssText = 'display:none !important; visibility:hidden !important; opacity:0 !important; pointer-events:none !important;';
     return true;
   }
 
   function kickScrollHandlers() {
     let pulses = 0;
 
-    const timer = setInterval(function () {
+    const timer = setInterval(function() {
       if (++pulses >= CONFIG.scrollPulseCount) {
         clearInterval(timer);
         return;
@@ -100,8 +100,8 @@
 
   function dispatchLayoutEvents() {
     try {
-      window.dispatchEvent(new Event("resize"));
-      window.dispatchEvent(new Event("scroll"));
+      window.dispatchEvent(new Event('resize'));
+      window.dispatchEvent(new Event('scroll'));
     } catch (e) {
       /* ignore */
     }
@@ -111,13 +111,13 @@
     const body = getBody();
     if (!body) return;
 
-    const classObserver = new MutationObserver(function () {
-      if (body.classList.contains("with-loader")) {
-        body.classList.remove("with-loader");
+    const classObserver = new MutationObserver(function() {
+      if (body.classList.contains('with-loader')) {
+        body.classList.remove('with-loader');
       }
     });
 
-    const childObserver = new MutationObserver(function () {
+    const childObserver = new MutationObserver(function() {
       if (hideLoaderIfPresent()) {
         childObserver.disconnect();
       }
@@ -125,11 +125,11 @@
 
     classObserver.observe(body, {
       attributes: true,
-      attributeFilter: ["class"],
+      attributeFilter: ['class'],
     });
     childObserver.observe(body, { childList: true });
 
-    setTimeout(function () {
+    setTimeout(function() {
       classObserver.disconnect();
       childObserver.disconnect();
     }, CONFIG.observerTimeout);
@@ -145,12 +145,12 @@
       setupObservers();
       kickScrollHandlers();
     } catch (e) {
-      console.warn("early-animate-override failed:", e);
+      console.warn('early-animate-override failed:', e);
     }
   }
 
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", init, { once: true });
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init, { once: true });
   } else {
     init();
   }

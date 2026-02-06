@@ -1,6 +1,6 @@
 /*
  * File: Carrd Plugin Config
- * Version: 0.1.8aaaaaaaaaaaaaa
+ * Version: 0.1.9aaaaaaaaaaaaaaaaaaaaa
  * Purpose: Global options for Carrd plugins.
  * Admin placement: Code element in HEAD before plugin scripts.
  */
@@ -80,4 +80,41 @@ window.CarrdPluginOptions.slider = {
         737: { slidesPerView: 3 },   // Tablet/Mobile
         1280: { slidesPerView: 4 }   // Desktop M
     }
+};
+
+/* Modal */
+window.CarrdPluginOptions.modal = {
+    modalSelector: '.container-component.modal',
+    closeOnOverlay: true,
+    closeOnEscape: true,
+    showCloseButton: true,
+    lockBodyScroll: true,
+    preventWhenCartOpen: false
+};
+
+/* Typography */
+window.CarrdPluginOptions.typography = {
+    containerSelector: '.txt',
+    paragraphSelector: 'span.p'
+};
+
+/* Cookie Banner */
+window.CarrdPluginOptions.cookieBanner = {
+    bannerId: 'cookie-baner',
+    cookieName: 'cookies_accepted',
+    cookieDays: 7,
+    fadeOutDuration: 300,
+    fadeInDuration: 400,
+    showDelay: 1000,
+    position: 'bottom-left'
+};
+
+/* Header Nav */
+window.CarrdPluginOptions.headerNav = {
+    headerId: 'site-header',
+    navId: 'site-header-nav',
+    breakpoint: 736,
+    closeOnLinkClick: true,
+    navMaxHeight: '60vh',
+    animationDuration: 300
 };

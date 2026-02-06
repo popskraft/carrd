@@ -1,6 +1,6 @@
 /*
  * Plugin: Columns
- * Version: 0.1.8aaaaaaaaaaaaaa
+ * Version: 0.1.9aaaaaaaaaaaaaaaaaaaaa
  * Purpose: Grid cluster wrapping and card styling.
  * Admin placement: Code element in BODY END.
  *
@@ -38,6 +38,13 @@
     window.CarrdPluginOptions.columns) || {};
     
   const CONFIG = { ...DEFAULTS, ...externalOptions };
+  const SELECTORS = {
+    gridContainer: 'theme-columns-grid',
+    desktopWidths: 'theme-columns-grid--desktop-widths',
+    constrainWidth: 'theme-columns-constrain',
+    cardItem: 'theme-card-item',
+    imageFrameInGrid: '.theme-columns-grid .image-component > .frame'
+  };
 
   // ==========================================
   // GRID CLUSTER LOGIC
@@ -69,7 +76,7 @@
     if (!cluster.length || !cluster[0].parentNode) return;
 
     const container = document.createElement('div');
-    const classList = ['custom-grid-container'];
+    const classList = [SELECTORS.gridContainer];
     
     if (gridSize && gridSize >= 2) {
       classList.push(`grid-${gridSize}`);
@@ -93,17 +100,17 @@
     if (!columnWidths.some(Boolean)) return;
 
     const templateParts = columnWidths.map(value => value || 'minmax(0, 1fr)');
-    container.classList.add('custom-grid-container--desktop-widths');
-    container.style.setProperty('--custom-desktop-template', templateParts.join(' '));
+    container.classList.add(SELECTORS.desktopWidths);
+    container.style.setProperty('--theme-columns-desktop-template', templateParts.join(' '));
   }
 
   function constrainImageFrames() {
-    document.querySelectorAll('.custom-grid-container .image-component > .frame').forEach(frame => {
+    document.querySelectorAll(SELECTORS.imageFrameInGrid).forEach(frame => {
       const computedWidth = window.getComputedStyle(frame).width;
       const widthInRem = parseFloat(computedWidth) / parseFloat(getComputedStyle(document.documentElement).fontSize);
 
       if (widthInRem > 20) {
-        frame.classList.add('constrain-width');
+        frame.classList.add(SELECTORS.constrainWidth);
       }
     });
   }
@@ -189,7 +196,7 @@
         if (column.querySelector('.card-item')) return;
 
         const cardItem = document.createElement('div');
-        cardItem.classList.add('theme-card-item');
+        cardItem.classList.add(SELECTORS.cardItem);
 
         const specificColor = container.getAttribute(`data-color-${index + 1}`);
         const specificBorderColor = container.getAttribute(`data-border-color-${index + 1}`);

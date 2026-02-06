@@ -81,17 +81,17 @@ window.CarrdPluginOptions = {
 
 ```javascript
 // Open a modal
-ModalPlugin.open('modalContact');
+CarrdModal.open('modalContact');
 
 // Close current modal
-ModalPlugin.close();
+CarrdModal.close();
 
 // Toggle modal
-ModalPlugin.toggle('modalContact');
+CarrdModal.toggle('modalContact');
 
 // Check if modal is open
-ModalPlugin.isOpen(); // Any modal
-ModalPlugin.isOpen('modalContact'); // Specific modal
+CarrdModal.isOpen(); // Any modal
+CarrdModal.isOpen('modalContact'); // Specific modal
 ```
 
 ## CSS Variables

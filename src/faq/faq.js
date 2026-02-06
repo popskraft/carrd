@@ -1,10 +1,10 @@
 /*
  * Plugin: FAQ
- * Version: 0.1.8aaaaaaaaaaaaaa
+ * Version: 0.1.9aaaaaaaaaaaaaaaaaaaaa
  * Purpose: Accordion behavior for FAQ containers.
  * Admin placement: Code element in BODY END.
  */
-(function () {
+(function() {
   'use strict';
 
   // ==========================================
@@ -26,16 +26,20 @@
     
   const CONFIG = { ...DEFAULTS, ...externalOptions };
   const HEADER_TAGS = new Set(CONFIG.headerTags);
+  const CLASSES = {
+    question: 'theme-faq-question',
+    answer: 'theme-faq-answer',
+    open: 'is-open',
+    closed: 'is-closed'
+  };
 
   // ==========================================
   // PLUGIN LOGIC
   // ==========================================
   
   let answerIdCounter = 0;
-  const containers = document.querySelectorAll(CONFIG.containerSelector);
-  if (!containers.length) return;
-
-  const openAnswers = new Set();
+  let openAnswers = new Set();
+  let answerResizeObserver = null;
   const requestFrame = window.requestAnimationFrame || (cb => setTimeout(cb, 16));
   let resizeHandle = null;
 
@@ -47,50 +51,56 @@
     });
   };
 
-  const answerResizeObserver =
-    typeof ResizeObserver !== 'undefined'
-      ? new ResizeObserver(entries => {
-          entries.forEach(entry => {
-            if (openAnswers.has(entry.target)) {
-              adjustHeight(entry.target);
-            }
-          });
-        })
-      : null;
+  function init() {
+    const containers = document.querySelectorAll(CONFIG.containerSelector);
+    if (!containers.length) return;
 
-  let firstQuestion = true;
+    openAnswers = new Set();
+    answerResizeObserver =
+      typeof ResizeObserver !== 'undefined'
+        ? new ResizeObserver(entries => {
+            entries.forEach(entry => {
+              if (openAnswers.has(entry.target)) {
+                adjustHeight(entry.target);
+              }
+            });
+          })
+        : null;
 
-  containers.forEach(container => {
-    const dividers = Array.from(container.querySelectorAll(CONFIG.dividerSelector)).filter(
-      divider => divider.closest(CONFIG.containerSelector) === container
-    );
-    if (!dividers.length) return;
+    let firstQuestion = true;
 
-    dividers.forEach(startDivider => {
-      const endDivider = findNextDivider(startDivider);
+    containers.forEach(container => {
+      const dividers = Array.from(container.querySelectorAll(CONFIG.dividerSelector)).filter(
+        divider => divider.closest(CONFIG.containerSelector) === container
+      );
+      if (!dividers.length) return;
 
-      const header = findHeaderBetween(startDivider, endDivider);
-      if (!header || header.dataset.faqBound === 'true') {
-        return;
-      }
+      dividers.forEach(startDivider => {
+        const endDivider = findNextDivider(startDivider);
 
-      const answerWrapper =
-        header.nextElementSibling && header.nextElementSibling.classList.contains('theme-faq-answer')
-          ? header.nextElementSibling
-          : wrapAnswerContent(header, endDivider);
+        const header = findHeaderBetween(startDivider, endDivider);
+        if (!header || header.dataset.faqBound === 'true') {
+          return;
+        }
 
-      if (!answerWrapper) {
-        return;
-      }
+        const answerWrapper =
+          header.nextElementSibling && header.nextElementSibling.classList.contains(CLASSES.answer)
+            ? header.nextElementSibling
+            : wrapAnswerContent(header, endDivider);
 
-      const shouldOpenByDefault = CONFIG.defaultOpen && firstQuestion;
-      prepareToggle(header, answerWrapper, shouldOpenByDefault);
-      firstQuestion = false;
+        if (!answerWrapper) {
+          return;
+        }
+
+        const shouldOpenByDefault = CONFIG.defaultOpen && firstQuestion;
+        prepareToggle(header, answerWrapper, shouldOpenByDefault);
+        firstQuestion = false;
+      });
     });
-  });
 
-  window.addEventListener('resize', scheduleOpenAnswerSync);
-  window.addEventListener('orientationchange', scheduleOpenAnswerSync);
+    window.addEventListener('resize', scheduleOpenAnswerSync);
+    window.addEventListener('orientationchange', scheduleOpenAnswerSync);
+  }
 
   function findNextDivider(divider) {
     let node = divider.nextElementSibling;
@@ -135,7 +145,7 @@
   function wrapAnswerContent(header, endDivider) {
     let node = header.nextSibling;
     const wrapper = document.createElement('div');
-    wrapper.className = 'theme-faq-answer';
+    wrapper.className = CLASSES.answer;
     let hasContent = false;
 
     while (node && node !== endDivider) {
@@ -158,7 +168,7 @@
   }
 
   function prepareToggle(header, answer, openByDefault = false) {
-    header.classList.add('theme-faq-question');
+    header.classList.add(CLASSES.question);
     header.dataset.faqBound = 'true';
     
     if (!header.hasAttribute('tabindex')) {
@@ -178,20 +188,20 @@
 
     // Set initial state
     if (openByDefault) {
-      header.classList.add('is-open');
-      header.classList.remove('is-closed');
-      answer.classList.add('is-open');
-      answer.classList.remove('is-closed');
+      header.classList.add(CLASSES.open);
+      header.classList.remove(CLASSES.closed);
+      answer.classList.add(CLASSES.open);
+      answer.classList.remove(CLASSES.closed);
       header.setAttribute('aria-expanded', 'true');
       answer.setAttribute('aria-hidden', 'false');
       openAnswers.add(answer);
       // Delay height calculation to ensure DOM is ready
       requestFrame(() => adjustHeight(answer));
     } else {
-      header.classList.add('is-closed');
-      header.classList.remove('is-open');
-      answer.classList.add('is-closed');
-      answer.classList.remove('is-open');
+      header.classList.add(CLASSES.closed);
+      header.classList.remove(CLASSES.open);
+      answer.classList.add(CLASSES.closed);
+      answer.classList.remove(CLASSES.open);
       header.setAttribute('aria-expanded', 'false');
       answer.setAttribute('aria-hidden', 'true');
     }
@@ -208,7 +218,7 @@
   }
 
   function toggleAnswer(header, answer) {
-    const willOpen = !header.classList.contains('is-open');
+    const willOpen = !header.classList.contains(CLASSES.open);
     
     // Close others if not allowMultipleOpen
     if (willOpen && !CONFIG.allowMultipleOpen) {
@@ -216,12 +226,12 @@
         if (openAnswer !== answer) {
           const openHeader = document.querySelector(`[aria-controls="${openAnswer.id}"]`);
           if (openHeader) {
-            openHeader.classList.remove('is-open');
-            openHeader.classList.add('is-closed');
+            openHeader.classList.remove(CLASSES.open);
+            openHeader.classList.add(CLASSES.closed);
             openHeader.setAttribute('aria-expanded', 'false');
           }
-          openAnswer.classList.remove('is-open');
-          openAnswer.classList.add('is-closed');
+          openAnswer.classList.remove(CLASSES.open);
+          openAnswer.classList.add(CLASSES.closed);
           openAnswer.setAttribute('aria-hidden', 'true');
           openAnswer.style.maxHeight = '0px';
           openAnswers.delete(openAnswer);
@@ -229,10 +239,10 @@
       });
     }
 
-    header.classList.toggle('is-open', willOpen);
-    header.classList.toggle('is-closed', !willOpen);
-    answer.classList.toggle('is-open', willOpen);
-    answer.classList.toggle('is-closed', !willOpen);
+    header.classList.toggle(CLASSES.open, willOpen);
+    header.classList.toggle(CLASSES.closed, !willOpen);
+    answer.classList.toggle(CLASSES.open, willOpen);
+    answer.classList.toggle(CLASSES.closed, !willOpen);
     header.setAttribute('aria-expanded', String(willOpen));
     answer.setAttribute('aria-hidden', String(!willOpen));
 
@@ -261,5 +271,11 @@
       node.tagName === 'HR' &&
       node.classList.contains('divider-component')
     );
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
   }
 })();

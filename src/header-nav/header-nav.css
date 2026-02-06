@@ -1,6 +1,6 @@
 /*
  * Plugin: Header Nav
- * Version: 0.1.8aaaaaaaaaaa
+ * Version: 0.1.9aaaaaaaaaaaaaaaaaaaaa
  * Purpose: Mobile nav toggle styles for #site-header.
  * Admin placement: Code element in HEAD.
  */
@@ -10,38 +10,38 @@
 }
 
 .theme-header-nav-toggle {
-  --mini-header-nav-bar-offset: calc(var(--mini-header-nav-bar-gap, 5px) + var(--mini-header-nav-bar-height, 2px));
+  --theme-header-nav-bar-offset: calc(var(--theme-header-nav-bar-gap, 5px) + var(--theme-header-nav-bar-height, 2px));
   position: absolute;
-  top: var(--mini-header-nav-toggle-top, 0.75rem);
-  right: var(--mini-header-nav-toggle-right, 0.75rem);
-  width: var(--mini-header-nav-toggle-size, 2.5rem);
-  height: var(--mini-header-nav-toggle-size, 2.5rem);
+  top: var(--theme-header-nav-toggle-top, 0.75rem);
+  right: var(--theme-header-nav-toggle-right, 0.75rem);
+  width: var(--theme-header-nav-toggle-size, 2.5rem);
+  height: var(--theme-header-nav-toggle-size, 2.5rem);
   display: none;
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  gap: var(--mini-header-nav-bar-gap, 5px);
+  gap: var(--theme-header-nav-bar-gap, 5px);
   padding: 0;
   border: none;
-  border-radius: var(--mini-header-nav-toggle-radius, 0.5rem);
-  background: var(--mini-header-nav-toggle-bg, transparent);
-  color: var(--mini-header-nav-bar-color, var(--theme-color-primary, currentColor));
+  border-radius: var(--theme-header-nav-toggle-radius, 0.5rem);
+  background: var(--theme-header-nav-toggle-bg, transparent);
+  color: var(--theme-header-nav-bar-color, var(--theme-color-primary, currentColor));
   cursor: pointer;
   z-index: 50;
 }
 
 .theme-header-nav-toggle:focus-visible {
-  outline: var(--mini-header-nav-toggle-outline, 2px solid currentColor);
-  outline-offset: var(--mini-header-nav-toggle-outline-offset, 2px);
+  outline: var(--theme-header-nav-toggle-outline, 2px solid currentColor);
+  outline-offset: var(--theme-header-nav-toggle-outline-offset, 2px);
 }
 
 .theme-header-nav-bar {
-  width: var(--mini-header-nav-bar-width, 22px);
-  height: var(--mini-header-nav-bar-height, 2px);
-  background: var(--mini-header-nav-bar-color, var(--theme-color-primary, currentColor));
-  border-radius: var(--mini-header-nav-bar-radius, 999px);
-  transition: transform var(--mini-header-nav-duration, 300ms) ease,
-    opacity var(--mini-header-nav-duration, 300ms) ease;
+  width: var(--theme-header-nav-bar-width, 22px);
+  height: var(--theme-header-nav-bar-height, 2px);
+  background: var(--theme-header-nav-bar-color, var(--theme-color-primary, currentColor));
+  border-radius: var(--theme-header-nav-bar-radius, 999px);
+  transition: transform var(--theme-header-nav-duration, 300ms) ease,
+    opacity var(--theme-header-nav-duration, 300ms) ease;
   transform-origin: center;
 }
 
@@ -56,9 +56,9 @@
   overflow: hidden;
   padding: 0;
   pointer-events: none;
-  transition: max-height var(--mini-header-nav-duration, 300ms) ease,
-    opacity var(--mini-header-nav-duration, 300ms) ease,
-    transform var(--mini-header-nav-duration, 300ms) ease;
+  transition: max-height var(--theme-header-nav-duration, 300ms) ease,
+    opacity var(--theme-header-nav-duration, 300ms) ease,
+    transform var(--theme-header-nav-duration, 300ms) ease;
   will-change: max-height, opacity, transform;
 }
 
