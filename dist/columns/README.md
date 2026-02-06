@@ -3,7 +3,7 @@
 ## Version
 
 - Version: `0.1.8a`
-- Build date (UTC): `2026-01-24`
+- Build date (UTC): `2026-02-05`
 
 ## Quick Start (Beginner-Friendly)
 
@@ -80,8 +80,9 @@ Grid layout with optional Cards styling.
 
 ## Carrd Admin Settings
 1. Add class `.grid-2` to `.grid-6` to consecutive containers
-2. For cards: add class `.cards` to a container
-3. Optional: use `data-padding`, `data-color` attributes
+2. Mobile two-column: add class `.grid-sm-2` to any block in the same grid cluster
+3. For cards: add class `.cards` to a container
+4. Optional: use `data-padding`, `data-color` attributes
 
 
 ## Configuration
@@ -130,6 +131,7 @@ window.CarrdPluginOptions = {
     --theme-grid-column-gap: 1rem;
     --theme-grid-row-gap-desktop: 2rem;
     --theme-grid-column-gap-desktop: 1.5rem;
+    --theme-grid-column-gap-desktop-large: 2rem;
 }
 ```
 

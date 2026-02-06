@@ -1,6 +1,6 @@
 /*
  * Plugin: FAQ
- * Version: 0.1.8aaa
+ * Version: 0.1.8aaaaaaaaaaaaaa
  * Purpose: Accordion behavior for FAQ containers.
  * Admin placement: Code element in BODY END.
  */

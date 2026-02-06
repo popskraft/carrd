@@ -1,4 +1,4 @@
-# Typography
+# Header Nav
 
 ## Version
 
@@ -16,7 +16,7 @@
 5. Publish the site and refresh the page.
 
 Optional: if you want a single snippet, open
-`dist/typography/typography-embed.html`, copy everything, and paste it
+`dist/header-nav/header-nav-embed.html`, copy everything, and paste it
 into **Hidden → Body End**. Note: you still need `theme-design-tokens.css` and `theme-ui.css` in HEAD.
 
 **Configuration (Optional):**
@@ -27,14 +27,14 @@ To customize plugin behavior, add `window.CarrdPluginOptions` **before** plugin 
 <!-- BODY END: Configuration -->
 <script>
 window.CarrdPluginOptions = {
-  typography: {
+  header-nav: {
     // See Configuration section below for all options
   }
 };
 </script>
 
 <!-- BODY END: Plugin script -->
-<script src="...typography.min.js"></script>
+<script src="...header-nav.min.js"></script>
 ```
 
 For all available options, see [theme-config.js](../theme-config.js) or the Configuration section below.
@@ -43,71 +43,77 @@ For all available options, see [theme-config.js](../theme-config.js) or the Conf
 
 ## Installation
 
-### As Part of Mini Theme
-
-```html
-<!-- HEAD -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/theme-design-tokens.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/theme-ui.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/theme-core.min.css">
-
-<!-- BODY END -->
-<script src="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/theme-core.min.js"></script>
-```
-
 ### Standalone
 
 <!-- HEAD -->
 ```html
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/theme-design-tokens.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/theme-ui.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/typography/typography.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/header-nav/header-nav.min.css">
 ```
 
 <!-- BODY END -->
 ```html
-<script src="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/typography/typography.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/header-nav/header-nav.min.js"></script>
 ```
 
 ---
 
-Responsive typography with Markdown-like parsing for `.txt` containers.
-
-## Features
-
-- **Markdown Parsing**: Converts `#`, `##`, `###`, `####` to headings
-- **Lists**: Supports unordered (`-`) and ordered (`1.`) lists
-- **Horizontal Rules**: `---` becomes `<hr>`
-- **Responsive**: 3 breakpoints (desktop, tablet, mobile)
+Mobile hamburger toggle for a header navigation list inside `#site-header`.
 
 ## Carrd Admin Settings
 
-**Important:** You must add the class `.txt` to the Text element or container for these styles to apply.
+1. Ensure your header container has the ID `site-header`.
+2. Ensure your navigation list has the ID `site-header-nav`.
+3. Add the plugin CSS in **Head** and the plugin JS in **Body End**.
 
-1. Add class `.txt` to a Text element in Carrd.
-2. Use Markdown-like syntax in the text content.
+## Configuration
 
-## Syntax Reference
+Add before the plugin script:
 
-| Markdown Syntax | HTML Output |
-|-----------------|-------------|
-| `# Heading` | `<h1>Heading</h1>` |
-| `## Heading` | `<h2>Heading</h2>` |
-| `### Heading` | `<h3>Heading</h3>` |
-| `#### Heading` | `<h4>Heading</h4>` |
-| `---` | `<hr>` |
-| `- Item` | `<ul><li>Item</li></ul>` |
-| `1. Item` | `<ol><li>Item</li></ol>` |
+```html
+<script>
+window.CarrdPluginOptions = {
+    headerNav: {
+        breakpoint: 736,
+        closeOnLinkClick: true,
+        navMaxHeight: '60vh',
+        animationDuration: 300
+    }
+};
+</script>
+```
 
-## JavaScript API
+### Options
 
-```javascript
-// Re-initialize all containers
-TypographyPlugin.init();
+| Option | Default | Description |
+|--------|---------|-------------|
+| `breakpoint` | `736` | Max width (px) for mobile behavior |
+| `closeOnLinkClick` | `true` | Close menu when a link is clicked (mobile) |
+| `navMaxHeight` | `'60vh'` | Maximum open height for the nav list |
+| `animationDuration` | `300` | Transition duration in ms |
 
-// Process a specific container
-const el = document.querySelector('.txt');
-TypographyPlugin.process(el);
+## CSS Variables
+
+```css
+:root {
+    --mini-header-nav-toggle-top: 0.75rem;
+    --mini-header-nav-toggle-right: 0.75rem;
+    --mini-header-nav-toggle-size: 2.5rem;
+    --mini-header-nav-toggle-radius: 0.5rem;
+    --mini-header-nav-toggle-bg: transparent;
+    --mini-header-nav-toggle-outline: 2px solid currentColor;
+    --mini-header-nav-toggle-outline-offset: 2px;
+
+    --mini-header-nav-bar-width: 22px;
+    --mini-header-nav-bar-height: 2px;
+    --mini-header-nav-bar-gap: 5px;
+    --mini-header-nav-bar-radius: 999px;
+    --mini-header-nav-bar-color: currentColor;
+
+    --mini-header-nav-duration: 300ms;
+    --mini-header-nav-max-height: 60vh;
+}
 ```
 
 ---

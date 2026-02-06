@@ -1,6 +1,6 @@
 /*
  * Plugin: Modal
- * Version: 0.1.8aaa
+ * Version: 0.1.8aaaaaaaaaaaaaa
  * Purpose: Modal open/close behavior with accessibility handling.
  * Admin placement: Code element in BODY END.
  */

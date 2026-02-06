@@ -1,7 +1,7 @@
 ## Version
 
 - Version: `0.1.8a`
-- Build date (UTC): `2026-01-24`
+- Build date (UTC): `2026-02-05`
 - [View Changelog](CHANGELOG.md)
 
 ---
@@ -141,6 +141,8 @@ Each plugin includes a ready-to-use embed file combining CSS + JS.
 | **Columns** | `dist/columns/` |
 | **Cookie Banner** | `dist/cookie-banner/` |
 | **FAQ** | `dist/faq/` |
+| **Header Nav** | `dist/header-nav/` |
+| **Mobile Nav** | `dist/mobile-nav/` |
 | **Modal** | `dist/modal/` |
 | **No-loadwaiting** | `dist/no-loadwaiting/` |
 | **Shopping Cart** | `dist/shopping-cart/` |

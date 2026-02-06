@@ -1,0 +1,97 @@
+/*
+ * Plugin: Header Nav
+ * Version: 0.1.8aaaaaaaaaaa
+ * Purpose: Mobile nav toggle styles for #site-header.
+ * Admin placement: Code element in HEAD.
+ */
+
+.theme-header-nav {
+  position: relative;
+}
+
+.theme-header-nav-toggle {
+  --mini-header-nav-bar-offset: calc(var(--mini-header-nav-bar-gap, 5px) + var(--mini-header-nav-bar-height, 2px));
+  position: absolute;
+  top: var(--mini-header-nav-toggle-top, 0.75rem);
+  right: var(--mini-header-nav-toggle-right, 0.75rem);
+  width: var(--mini-header-nav-toggle-size, 2.5rem);
+  height: var(--mini-header-nav-toggle-size, 2.5rem);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: var(--mini-header-nav-bar-gap, 5px);
+  padding: 0;
+  border: none;
+  border-radius: var(--mini-header-nav-toggle-radius, 0.5rem);
+  background: var(--mini-header-nav-toggle-bg, transparent);
+  color: var(--mini-header-nav-bar-color, var(--theme-color-primary, currentColor));
+  cursor: pointer;
+  z-index: 50;
+}
+
+.theme-header-nav-toggle:focus-visible {
+  outline: var(--mini-header-nav-toggle-outline, 2px solid currentColor);
+  outline-offset: var(--mini-header-nav-toggle-outline-offset, 2px);
+}
+
+.theme-header-nav-bar {
+  width: var(--mini-header-nav-bar-width, 22px);
+  height: var(--mini-header-nav-bar-height, 2px);
+  background: var(--mini-header-nav-bar-color, var(--theme-color-primary, currentColor));
+  border-radius: var(--mini-header-nav-bar-radius, 999px);
+  transition: transform var(--mini-header-nav-duration, 300ms) ease,
+    opacity var(--mini-header-nav-duration, 300ms) ease;
+  transform-origin: center;
+}
+
+.theme-header-nav.is-mobile .theme-header-nav-toggle {
+  display: inline-flex;
+}
+
+.theme-header-nav.is-mobile #site-header-nav {
+  max-height: 0;
+  opacity: 0;
+  transform: translateY(-0.5rem);
+  overflow: hidden;
+  padding: 0;
+  pointer-events: none;
+  transition: max-height var(--mini-header-nav-duration, 300ms) ease,
+    opacity var(--mini-header-nav-duration, 300ms) ease,
+    transform var(--mini-header-nav-duration, 300ms) ease;
+  will-change: max-height, opacity, transform;
+}
+
+.theme-header-nav.is-mobile.is-nav-open #site-header-nav {
+  max-height: none;
+  height: auto;
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+  overflow: visible;
+  padding: 2rem 0;
+}
+
+.theme-header-nav.is-mobile.is-nav-open {
+  overflow: visible;
+  height: auto;
+  max-height: none;
+}
+
+.theme-header-nav.is-nav-open .theme-header-nav-bar:nth-child(1),
+.theme-header-nav.is-nav-open .theme-header-nav-bar:nth-child(3) {
+  opacity: 0;
+  transform: scaleX(0.2);
+}
+
+.theme-header-nav.is-nav-open .theme-header-nav-bar:nth-child(2) {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .theme-header-nav-bar,
+  .theme-header-nav.is-mobile #site-header-nav {
+    transition: none;
+  }
+}
