@@ -38,6 +38,13 @@
   }
 }
 
+@media (min-width: 980px) {
+  .container-component.justify,
+  .container-component.justify .wrapper {
+    display: flex;
+  }
+}
+
 @media (min-width: 1025px) {
   .theme-columns-grid {
     --local-row-gap: var(--theme-grid-row-gap-desktop, 2rem);
@@ -76,7 +83,7 @@
 }
 
 .theme-columns-grid>.container-component {
-  overflow: hidden;
+  /* overflow: hidden; */
   margin: 0;
 }
 

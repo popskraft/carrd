@@ -6,12 +6,14 @@ Grid layout with optional Cards styling.
 - **Responsive Grid**: 2-6 column layouts with breakpoints
 - **Cards**: Auto-styled items with padding, radius, backgrounds
 - **Flexible Widths**: Custom column widths via classes
+- **Justify Propagation**: If first container in a grid cluster has `.justify`, plugin applies `.justify` to all containers in that cluster
 
 ## Carrd Admin Settings
 1. Add class `.grid-2` to `.grid-6` to consecutive containers
 2. Mobile two-column: add class `.grid-sm-2` to any block in the same grid cluster
 3. For cards: add class `.cards` to a container
-4. Optional: use `data-padding`, `data-color` attributes
+4. Optional: add `.justify` to the first container in a grid cluster to apply justify layout to the full cluster
+5. Optional: use `data-padding`, `data-color` attributes
 
 
 ## Configuration
@@ -72,3 +74,14 @@ window.CarrdPluginOptions = {
 | `data-padding-mobile` | Mobile padding |
 | `data-color` | Background color for all cards |
 | `data-color-1`, `data-color-2`... | Individual card colors |
+
+## Built-in Utility Styles
+
+Columns plugin includes this utility rule by default (no custom-theme CSS required):
+
+```css
+.container-component.justify,
+.container-component.justify .wrapper {
+  display: flex;
+}
+```

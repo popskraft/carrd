@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- **Columns**: Added built-in `.container-component.justify` styles to plugin CSS and propagate `.justify` across all containers in the same grid cluster when the first container has `.justify`.
+
 ## [0.1.9] - 2026-02-06
 
 ### Changed

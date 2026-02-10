@@ -75,6 +75,11 @@
   function wrapCluster(cluster, gridSize) {
     if (!cluster.length || !cluster[0].parentNode) return;
 
+    // If the first block uses justify layout, propagate it to the whole cluster.
+    if (cluster[0].classList.contains('justify')) {
+      cluster.forEach(node => node.classList.add('justify'));
+    }
+
     const container = document.createElement('div');
     const classList = [SELECTORS.gridContainer];
     
