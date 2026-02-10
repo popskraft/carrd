@@ -9,6 +9,39 @@
   position: relative;
 }
 
+.theme-header-nav.is-sticky-hider {
+  transition: transform var(--theme-header-nav-duration, 300ms) ease;
+  will-change: transform;
+}
+
+.theme-header-nav.is-sticky-hider.is-stuck {
+  position: fixed;
+  top: var(--theme-header-nav-sticky-top, 0);
+  left: var(--theme-header-nav-fixed-left, 0);
+  width: var(--theme-header-nav-fixed-width, 100%);
+  z-index: var(--theme-header-nav-sticky-z-index, 1000);
+}
+
+.theme-header-nav.is-sticky-hider.is-hidden {
+  transform: translateY(-100%);
+}
+
+.theme-header-nav-spacer {
+  display: block;
+  width: 100%;
+  height: 0;
+  pointer-events: none;
+}
+
+.theme-header-nav-section {
+  min-width: 0;
+}
+
+.theme-header-nav-cta {
+  position: relative;
+  z-index: 1;
+}
+
 .theme-header-nav-toggle {
   --theme-header-nav-bar-offset: calc(var(--theme-header-nav-bar-gap, 5px) + var(--theme-header-nav-bar-height, 2px));
   position: absolute;
@@ -49,12 +82,31 @@
   display: inline-flex;
 }
 
-.theme-header-nav.is-mobile #site-header-nav {
+.theme-header-nav.is-mobile .theme-header-nav-section-extra {
+  display: none;
+}
+
+.theme-header-nav.is-mobile .theme-header-nav-section-brand {
+  display: block;
+}
+
+.theme-header-nav.is-mobile .theme-header-nav-section-cta {
+  padding-right: calc(var(--theme-header-nav-toggle-size, 2.5rem) + var(--theme-header-nav-toggle-right, 0.75rem) + 0.5rem);
+}
+
+.theme-header-nav.is-mobile .theme-header-nav-section-nav {
+  display: block;
+  width: 100%;
+  overflow: hidden;
+}
+
+.theme-header-nav.is-mobile .theme-header-nav-menu {
   max-height: 0;
   opacity: 0;
   transform: translateY(-0.5rem);
   overflow: hidden;
   padding: 0;
+  margin: 0;
   pointer-events: none;
   transition: max-height var(--theme-header-nav-duration, 300ms) ease,
     opacity var(--theme-header-nav-duration, 300ms) ease,
@@ -62,13 +114,13 @@
   will-change: max-height, opacity, transform;
 }
 
-.theme-header-nav.is-mobile.is-nav-open #site-header-nav {
-  max-height: none;
+.theme-header-nav.is-mobile.is-nav-open .theme-header-nav-menu {
+  max-height: var(--theme-header-nav-open-height, var(--theme-header-nav-max-height, 60vh));
   height: auto;
   opacity: 1;
   transform: translateY(0);
   pointer-events: auto;
-  overflow: visible;
+  overflow: auto;
   padding: 2rem 0;
 }
 
@@ -91,7 +143,7 @@
 
 @media (prefers-reduced-motion: reduce) {
   .theme-header-nav-bar,
-  .theme-header-nav.is-mobile #site-header-nav {
+  .theme-header-nav.is-mobile .theme-header-nav-menu {
     transition: none;
   }
 }

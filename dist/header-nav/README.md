@@ -3,7 +3,7 @@
 ## Version
 
 - Version: `0.1.9`
-- Build date (UTC): `2026-02-06`
+- Build date (UTC): `2026-02-10`
 
 ## Quick Start (Beginner-Friendly)
 
@@ -64,8 +64,9 @@ Mobile hamburger toggle for a header navigation list inside `#site-header`.
 ## Carrd Admin Settings
 
 1. Ensure your header container has the ID `site-header`.
-2. Ensure your navigation list has the ID `site-header-nav`.
-3. Add the plugin CSS in **Head** and the plugin JS in **Body End**.
+2. Recommended: set your navigation list ID to `site-header-nav`.
+3. If `navId` is missing or points outside the header, the plugin auto-detects the first `.links-component` inside the header.
+4. Add the plugin CSS in **Head** and the plugin JS in **Body End**.
 
 ## Configuration
 
@@ -77,8 +78,9 @@ window.CarrdPluginOptions = {
     headerNav: {
         breakpoint: 736,
         closeOnLinkClick: true,
-        navMaxHeight: '60vh',
-        animationDuration: 300
+        sticky: true,
+        hideOnScrollDown: false,
+        stickyTop: 0
     }
 };
 </script>
@@ -88,10 +90,23 @@ window.CarrdPluginOptions = {
 
 | Option | Default | Description |
 |--------|---------|-------------|
+| `headerId` | `'site-header'` | Header container ID |
+| `navId` | `'site-header-nav'` | Navigation container ID |
+| `navSelector` | `'.links-component'` | Fallback selector to find navigation inside header |
+| `ctaId` | `'site-header-cta'` | CTA element ID used for mobile compact row |
+| `mobileStickyAnchorId` | `'site-header-topnav'` | Optional element ID used to offset sticky top on mobile |
+| `mobileStickyOffset` | `0` | Additional mobile sticky top offset in px |
+| `mobileStickyTop` | `null` | Visual sticky top in px for mobile (does not change sticky trigger point) |
 | `breakpoint` | `736` | Max width (px) for mobile behavior |
 | `closeOnLinkClick` | `true` | Close menu when a link is clicked (mobile) |
-| `navMaxHeight` | `'60vh'` | Maximum open height for the nav list |
-| `animationDuration` | `300` | Transition duration in ms |
+| `sticky` | `true` | Enables sticky header behavior |
+| `hideOnScrollDown` | `false` | When `true`, hides sticky header on scroll down and shows it on scroll up |
+| `stickyTop` | `0` | Sticky top offset in px |
+
+Legacy compatibility notes:
+- `enableStickyHider` is still accepted as a legacy alias for `sticky`.
+- `disableStickyEffect: true` still force-disables sticky behavior.
+- `animationDuration` and `navMaxHeight` are still accepted, but prefer CSS variables for styling.
 
 ## CSS Variables
 
@@ -113,6 +128,8 @@ window.CarrdPluginOptions = {
 
     --theme-header-nav-duration: 300ms;
     --theme-header-nav-max-height: 60vh;
+    --theme-header-nav-sticky-top: 0;
+    --theme-header-nav-sticky-z-index: 1000;
 }
 ```
 

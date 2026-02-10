@@ -113,8 +113,14 @@ window.CarrdPluginOptions.cookieBanner = {
 window.CarrdPluginOptions.headerNav = {
     headerId: 'site-header',
     navId: 'site-header-nav',
+    navSelector: '.links-component',
+    ctaId: 'site-header-cta',
+    mobileStickyAnchorId: 'site-header-topnav',
+    mobileStickyOffset: 0,
+    mobileStickyTop: -80,
     breakpoint: 736,
     closeOnLinkClick: true,
-    navMaxHeight: '60vh',
-    animationDuration: 300
+    sticky: true,
+    hideOnScrollDown: false,
+    stickyTop: 0
 };
