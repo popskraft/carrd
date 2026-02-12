@@ -1,6 +1,6 @@
 /*
  * Plugin: Header Nav
- * Version: 0.1.9aaaaaaaaaaaaaaaaaaaaa
+ * Version: 0.1.10aaaaaaaaaaaaaaaaaaaaa
  * Purpose: Mobile hamburger toggle for #site-header navigation.
  * Admin placement: Code element in BODY END.
  */

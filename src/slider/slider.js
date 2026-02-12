@@ -1,6 +1,6 @@
 /*
  * Plugin: Slider
- * Version: 0.1.9aaaaaaaaaaaaaaaaaaaaa
+ * Version: 0.1.10aaaaaaaaaaaaaaaaaaaaa
  * Purpose: Slider/carousel behavior for consecutive `.slider` containers.
  * Admin placement: Code element in BODY END.
  *
@@ -27,15 +27,16 @@
     dragThreshold: 50,
     snapThreshold: 0.3,
     gap: 16, // Gap between slides in pixels
+    hideOverflow: false, // Clip overflowing slides inside wrapper
     // Responsive slides per view
     slidesPerView: 1,
-    peek: 0, // Fraction of next slide to show (e.g. 0.1 for 10%)
+    peek: 0.1, // Fraction of next slide to show (e.g. 0.1 for 10%)
     equalHeight: true, // Stretch slides to same height
     breakpoints: {
       // Tablet/Mobile (737px+)
-      737: { slidesPerView: 3 },
+      737: { slidesPerView: 4 },
       // Desktop M (1280px+)
-      1280: { slidesPerView: 4 }
+      1280: { slidesPerView: 5 }
     }
   };
 
@@ -124,6 +125,10 @@
       
       if (this.config.equalHeight) {
         this.wrapper.classList.add('is-equal-height');
+      }
+
+      if (!this.config.hideOverflow) {
+        this.wrapper.classList.add('is-overflow-visible');
       }
       
       // Insert wrapper before first slide

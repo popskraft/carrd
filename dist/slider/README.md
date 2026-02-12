@@ -2,8 +2,8 @@
 
 ## Version
 
-- Version: `0.1.9`
-- Build date (UTC): `2026-02-10`
+- Version: `0.1.10`
+- Build date (UTC): `2026-02-12`
 
 ## Quick Start (Beginner-Friendly)
 
@@ -90,8 +90,8 @@ Horizontal slider/carousel from consecutive Carrd containers with responsive sli
 | Screen Size | Breakpoint | Slides Visible |
 |-------------|------------|----------------|
 | Mobile XS | < 737px | 1 |
-| Tablet/Mobile | ≥ 737px | 3 |
-| Desktop M | ≥ 1280px | 4 |
+| Tablet/Mobile | ≥ 737px | 4 |
+| Desktop M | ≥ 1280px | 5 |
 
 ## Configuration
 
@@ -104,14 +104,19 @@ window.CarrdPluginOptions = {
         loop: false,
         autoplay: false,
         autoplayInterval: 5000,
+        dragThreshold: 50,
+        snapThreshold: 0.3,
         gap: 16,
+        hideOverflow: false,
         slidesPerView: 1,
+        peek: 0.1,
+        equalHeight: true,
         breakpoints: {
-            737: { slidesPerView: 3 },   // Tablet
-            1280: { slidesPerView: 4 }   // Desktop
+            737: { slidesPerView: 4, peek: 0 },   // Tablet
+            1280: { slidesPerView: 5, peek: 0 }   // Desktop
         },
         instances: {
-            hero: { slidesPerView: 1, autoplay: true },
+            hero: { slidesPerView: 1, autoplay: true, hideOverflow: false },
             gallery: { slidesPerView: 3, gap: 24, loop: true }
         }
     }
@@ -128,10 +133,23 @@ window.CarrdPluginOptions = {
 | `loop` | `false` | Loop back to start |
 | `autoplay` | `false` | Auto-advance slides |
 | `autoplayInterval` | `5000` | Autoplay delay (ms) |
+| `dragThreshold` | `50` | Reserved option in current version (defined, not used by runtime logic) |
+| `snapThreshold` | `0.3` | Drag distance threshold (fraction of one slide width) needed to switch slide |
 | `gap` | `16` | Gap between slides (px) |
+| `hideOverflow` | `false` | Clip overflowing slides inside slider wrapper |
 | `slidesPerView` | `1` | Default slides visible |
+| `peek` | `0.1` | Adds fractional visible part of the next slide (e.g. `0.3` -> ~30% peek) |
+| `equalHeight` | `true` | Applies equal-height layout for slide content wrappers |
 | `breakpoints` | `{...}` | Responsive config (see below) |
 | `instances` | `{}` | Per-instance overrides by `data-slider-id` |
+
+### Option Coverage and Priority
+
+- Any option from the table above can be overridden per instance via `instances.<id>`.
+- Merge order is: `DEFAULTS` -> global `slider` config -> `instances.<id>`.
+- `breakpoints` are deep-merged (global breakpoints + per-instance breakpoint overrides).
+- `data-slider-id` is read only from the first `.slider` element in a cluster.
+- `slidesPerView` supports fractional values. You can use `slidesPerView: 1.3` directly, or keep `slidesPerView: 1` and add `peek: 0.3`.
 
 ### Breakpoints
 
@@ -146,9 +164,26 @@ breakpoints: {
     1024: { slidesPerView: 3 },
     
     // At 1280px and above: show 4 slides
-    1280: { slidesPerView: 4 }
+    1280: { slidesPerView: 4, peek: 0 }
 }
 ```
+
+## Runtime API
+
+The plugin exposes a global helper object:
+
+```javascript
+window.CarrdSlider = {
+    init,         // Find clusters and create instances
+    destroyAll,   // Destroy all registered instances
+    destroyById,  // Destroy one instance by data-slider-id
+    getInstances  // Return array of Slider instances
+};
+```
+
+Notes:
+- `destroyById('persone')` works only if the cluster has `data-slider-id="persone"` on its first slide.
+- `getInstances()` returns internal instance objects (advanced/manual usage).
 
 ## CSS Variables
 
@@ -185,8 +220,8 @@ Container 5: class="slider" → Slide 5
 ```
 
 On mobile (< 737px): 1 slide visible, swipe to navigate
-On tablet (≥ 737px): 3 slides visible at once
-On desktop (≥ 1280px): 4 slides visible at once
+On tablet (≥ 737px): 4 slides visible at once
+On desktop (≥ 1280px): 5 slides visible at once
 ### Per-Instance Settings
 
 Use `data-slider-id` on the first slide in a cluster to apply overrides. Full process:
@@ -199,6 +234,8 @@ Use `data-slider-id` on the first slide in a cluster to apply overrides. Full pr
 Notes:
 - Only the first container in the cluster needs `data-slider-id`.
 - If an id is missing from `instances`, the global defaults apply.
+- Set `hideOverflow: false` (global or per-instance) to keep full slide content visible outside wrapper bounds.
+- Instance settings (`instances.<id>`) override global `slider` settings for that specific cluster.
 
 ```html
 <!-- Cluster A -->
@@ -216,13 +253,39 @@ window.CarrdPluginOptions = {
     slider: {
         slidesPerView: 1,
         gap: 16,
+        hideOverflow: false,
         instances: {
-            hero: { autoplay: true, slidesPerView: 1 },
+            hero: { autoplay: true, slidesPerView: 1, hideOverflow: false },
             gallery: { slidesPerView: 3, gap: 24 }
         }
     }
 };
 ```
+
+### Explicit Example: `data-slider-id="persone"`
+
+```html
+<div class="slider" data-slider-id="persone">...</div>
+<div class="slider">...</div>
+<div class="slider">...</div>
+```
+
+```javascript
+window.CarrdPluginOptions = {
+    slider: {
+        hideOverflow: false, // Global default for all sliders
+        instances: {
+            persone: {
+                hideOverflow: false // Only this cluster becomes overflow-visible
+            }
+        }
+    }
+};
+```
+
+Result:
+- Sliders without `data-slider-id="persone"` keep global `hideOverflow: false`.
+- The `persone` cluster uses `hideOverflow: false` and shows full content outside wrapper bounds.
 
 ---
 

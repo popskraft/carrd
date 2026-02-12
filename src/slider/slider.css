@@ -1,6 +1,6 @@
 /*
  * Plugin: Slider
- * Version: 0.1.9aaaaaaaaaaaaaaaaaaaaa
+ * Version: 0.1.10aaaaaaaaaaaaaaaaaaaaa
  * Purpose: Slider styles and navigation visuals.
  * Admin placement: Code element in HEAD.
  */
@@ -14,6 +14,10 @@
   touch-action: pan-y;
   -webkit-user-select: none;
   user-select: none;
+}
+
+.theme-slider-wrapper.is-overflow-visible {
+  overflow: visible;
 }
 
 .theme-slider-wrapper.is-dragging {
