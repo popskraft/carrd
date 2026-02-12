@@ -37,17 +37,14 @@ window.CarrdPluginOptions = {
 | `ctaId` | `'site-header-cta'` | CTA element ID used for mobile compact row |
 | `mobileStickyAnchorId` | `'site-header-topnav'` | Optional element ID used to offset sticky top on mobile |
 | `mobileStickyOffset` | `0` | Additional mobile sticky top offset in px |
-| `mobileStickyTop` | `null` | Visual sticky top in px for mobile (does not change sticky trigger point) |
+| `mobileStickyTop` | `-80` | Visual sticky top in px for mobile (does not change sticky trigger point) |
+| `animationDuration` | `50` | Menu/sticky animation duration in ms |
+| `navMaxHeight` | `'80vh'` | Max height fallback for mobile menu |
 | `breakpoint` | `736` | Max width (px) for mobile behavior |
 | `closeOnLinkClick` | `true` | Close menu when a link is clicked (mobile) |
 | `sticky` | `true` | Enables sticky header behavior |
 | `hideOnScrollDown` | `false` | When `true`, hides sticky header on scroll down and shows it on scroll up |
 | `stickyTop` | `0` | Sticky top offset in px |
-
-Legacy compatibility notes:
-- `enableStickyHider` is still accepted as a legacy alias for `sticky`.
-- `disableStickyEffect: true` still force-disables sticky behavior.
-- `animationDuration` and `navMaxHeight` are still accepted, but prefer CSS variables for styling.
 
 ## CSS Variables
 

@@ -7,18 +7,16 @@
 (function() {
   'use strict';
 
-  // ==========================================
-  // CONFIGURATION
-  // ==========================================
-
-  const DEFAULTS = {
+  const D = {
     headerId: 'site-header',
     navId: 'site-header-nav',
     navSelector: '.links-component',
     ctaId: 'site-header-cta',
     mobileStickyAnchorId: 'site-header-topnav',
     mobileStickyOffset: 0,
-    mobileStickyTop: null,
+    mobileStickyTop: -80,
+    animationDuration: 50,
+    navMaxHeight: '80vh',
     breakpoint: 736,
     closeOnLinkClick: true,
     sticky: true,
@@ -26,85 +24,64 @@
     stickyTop: 0
   };
 
-  const externalOptions = (typeof window !== 'undefined' &&
+  const O = (typeof window !== 'undefined' &&
     window.CarrdPluginOptions &&
     window.CarrdPluginOptions.headerNav) || {};
+  const G = { ...D, ...O };
+  if (typeof G.sticky !== 'boolean') G.sticky = D.sticky;
+  const SD = 4;
+  const STICKY_TRIGGER_BUFFER_MOBILE = 8;
 
-  const normalizeConfig = (options) => {
-    const hasLegacyStickyFlag = typeof options.enableStickyHider === 'boolean';
-    const stickyFromLegacy = hasLegacyStickyFlag ? options.enableStickyHider : undefined;
-
-    let sticky = typeof options.sticky === 'boolean'
-      ? options.sticky
-      : (stickyFromLegacy !== undefined ? stickyFromLegacy : DEFAULTS.sticky);
-
-    // Keep legacy disableStickyEffect as a hard off switch.
-    if (options.disableStickyEffect === true) sticky = false;
-
-    return { ...DEFAULTS, ...options, sticky };
+  const K = {
+    r: 'theme-header-nav',
+    tg: 'theme-header-nav-toggle',
+    b: 'theme-header-nav-bar',
+    m: 'theme-header-nav-menu',
+    c: 'theme-header-nav-cta',
+    s: 'theme-header-nav-section',
+    sb: 'theme-header-nav-section-brand',
+    sn: 'theme-header-nav-section-nav',
+    sc: 'theme-header-nav-section-cta',
+    se: 'theme-header-nav-section-extra',
+    o: 'is-nav-open',
+    mb: 'is-mobile',
+    sk: 'is-sticky-hider',
+    st: 'is-stuck',
+    h: 'is-hidden',
+    sp: 'theme-header-nav-spacer'
   };
 
-  const CONFIG = normalizeConfig(externalOptions);
-  const STICKY_SCROLL_DELTA = 4;
-  const LEGACY_STYLE_DEFAULTS = {
-    animationDuration: 50,
-    navMaxHeight: '80vh'
+  const U = {
+    d: '--theme-header-nav-duration',
+    nm: '--theme-header-nav-max-height',
+    oh: '--theme-header-nav-open-height',
+    st: '--theme-header-nav-sticky-top',
+    fl: '--theme-header-nav-fixed-left',
+    fw: '--theme-header-nav-fixed-width'
   };
 
-  const CLASSES = {
-    root: 'theme-header-nav',
-    toggle: 'theme-header-nav-toggle',
-    bar: 'theme-header-nav-bar',
-    menu: 'theme-header-nav-menu',
-    cta: 'theme-header-nav-cta',
-    section: 'theme-header-nav-section',
-    sectionBrand: 'theme-header-nav-section-brand',
-    sectionNav: 'theme-header-nav-section-nav',
-    sectionCta: 'theme-header-nav-section-cta',
-    sectionExtra: 'theme-header-nav-section-extra',
-    open: 'is-nav-open',
-    mobile: 'is-mobile',
-    sticky: 'is-sticky-hider',
-    stuck: 'is-stuck',
-    hidden: 'is-hidden',
-    spacer: 'theme-header-nav-spacer'
-  };
-
-  const CSS_VARS = {
-    duration: '--theme-header-nav-duration',
-    navMaxHeight: '--theme-header-nav-max-height',
-    openHeight: '--theme-header-nav-open-height',
-    stickyTop: '--theme-header-nav-sticky-top',
-    fixedLeft: '--theme-header-nav-fixed-left',
-    fixedWidth: '--theme-header-nav-fixed-width'
-  };
-
-  // ==========================================
-  // SETUP
-  // ==========================================
-
-  function createToggleButton() {
+  function mkBtn() {
     const button = document.createElement('button');
     button.type = 'button';
-    button.className = CLASSES.toggle;
+    button.className = K.tg;
     button.setAttribute('aria-label', 'Toggle navigation');
     button.setAttribute('aria-expanded', 'false');
 
     for (let i = 0; i < 3; i += 1) {
       const bar = document.createElement('span');
-      bar.className = CLASSES.bar;
+      bar.className = K.b;
       button.appendChild(bar);
     }
 
     return button;
   }
 
-  function findNavElement(header) {
+  function pickNav(header) {
     const isValidNav = (element) => Boolean(element && element !== header && header.contains(element));
-    const configuredNav = CONFIG.navId ? document.getElementById(CONFIG.navId) : null;
+    const configuredNav = G.navId ? document.getElementById(G.navId) : null;
     if (isValidNav(configuredNav)) return configuredNav;
 
-    const configuredSelector = typeof CONFIG.navSelector === 'string' ? CONFIG.navSelector.trim() : '';
+    const configuredSelector = typeof G.navSelector === 'string' ? G.navSelector.trim() : '';
     if (configuredSelector) {
       const navBySelector = header.querySelector(configuredSelector);
       if (isValidNav(navBySelector)) return navBySelector;
@@ -116,8 +93,8 @@
     return null;
   }
 
-  function findCtaElement(header) {
-    const ctaId = typeof CONFIG.ctaId === 'string' ? CONFIG.ctaId.trim() : '';
+  function pickCta(header) {
+    const ctaId = typeof G.ctaId === 'string' ? G.ctaId.trim() : '';
     if (ctaId) {
       const ctaById = document.getElementById(ctaId);
       if (ctaById && header.contains(ctaById)) return ctaById;
@@ -126,7 +103,7 @@
     return header.querySelector('.buttons-component');
   }
 
-  function ensureElementId(element, preferredBaseId, forbiddenId) {
+  function ensureId(element, preferredBaseId, forbiddenId) {
     const hasValidCurrentId = element.id && element.id !== forbiddenId;
     if (hasValidCurrentId) return element.id;
 
@@ -144,13 +121,13 @@
     return candidateId;
   }
 
-  function getDirectSectionElement(target, sectionContainer) {
+  function pickSection(target, secWrap) {
     let current = target;
-    while (current && current.parentElement && current.parentElement !== sectionContainer) {
+    while (current && current.parentElement && current.parentElement !== secWrap) {
       current = current.parentElement;
     }
 
-    if (current && current.parentElement === sectionContainer) {
+    if (current && current.parentElement === secWrap) {
       return current;
     }
 
@@ -158,8 +135,8 @@
   }
 
   function init() {
-    const header = document.getElementById(CONFIG.headerId);
-    const nav = header ? findNavElement(header) : null;
+    const header = document.getElementById(G.headerId);
+    const nav = header ? pickNav(header) : null;
 
     if (!header || !nav) return;
     if (header.dataset.headerNavInitialized === 'true') return;
@@ -167,147 +144,159 @@
     header.dataset.headerNavInitialized = 'true';
     // Disable legacy custom scroll-header behavior that conflicts with sticky hider.
     header.classList.remove('theme-scroll-header', 'is-scroll-visible');
-    header.classList.add(CLASSES.root);
+    header.classList.add(K.r);
 
-    // Keep legacy style behavior so previous embeds remain pixel-compatible.
-    const animationDuration = typeof externalOptions.animationDuration === 'number'
-      ? externalOptions.animationDuration
-      : LEGACY_STYLE_DEFAULTS.animationDuration;
-    const navMaxHeight = typeof externalOptions.navMaxHeight === 'string'
-      ? externalOptions.navMaxHeight
-      : LEGACY_STYLE_DEFAULTS.navMaxHeight;
-    header.style.setProperty(CSS_VARS.duration, animationDuration + 'ms');
-    header.style.setProperty(CSS_VARS.navMaxHeight, navMaxHeight);
-    const mobileStickyAnchorId = typeof CONFIG.mobileStickyAnchorId === 'string'
-      ? CONFIG.mobileStickyAnchorId.trim()
+    const dur = typeof G.animationDuration === 'number'
+      ? G.animationDuration
+      : D.animationDuration;
+    const maxH = typeof G.navMaxHeight === 'string'
+      ? G.navMaxHeight
+      : D.navMaxHeight;
+    header.style.setProperty(U.d, dur + 'ms');
+    header.style.setProperty(U.nm, maxH);
+    const mId = typeof G.mobileStickyAnchorId === 'string'
+      ? G.mobileStickyAnchorId.trim()
       : '';
-    const mobileStickyAnchor = mobileStickyAnchorId ? document.getElementById(mobileStickyAnchorId) : null;
-    let activeStickyTop = CONFIG.stickyTop;
-    let activeStickyTriggerTop = CONFIG.stickyTop;
+    const mAnchor = mId ? document.getElementById(mId) : null;
+    let topV = G.stickyTop;
+    let topT = G.stickyTop;
 
-    const initialHeaderHeight = header.style.height;
-    const initialHeaderMaxHeight = header.style.maxHeight;
-    let previousScrollY = window.scrollY || window.pageYOffset || 0;
-    let stickyAnchorY = 0;
-    let wasStuck = false;
+    const getY = () => window.scrollY || window.pageYOffset || 0;
+    const isMobile = () => header.classList.contains(K.mb);
 
-    const toggle = createToggleButton();
-    const navId = ensureElementId(nav, CONFIG.headerId + '-nav', CONFIG.headerId);
+    let prevY = getY();
+    let anchorY = 0;
+    let stuckPrev = false;
+
+    const toggle = mkBtn();
+    const navId = ensureId(nav, G.headerId + '-nav', G.headerId);
     toggle.setAttribute('aria-controls', navId);
     header.appendChild(toggle);
 
-    nav.classList.add(CLASSES.menu);
+    nav.classList.add(K.m);
 
-    const sectionContainer = header.querySelector('.wrapper > .inner');
-    if (sectionContainer) {
-      Array.from(sectionContainer.children).forEach((section, index) => {
-        section.classList.add(CLASSES.section);
+    const secWrap = header.querySelector('.wrapper > .inner');
+    if (secWrap) {
+      Array.from(secWrap.children).forEach((section, index) => {
+        section.classList.add(K.s);
         if (index === 0) {
-          section.classList.add(CLASSES.sectionBrand);
+          section.classList.add(K.sb);
         } else {
-          section.classList.add(CLASSES.sectionExtra);
+          section.classList.add(K.se);
         }
       });
 
-      const navSection = getDirectSectionElement(nav, sectionContainer);
-      if (navSection) {
-        navSection.classList.add(CLASSES.sectionNav);
-        navSection.classList.remove(CLASSES.sectionExtra);
-        navSection.classList.remove(CLASSES.sectionBrand);
+      const navSec = pickSection(nav, secWrap);
+      if (navSec) {
+        navSec.classList.add(K.sn);
+        navSec.classList.remove(K.se, K.sb);
       }
 
-      const cta = findCtaElement(header);
+      const cta = pickCta(header);
       if (cta) {
-        cta.classList.add(CLASSES.cta);
-        const ctaSection = getDirectSectionElement(cta, sectionContainer);
-        if (ctaSection) {
-          ctaSection.classList.add(CLASSES.sectionCta);
-          ctaSection.classList.remove(CLASSES.sectionExtra);
-          ctaSection.classList.remove(CLASSES.sectionBrand);
+        cta.classList.add(K.c);
+        const ctaSec = pickSection(cta, secWrap);
+        if (ctaSec) {
+          ctaSec.classList.add(K.sc);
+          ctaSec.classList.remove(K.se, K.sb);
         }
       }
     }
 
     nav.setAttribute('aria-hidden', 'true');
     const spacer = document.createElement('div');
-    spacer.className = CLASSES.spacer;
+    spacer.className = K.sp;
     if (!header.parentNode) return;
     header.parentNode.insertBefore(spacer, header);
 
-    if (CONFIG.sticky) {
-      header.classList.add(CLASSES.sticky);
+    if (G.sticky) {
+      header.classList.add(K.sk);
     }
 
-    const clearLegacyScrollHeaderState = () => {
+    const clearLegacy = () => {
       header.classList.remove('theme-scroll-header', 'is-scroll-visible');
     };
 
-    const getHeaderFlowHeight = () => {
+    const flowH = () => {
       const headerStyles = window.getComputedStyle(header);
       const marginTop = parseFloat(headerStyles.marginTop) || 0;
       const marginBottom = parseFloat(headerStyles.marginBottom) || 0;
       return header.getBoundingClientRect().height + marginTop + marginBottom;
     };
 
-    const getMobileStickyTriggerTop = () => {
-      const extraOffset = typeof CONFIG.mobileStickyOffset === 'number' ? CONFIG.mobileStickyOffset : 0;
-      if (!mobileStickyAnchor) return CONFIG.stickyTop + extraOffset;
-      const anchorRect = mobileStickyAnchor.getBoundingClientRect();
-      return CONFIG.stickyTop + extraOffset + Math.max(0, anchorRect.height);
+    const mobileTrigTop = () => {
+      const extraOffset = typeof G.mobileStickyOffset === 'number' ? G.mobileStickyOffset : 0;
+      if (!mAnchor) return G.stickyTop + extraOffset;
+      const anchorRect = mAnchor.getBoundingClientRect();
+      return G.stickyTop + extraOffset + Math.max(0, anchorRect.height);
     };
 
-    const getMobileStickyTop = () => {
-      if (typeof CONFIG.mobileStickyTop === 'number' && Number.isFinite(CONFIG.mobileStickyTop)) {
-        return CONFIG.mobileStickyTop;
+    const readCssStickyTop = () => {
+      const inlineValue = header.style.getPropertyValue(U.st);
+      const computedValue = window.getComputedStyle(header).getPropertyValue(U.st);
+      const rawValue = (inlineValue || computedValue || '').trim();
+      const parsed = parseFloat(rawValue);
+      return Number.isFinite(parsed) ? parsed : null;
+    };
+
+    const cssStickyTop = readCssStickyTop();
+
+    const mobileTop = () => {
+      if (typeof G.mobileStickyTop === 'number' && Number.isFinite(G.mobileStickyTop)) {
+        return G.mobileStickyTop;
       }
 
-      return getMobileStickyTriggerTop();
+      if (cssStickyTop !== null) {
+        return cssStickyTop;
+      }
+
+      return mobileTrigTop();
     };
 
-    const applyStickyTop = () => {
-      header.style.setProperty(CSS_VARS.stickyTop, activeStickyTop + 'px');
+    const applyTop = () => {
+      header.style.setProperty(U.st, topV + 'px');
     };
 
-    const syncMenuHeight = () => {
-      if (!header.classList.contains(CLASSES.mobile)) {
-        header.style.removeProperty(CSS_VARS.openHeight);
+    const syncMenuH = () => {
+      if (!isMobile()) {
+        header.style.removeProperty(U.oh);
         return;
       }
 
       const menuHeight = nav.scrollHeight;
       if (menuHeight > 0) {
-        header.style.setProperty(CSS_VARS.openHeight, menuHeight + 'px');
+        header.style.setProperty(U.oh, menuHeight + 'px');
       }
     };
 
-    const updateStickyAnchor = () => {
-      const currentScrollY = window.scrollY || window.pageYOffset || 0;
-      const anchorRect = header.classList.contains(CLASSES.stuck)
+    const updateAnchor = () => {
+      const y = getY();
+      const anchorRect = header.classList.contains(K.st)
         ? spacer.getBoundingClientRect()
         : header.getBoundingClientRect();
-      const anchorTop = anchorRect.top + currentScrollY;
-      const mobileTriggerOffset = header.classList.contains(CLASSES.mobile) ? anchorRect.height : 0;
-      stickyAnchorY = anchorTop + mobileTriggerOffset;
+      const anchorTop = anchorRect.top + y;
+      const mobileTriggerOffset = isMobile() ? anchorRect.height : 0;
+      anchorY = anchorTop + mobileTriggerOffset;
     };
 
-    const syncFixedLayout = () => {
+    const syncFixed = () => {
       const spacerRect = spacer.getBoundingClientRect();
-      header.style.setProperty(CSS_VARS.fixedLeft, spacerRect.left + 'px');
-      header.style.setProperty(CSS_VARS.fixedWidth, spacerRect.width + 'px');
-      spacer.style.height = getHeaderFlowHeight() + 'px';
+      header.style.setProperty(U.fl, spacerRect.left + 'px');
+      header.style.setProperty(U.fw, spacerRect.width + 'px');
+      spacer.style.height = flowH() + 'px';
     };
 
-    const clearFixedLayout = () => {
-      header.style.removeProperty(CSS_VARS.fixedLeft);
-      header.style.removeProperty(CSS_VARS.fixedWidth);
+    const clearFixed = () => {
+      header.style.removeProperty(U.fl);
+      header.style.removeProperty(U.fw);
       spacer.style.height = '0px';
     };
 
-    const setOpenState = (isOpen) => {
+    const setOpen = (isOpen) => {
       if (isOpen) {
-        syncMenuHeight();
+        syncMenuH();
       }
-      header.classList.toggle(CLASSES.open, isOpen);
+      header.classList.toggle(K.o, isOpen);
       toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
       nav.setAttribute('aria-hidden', isOpen ? 'false' : 'true');
 
@@ -315,133 +304,138 @@
         header.style.height = 'auto';
         header.style.maxHeight = 'none';
       } else {
-        header.style.height = initialHeaderHeight;
-        header.style.maxHeight = initialHeaderMaxHeight;
+        header.style.removeProperty('height');
+        header.style.removeProperty('max-height');
       }
 
       if (isOpen) {
-        header.classList.remove(CLASSES.hidden);
+        header.classList.remove(K.h);
       }
 
-      if (header.classList.contains(CLASSES.stuck)) {
-        syncFixedLayout();
+      if (header.classList.contains(K.st)) {
+        syncFixed();
       }
     };
 
-    const updateStickyHiderState = () => {
-      if (!CONFIG.sticky) return;
+    const updateSticky = () => {
+      if (!G.sticky) return;
 
-      clearLegacyScrollHeaderState();
-      const currentScrollY = window.scrollY || window.pageYOffset || 0;
-      const isStuck = currentScrollY + activeStickyTriggerTop >= stickyAnchorY;
+      clearLegacy();
+      const y = getY();
+      const triggerBuffer = isMobile() ? STICKY_TRIGGER_BUFFER_MOBILE : 0;
+      const isStuck = y + topT + triggerBuffer >= anchorY;
+      const shouldCloseOnStick = isStuck && !stuckPrev && isMobile() && header.classList.contains(K.o);
 
-      if (isStuck && !wasStuck) {
-        syncFixedLayout();
+      if (shouldCloseOnStick) {
+        setOpen(false);
       }
-      header.classList.toggle(CLASSES.stuck, isStuck);
 
-      if (!isStuck && wasStuck) {
-        clearFixedLayout();
-        updateStickyAnchor();
+      if (isStuck && !stuckPrev) {
+        syncFixed();
+      }
+      header.classList.toggle(K.st, isStuck);
+
+      if (!isStuck && stuckPrev) {
+        clearFixed();
+        updateAnchor();
       }
 
       if (!isStuck) {
-        header.classList.remove(CLASSES.hidden);
-        previousScrollY = currentScrollY;
-        wasStuck = false;
+        header.classList.remove(K.h);
+        prevY = y;
+        stuckPrev = false;
         return;
       }
 
-      if (header.classList.contains(CLASSES.open)) {
-        header.classList.remove(CLASSES.hidden);
-        previousScrollY = currentScrollY;
-        wasStuck = true;
+      if (header.classList.contains(K.o)) {
+        header.classList.remove(K.h);
+        prevY = y;
+        stuckPrev = true;
         return;
       }
 
-      if (CONFIG.hideOnScrollDown) {
-        const isScrollingDown = currentScrollY > previousScrollY + STICKY_SCROLL_DELTA;
-        const isScrollingUp = currentScrollY < previousScrollY - STICKY_SCROLL_DELTA;
+      if (G.hideOnScrollDown) {
+        const isScrollingDown = y > prevY + SD;
+        const isScrollingUp = y < prevY - SD;
 
-        if (isScrollingDown && currentScrollY > stickyAnchorY) {
-          header.classList.add(CLASSES.hidden);
-        } else if (isScrollingUp || currentScrollY <= activeStickyTriggerTop) {
-          header.classList.remove(CLASSES.hidden);
+        if (isScrollingDown && y > anchorY) {
+          header.classList.add(K.h);
+        } else if (isScrollingUp || y <= topT) {
+          header.classList.remove(K.h);
         }
       } else {
-        header.classList.remove(CLASSES.hidden);
+        header.classList.remove(K.h);
       }
 
-      previousScrollY = currentScrollY;
-      wasStuck = true;
+      prevY = y;
+      stuckPrev = true;
     };
 
-    const updateViewportState = () => {
-      clearLegacyScrollHeaderState();
-      const isMobile = window.innerWidth <= CONFIG.breakpoint;
-      header.classList.toggle(CLASSES.mobile, isMobile);
-      activeStickyTriggerTop = isMobile ? getMobileStickyTriggerTop() : CONFIG.stickyTop;
-      activeStickyTop = isMobile ? getMobileStickyTop() : CONFIG.stickyTop;
-      applyStickyTop();
-      syncMenuHeight();
+    const updateViewport = () => {
+      clearLegacy();
+      const mobile = window.innerWidth <= G.breakpoint;
+      header.classList.toggle(K.mb, mobile);
+      topT = mobile ? mobileTrigTop() : G.stickyTop;
+      topV = mobile ? mobileTop() : G.stickyTop;
+      applyTop();
+      syncMenuH();
 
-      if (!isMobile) {
-        setOpenState(false);
+      if (!mobile) {
+        setOpen(false);
       }
 
-      if (!CONFIG.sticky) {
-        header.classList.remove(CLASSES.stuck, CLASSES.hidden);
-        clearFixedLayout();
+      if (!G.sticky) {
+        header.classList.remove(K.st, K.h);
+        clearFixed();
       }
 
-      if (header.classList.contains(CLASSES.stuck)) {
-        syncFixedLayout();
+      if (header.classList.contains(K.st)) {
+        syncFixed();
       } else {
-        updateStickyAnchor();
+        updateAnchor();
       }
     };
 
     toggle.addEventListener('click', () => {
-      if (!header.classList.contains(CLASSES.mobile)) return;
-      const isOpen = header.classList.contains(CLASSES.open);
-      setOpenState(!isOpen);
+      if (!isMobile()) return;
+      const isOpen = header.classList.contains(K.o);
+      setOpen(!isOpen);
     });
 
-    if (CONFIG.closeOnLinkClick) {
+    if (G.closeOnLinkClick) {
       nav.addEventListener('click', (event) => {
         const link = event.target.closest('a');
         if (!link) return;
-        if (!header.classList.contains(CLASSES.mobile)) return;
-        setOpenState(false);
+        if (!isMobile()) return;
+        setOpen(false);
       });
     }
 
-    window.addEventListener('resize', updateViewportState);
-    window.addEventListener('scroll', updateStickyHiderState, { passive: true });
-    window.addEventListener('load', syncMenuHeight);
+    window.addEventListener('resize', updateViewport);
+    window.addEventListener('scroll', updateSticky, { passive: true });
+    window.addEventListener('load', syncMenuH);
 
     if (typeof ResizeObserver !== 'undefined') {
       const resizeObserver = new ResizeObserver(() => {
-        if (header.classList.contains(CLASSES.stuck)) {
-          syncFixedLayout();
+        if (header.classList.contains(K.st)) {
+          syncFixed();
         } else {
-          updateStickyAnchor();
+          updateAnchor();
         }
-        updateViewportState();
+        updateViewport();
       });
       resizeObserver.observe(header);
-      if (mobileStickyAnchor) {
-        resizeObserver.observe(mobileStickyAnchor);
+      if (mAnchor) {
+        resizeObserver.observe(mAnchor);
       }
     }
 
-    applyStickyTop();
-    updateViewportState();
-    updateStickyAnchor();
-    updateStickyHiderState();
+    applyTop();
+    updateViewport();
+    updateAnchor();
+    updateSticky();
   }
 
-  // Run on DOM ready
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);
   } else {

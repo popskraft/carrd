@@ -112,7 +112,7 @@ window.CarrdPluginOptions.cookieBanner = {
 /* Header Nav */
 window.CarrdPluginOptions.headerNav = {
     headerId: 'site-header',
-    navId: 'site-header-links',
+    navId: 'site-header-nav',
     navSelector: '.links-component',
     ctaId: 'site-header-cta',
     mobileStickyAnchorId: 'site-header-topnav',

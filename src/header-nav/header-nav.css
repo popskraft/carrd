@@ -73,8 +73,7 @@
   height: var(--theme-header-nav-bar-height, 2px);
   background: var(--theme-header-nav-bar-color, var(--theme-color-primary, currentColor));
   border-radius: var(--theme-header-nav-bar-radius, 999px);
-  transition: transform var(--theme-header-nav-duration, 300ms) ease,
-    opacity var(--theme-header-nav-duration, 300ms) ease;
+  transition: none;
   transform-origin: center;
 }
 
@@ -103,22 +102,20 @@
 .theme-header-nav.is-mobile .theme-header-nav-menu {
   max-height: 0;
   opacity: 0;
-  transform: translateY(-0.5rem);
+  transform: none;
   overflow: hidden;
   padding: 0;
   margin: 0;
   pointer-events: none;
-  transition: max-height var(--theme-header-nav-duration, 300ms) ease,
-    opacity var(--theme-header-nav-duration, 300ms) ease,
-    transform var(--theme-header-nav-duration, 300ms) ease;
-  will-change: max-height, opacity, transform;
+  transition: none;
+  will-change: auto;
 }
 
 .theme-header-nav.is-mobile.is-nav-open .theme-header-nav-menu {
   max-height: var(--theme-header-nav-open-height, var(--theme-header-nav-max-height, 60vh));
   height: auto;
   opacity: 1;
-  transform: translateY(0);
+  transform: none;
   pointer-events: auto;
   overflow: auto;
   padding: 2rem 0;
