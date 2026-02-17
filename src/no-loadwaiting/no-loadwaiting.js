@@ -1,6 +1,6 @@
 /*
  * Plugin: No Load Waiting
- * Version: 0.1.10aaaaaaaaaaaaaaaaaaaaa
+ * Version: 0.1.11
  * Purpose: Mark the page ready immediately and skip loader delays.
  * Admin placement: Code element in BODY END.
  */

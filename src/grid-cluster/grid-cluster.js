@@ -1,0 +1,156 @@
+/*
+ * Plugin: Grid Cluster
+ * Version: 0.1.11
+ * Purpose: Wrap consecutive grid containers into responsive clusters.
+ * Admin placement: Code element in BODY END.
+ */
+(function() {
+  'use strict';
+
+  const DEFAULTS = {
+    enabled: true,
+    gridClasses: ['grid-2', 'grid-3', 'grid-4', 'grid-5', 'grid-6'],
+    widthClasses: {
+      'w-20': '20%',
+      'w-25': '25%',
+      'w-30': '33%',
+      'w-40': '40%',
+      'w-50': '50%',
+      'w-60': '60%',
+      'w-70': '67%',
+      'w-75': '75%',
+      'w-80': '80%'
+    }
+  };
+
+  const externalOptions = (typeof window !== 'undefined' &&
+    window.CarrdPluginOptions &&
+    window.CarrdPluginOptions.gridCluster) || {};
+
+  const legacyColumnsOptions = (typeof window !== 'undefined' &&
+    window.CarrdPluginOptions &&
+    window.CarrdPluginOptions.columns) || {};
+
+  const legacyGridOptions = {
+    enabled: legacyColumnsOptions.grid && typeof legacyColumnsOptions.grid.enabled !== 'undefined'
+      ? legacyColumnsOptions.grid.enabled
+      : undefined,
+    gridClasses: legacyColumnsOptions.gridClasses,
+    widthClasses: legacyColumnsOptions.widthClasses
+  };
+
+  const CONFIG = { ...DEFAULTS, ...legacyGridOptions, ...externalOptions };
+  const SELECTORS = {
+    gridContainer: 'theme-columns-grid',
+    desktopWidths: 'theme-columns-grid--desktop-widths',
+    constrainWidth: 'theme-columns-constrain',
+    imageFrameInGrid: '.theme-columns-grid .image-component > .frame'
+  };
+
+  const GRID_CLASSES = CONFIG.gridClasses;
+  const WIDTH_CLASS_MAP = CONFIG.widthClasses;
+  const GRID_SELECTOR = GRID_CLASSES.map(cls => `.${cls}`).join(',');
+  const WIDTH_CLASSES = Object.keys(WIDTH_CLASS_MAP);
+
+  const isGridBlock = element =>
+    element && GRID_CLASSES.some(cls => element.classList && element.classList.contains(cls));
+
+  const getGridSize = element => {
+    if (!element || !element.classList) return null;
+    const sizeClass = GRID_CLASSES.find(cls => element.classList.contains(cls));
+    if (!sizeClass) return null;
+    const numeric = parseInt(sizeClass.split('-')[1], 10);
+    return Number.isNaN(numeric) ? null : numeric;
+  };
+
+  const widthValueForElement = element => {
+    if (!element || !element.classList) return null;
+    const widthClass = WIDTH_CLASSES.find(cls => element.classList.contains(cls));
+    return widthClass ? WIDTH_CLASS_MAP[widthClass] : null;
+  };
+
+  function wrapCluster(cluster, gridSize) {
+    if (!cluster.length || !cluster[0].parentNode) return;
+
+    if (cluster[0].classList.contains('justify')) {
+      cluster.forEach(node => node.classList.add('justify'));
+    }
+
+    const container = document.createElement('div');
+    const classList = [SELECTORS.gridContainer];
+
+    if (gridSize && gridSize >= 2) {
+      classList.push(`grid-${gridSize}`);
+    }
+
+    if (cluster.some(el => el.classList.contains('grid-sm-2'))) {
+      classList.push('grid-sm-2');
+    }
+
+    container.className = classList.join(' ');
+    cluster[0].parentNode.insertBefore(container, cluster[0]);
+    cluster.forEach(node => container.appendChild(node));
+    applyDesktopWidths(container, cluster, gridSize);
+  }
+
+  function applyDesktopWidths(container, cluster, gridSize) {
+    if (!gridSize || gridSize < 2 || cluster.length < gridSize) return;
+
+    const initialRow = cluster.slice(0, gridSize);
+    const columnWidths = initialRow.map(widthValueForElement);
+    if (!columnWidths.some(Boolean)) return;
+
+    const templateParts = columnWidths.map(value => value || 'minmax(0, 1fr)');
+    container.classList.add(SELECTORS.desktopWidths);
+    container.style.setProperty('--theme-columns-desktop-template', templateParts.join(' '));
+  }
+
+  function constrainImageFrames() {
+    document.querySelectorAll(SELECTORS.imageFrameInGrid).forEach(frame => {
+      const computedWidth = window.getComputedStyle(frame).width;
+      const widthInRem = parseFloat(computedWidth) / parseFloat(getComputedStyle(document.documentElement).fontSize);
+
+      if (widthInRem > 20) {
+        frame.classList.add(SELECTORS.constrainWidth);
+      }
+    });
+  }
+
+  function init() {
+    if (CONFIG.enabled === false) return;
+
+    const collected = new Set();
+    const gridBlocks = document.querySelectorAll(GRID_SELECTOR);
+
+    gridBlocks.forEach(block => {
+      if (collected.has(block)) return;
+      if (block.dataset.gridInitialized === 'true') return;
+
+      const cluster = [block];
+      const baseSize = getGridSize(block);
+      let sibling = block.nextElementSibling;
+
+      while (isGridBlock(sibling)) {
+        const siblingSize = getGridSize(sibling);
+        if (baseSize !== null && siblingSize !== baseSize) {
+          break;
+        }
+        cluster.push(sibling);
+        collected.add(sibling);
+        sibling = sibling.nextElementSibling;
+      }
+
+      collected.add(block);
+      cluster.forEach(node => node.dataset.gridInitialized = 'true');
+      wrapCluster(cluster, baseSize);
+    });
+
+    constrainImageFrames();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();

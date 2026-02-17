@@ -1,6 +1,6 @@
 /*
  * File: Carrd Theme Variables
- * Version: 0.1.10aaaaaaaaaaaaaaaaaaaaa
+ * Version: 0.1.11
  * Purpose: Required CSS variables for Mini theme plugins.
  * Admin placement: Code element in HEAD (load before plugin CSS).
  */
@@ -19,6 +19,7 @@
   --theme-color-bg: #ffffff;
   --theme-color-accent: var(--theme-color-primary);
   --theme-overlay-bg: rgba(218, 225, 228, 0.792);
+  --theme-card-bg-default: var(--theme-color-primary-light);
 
   /* Typography */
   --theme-font-family: "Wix Madefor Display", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;

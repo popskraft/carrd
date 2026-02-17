@@ -1,6 +1,6 @@
 /*
  * Plugin: Cookie Banner
- * Version: 0.1.10aaaaaaaaaaaaaaaaaaaaa
+ * Version: 0.1.11
  * Purpose: Shows a banner with id='cookie-baner' until first acceptance.
  *          After acceptance, hides it for 1 year (via cookie).
  * Admin placement: Code element in BODY END.

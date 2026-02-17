@@ -2,11 +2,20 @@
 
 Grid layout with optional Cards styling.
 
+> Legacy compatibility plugin. New projects should use `Grid Cluster` and `Cards` as separate plugins.
+
 ## Features
 - **Responsive Grid**: 2-6 column layouts with breakpoints
 - **Cards**: Auto-styled items with padding, radius, backgrounds
 - **Flexible Widths**: Custom column widths via classes
 - **Justify Propagation**: If first container in a grid cluster has `.justify`, plugin applies `.justify` to all containers in that cluster
+
+## Migration
+
+- Recommended split:
+  - Grid behavior -> `grid-cluster` plugin (`window.CarrdPluginOptions.gridCluster`)
+  - Cards behavior -> `cards` plugin (`window.CarrdPluginOptions.cards`)
+- Keep `columns` only for backward compatibility on existing sites.
 
 ## Carrd Admin Settings
 1. Add class `.grid-2` to `.grid-6` to consecutive containers
@@ -25,6 +34,12 @@ window.CarrdPluginOptions = {
         gridClasses: ['grid-2', 'grid-3', 'grid-4', 'grid-5', 'grid-6'],
         cardSelector: '.cards',
         defaultCardBg: 'var(--theme-card-bg-default)',
+        grid: {
+            enabled: true
+        },
+        cards: {
+            enabled: true
+        },
         widthClasses: {
             'w-20': '20%',
             'w-25': '25%',
@@ -48,7 +63,31 @@ window.CarrdPluginOptions = {
 | `gridClasses` | `['grid-2'...'grid-6']` | Classes for grid detection |
 | `cardSelector` | `.cards` | Cards container selector |
 | `defaultCardBg` | CSS variable | Default card background |
+| `grid.enabled` | `true` | Enable/disable grid cluster processing |
+| `cards.enabled` | `true` | Enable/disable cards processing |
 | `widthClasses` | `{ 'w-20': '20%' ... }` | Map of class names to width percentages |
+
+### Feature Flags
+
+Use these flags when you want only one behavior from this plugin:
+
+```javascript
+window.CarrdPluginOptions = {
+    columns: {
+        grid: { enabled: true },
+        cards: { enabled: false } // Grid only
+    }
+};
+```
+
+```javascript
+window.CarrdPluginOptions = {
+    columns: {
+        grid: { enabled: false },
+        cards: { enabled: true } // Cards only
+    }
+};
+```
 
 ## CSS Variables
 

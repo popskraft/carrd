@@ -9,6 +9,34 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.11] - 2026-02-12
+
+### Added
+
+- **New Plugins**: Split legacy Columns behavior into dedicated plugins:
+  - `grid-cluster` for responsive grid clustering
+  - `cards` for card item wrapping/styling
+- **Compatibility**: Added legacy `window.CarrdPluginOptions.columns` fallback support in new `grid-cluster` and `cards` plugins for safer migration.
+
+### Changed
+
+- **Theme Core Bundle**: Updated `theme-core` composition to include `grid-cluster` and `cards` directly.
+- **Documentation**: Improved root/plugin docs for beginner clarity:
+  - Unified root README version source behavior
+  - Clarified Option 4 (embed) required HEAD dependencies
+  - Added explicit `theme-core` inclusion status in Included Plugins table
+  - Expanded Shopping Cart and FAQ setup guidance with clearer Carrd-oriented structure
+- **Columns**: Kept as legacy compatibility plugin with migration guidance.
+
+### Fixed
+
+- **Build System**: Fixed source header version replacement logic to prevent malformed versions like `0.1.10aaaa...`.
+- **Build System**: Added strict `VERSION` format validation (`MAJOR.MINOR.PATCH`).
+- **Tokens**: Added missing shared token `--theme-card-bg-default`.
+- **Columns Cards Guard**: Improved duplicate-wrap protection to detect both legacy and current card wrappers.
+
+---
+
 ### Fixed
 
 - **Columns**: Added built-in `.container-component.justify` styles to plugin CSS and propagate `.justify` across all containers in the same grid cluster when the first container has `.justify`.

@@ -8,10 +8,28 @@ Accordion-style expandable Q&A sections.
 - **Configurable**: Multiple open, default open, custom selectors
 
 ## Carrd Admin Settings
-1. Add class `.FAQContainer` to a Carrd container
-2. Use **Divider** elements to separate questions
-3. Add **Heading** (H1-H3) for each question
-4. Content after heading becomes the answer
+1. Add class `.FAQContainer` to a Carrd container.
+2. Inside it, build entries in this exact order:
+   `Divider -> Heading (H1/H2/H3) -> Answer content`.
+3. Add a **Divider before the first question** (required for parser start).
+4. Repeat for each FAQ item:
+   `Divider -> Heading -> Answer -> Divider -> Heading -> Answer ...`
+5. Carrd path for class assignment: Element Settings -> Style -> Classes.
+
+### Required Structure (Important)
+
+```text
+.FAQContainer
+  hr.divider-component
+  h2 Question 1
+  p Answer 1 line 1
+  p Answer 1 line 2
+  hr.divider-component
+  h2 Question 2
+  p Answer 2
+```
+
+If a question has no preceding Divider, it will not be parsed by default logic.
 
 ## Configuration
 

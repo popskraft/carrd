@@ -1,6 +1,6 @@
 /*
  * Plugin: Typography
- * Version: 0.1.10aaaaaaaaaaaaaaaaaaaaa
+ * Version: 0.1.11
  * Purpose: Parse pseudo-Markdown syntax in .txt containers and convert to semantic HTML.
  * Admin placement: Code element in BODY END.
  *
@@ -104,9 +104,6 @@
     // Find all span.p elements
     const spans = container.querySelectorAll(CONFIG.paragraphSelector);
     if (!spans.length) return;
-
-    // Find the inner element (Carrd structure: .txt > .inner or direct content)
-    const inner = container.querySelector('.inner') || container;
 
     spans.forEach(span => {
       const html = span.innerHTML;

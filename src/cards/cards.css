@@ -1,0 +1,22 @@
+/*
+ * Plugin: Cards
+ * Version: 0.1.11
+ * Purpose: Card item visuals.
+ * Admin placement: Code element in HEAD.
+ */
+.theme-card-item {
+  padding: var(--theme-card-padding, 2rem);
+  border-radius: var(--theme-card-border-radius, 0);
+  height: 100%;
+  box-sizing: border-box;
+}
+
+.cards .inner {
+  align-items: stretch !important;
+}
+
+@media screen and (max-width: 736px) {
+  .theme-card-item {
+    padding: var(--theme-card-padding-mobile, var(--theme-card-padding, 2rem));
+  }
+}

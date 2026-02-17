@@ -39,6 +39,7 @@ window.CarrdPluginOptions = {
         hideOverflow: false,
         slidesPerView: 1,
         peek: 0.1,
+        maxSlideWidth: 400,
         equalHeight: true,
         breakpoints: {
             737: { slidesPerView: 4, peek: 0 },   // Tablet
@@ -68,6 +69,7 @@ window.CarrdPluginOptions = {
 | `hideOverflow` | `false` | Clip overflowing slides inside slider wrapper |
 | `slidesPerView` | `1` | Default slides visible |
 | `peek` | `0.1` | Adds fractional visible part of the next slide (e.g. `0.3` -> ~30% peek) |
+| `maxSlideWidth` | `400` | Caps each slide width in px on screens wider than `736px` (set `0` to disable) |
 | `equalHeight` | `true` | Applies equal-height layout for slide content wrappers |
 | `breakpoints` | `{...}` | Responsive config (see below) |
 | `instances` | `{}` | Per-instance overrides by `data-slider-id` |
@@ -191,27 +193,28 @@ window.CarrdPluginOptions = {
 };
 ```
 
-### Explicit Example: `data-slider-id="persone"`
+### Explicit Example: `data-slider-id="reviews"`
 
 ```html
-<div class="slider" data-slider-id="persone">...</div>
+<div class="slider" data-slider-id="reviews">...</div>
 <div class="slider">...</div>
 <div class="slider">...</div>
 ```
 
 ```javascript
-window.CarrdPluginOptions = {
-    slider: {
-        hideOverflow: false, // Global default for all sliders
-        instances: {
-            persone: {
-                hideOverflow: false // Only this cluster becomes overflow-visible
-            }
+window.CarrdPluginOptions = window.CarrdPluginOptions || {};
+window.CarrdPluginOptions.slider = window.CarrdPluginOptions.slider || {};
+
+Object.assign(window.CarrdPluginOptions.slider, {
+    hideOverflow: false, // Global default for all sliders
+    instances: {
+        reviews: {
+            hideOverflow: true // This cluster clips overflow
         }
     }
-};
+});
 ```
 
 Result:
-- Sliders without `data-slider-id="persone"` keep global `hideOverflow: false`.
-- The `persone` cluster uses `hideOverflow: false` and shows full content outside wrapper bounds.
+- Sliders without `data-slider-id="reviews"` keep global `hideOverflow: false` (overflow visible).
+- The `reviews` cluster uses `hideOverflow: true` and clips overflow inside wrapper bounds.

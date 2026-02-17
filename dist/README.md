@@ -1,20 +1,12 @@
 ## Version
 
-- Version: `0.1.10`
-- Build date (UTC): `2026-02-12`
+- Version: `0.1.11`
+- Build date (UTC): `2026-02-17`
 - [View Changelog](CHANGELOG.md)
 
 ---
 
 # Carrd Plugins (Mini Theme)
-
-## Version
-
-- Version: `0.1.4`
-- Build date (UTC): `2026-01-14`
-- [View Changelog](CHANGELOG.md)
-
----
 
 Lightweight plugins for Carrd sites.
 
@@ -75,7 +67,7 @@ Load all plugins at once (excludes no-loadwaiting).
 ```
 
 > [!NOTE]
-> Best for sites using 3+ plugins. The bundle includes: Slider, Modal, Shopping Cart, FAQ, Columns. (No-loadwaiting is standalone only.)
+> Best for sites using 3+ plugins. The bundle includes: Slider, Modal, Shopping Cart, FAQ, Grid Cluster, Cards. (No-loadwaiting is standalone only.)
 
 ### Option 3: Direct Embed (HTML Element)
 
@@ -109,11 +101,12 @@ Each plugin includes a ready-to-use embed file combining CSS + JS.
 3. Paste into Carrd **Embed → Code → Hidden → Body End**
 
 > [!IMPORTANT]
-> Still requires `theme-design-tokens.css` in HEAD:
+> Still requires both theme files in HEAD:
 >
 > ```html
 > <!-- HEAD -->
 > <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/theme-design-tokens.css">
+> <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/theme-ui.css">
 > ```
 
 > [!TIP]
@@ -136,19 +129,19 @@ Each plugin includes a ready-to-use embed file combining CSS + JS.
 
 ## Included Plugins
 
-| Plugin | Feature |
-|--------|---------|
-| **Columns** | `dist/columns/` |
-| **Cookie Banner** | `dist/cookie-banner/` |
-| **FAQ** | `dist/faq/` |
-| **Header Nav** | `dist/header-nav/` |
-| **Modal** | `dist/modal/` |
-| **No-loadwaiting** | `dist/no-loadwaiting/` |
-| **Shopping Cart** | `dist/shopping-cart/` |
-| **Slider** | `dist/slider/` |
-| **Typography** | `dist/typography/` |
-
-Note: `no-loadwaiting` is not included in the `theme-core` bundle. Use its standalone script.
+| Plugin | Path | Included in theme-core? |
+|--------|------|-------------------------|
+| **Cards** | `dist/cards/` | ✅ |
+| **Columns** | `dist/columns/` | ❌ Legacy compatibility |
+| **Cookie Banner** | `dist/cookie-banner/` | ❌ |
+| **FAQ** | `dist/faq/` | ✅ |
+| **Grid Cluster** | `dist/grid-cluster/` | ✅ |
+| **Header Nav** | `dist/header-nav/` | ❌ |
+| **Modal** | `dist/modal/` | ✅ |
+| **No-loadwaiting** | `dist/no-loadwaiting/` | ❌ Standalone only |
+| **Shopping Cart** | `dist/shopping-cart/` | ✅ |
+| **Slider** | `dist/slider/` | ✅ |
+| **Typography** | `dist/typography/` | ✅ |
 
 ---
 

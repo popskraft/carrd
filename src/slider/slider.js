@@ -1,6 +1,6 @@
 /*
  * Plugin: Slider
- * Version: 0.1.10aaaaaaaaaaaaaaaaaaaaa
+ * Version: 0.1.11
  * Purpose: Slider/carousel behavior for consecutive `.slider` containers.
  * Admin placement: Code element in BODY END.
  *
@@ -31,6 +31,7 @@
     // Responsive slides per view
     slidesPerView: 1,
     peek: 0.1, // Fraction of next slide to show (e.g. 0.1 for 10%)
+    maxSlideWidth: 400, // Max slide width in px for screens wider than 736px
     equalHeight: true, // Stretch slides to same height
     breakpoints: {
       // Tablet/Mobile (737px+)
@@ -332,13 +333,29 @@
     updateSlideWidths() {
       const gap = this.config.gap;
       const totalGaps = Math.ceil(this.slidesPerView) - 1;
-      const slideWidth = `calc((100% - ${totalGaps * gap}px) / ${this.slidesPerView})`;
+      let slideWidth = `calc((100% - ${totalGaps * gap}px) / ${this.slidesPerView})`;
+      const maxSlideWidth = this.getMaxSlideWidth();
+
+      if (maxSlideWidth) {
+        slideWidth = `min(${maxSlideWidth}px, ${slideWidth})`;
+      }
       
       this.slideElements.forEach((slide, index) => {
         slide.style.flex = `0 0 ${slideWidth}`;
         slide.style.width = slideWidth;
         slide.style.marginRight = index < this.slides.length - 1 ? `${gap}px` : '0';
       });
+    }
+
+    getMaxSlideWidth() {
+      if (window.innerWidth <= 736) return null;
+
+      const maxSlideWidth = Number(this.config.maxSlideWidth);
+      if (!Number.isFinite(maxSlideWidth) || maxSlideWidth <= 0) {
+        return null;
+      }
+
+      return maxSlideWidth;
     }
     
     getTotalPages() {

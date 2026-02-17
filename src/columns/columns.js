@@ -1,12 +1,13 @@
 /*
  * Plugin: Columns
- * Version: 0.1.10aaaaaaaaaaaaaaaaaaaaa
- * Purpose: Grid cluster wrapping and card styling.
+ * Version: 0.1.11
+ * Purpose: Legacy compatibility wrapper for grid cluster and cards behavior.
  * Admin placement: Code element in BODY END.
  *
  * Notes:
  * - Grid Cluster: Wraps consecutive `.grid-*` containers into a responsive grid.
  * - Cards: Applies styling (padding, border radius, background) to card items.
+ * - New projects should use dedicated plugins: `grid-cluster` and `cards`.
  */
 (function() {
   'use strict';
@@ -19,6 +20,12 @@
     gridClasses: ['grid-2', 'grid-3', 'grid-4', 'grid-5', 'grid-6'],
     cardSelector: '.cards',
     defaultCardBg: 'var(--theme-card-bg-default)',
+    grid: {
+      enabled: true
+    },
+    cards: {
+      enabled: true
+    },
     widthClasses: {
       'w-20': '20%',
       'w-25': '25%',
@@ -37,7 +44,18 @@
     window.CarrdPluginOptions && 
     window.CarrdPluginOptions.columns) || {};
     
-  const CONFIG = { ...DEFAULTS, ...externalOptions };
+  const CONFIG = {
+    ...DEFAULTS,
+    ...externalOptions,
+    grid: {
+      ...DEFAULTS.grid,
+      ...(externalOptions.grid || {})
+    },
+    cards: {
+      ...DEFAULTS.cards,
+      ...(externalOptions.cards || {})
+    }
+  };
   const SELECTORS = {
     gridContainer: 'theme-columns-grid',
     desktopWidths: 'theme-columns-grid--desktop-widths',
@@ -198,7 +216,7 @@
       const columns = Array.from(inner.children);
 
       columns.forEach((column, index) => {
-        if (column.querySelector('.card-item')) return;
+        if (column.querySelector('.theme-card-item, .card-item')) return;
 
         const cardItem = document.createElement('div');
         cardItem.classList.add(SELECTORS.cardItem);
@@ -264,8 +282,13 @@
   // ==========================================
   
   function init() {
-    initGridCluster();
-    initCards();
+    if (CONFIG.grid.enabled !== false) {
+      initGridCluster();
+    }
+
+    if (CONFIG.cards.enabled !== false) {
+      initCards();
+    }
   }
 
   if (document.readyState === 'loading') {
