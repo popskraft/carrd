@@ -1,6 +1,6 @@
 /*
  * Plugin: Cards
- * Version: 0.1.11
+ * Version: 0.1.12
  * Purpose: Turn column items into styled card wrappers.
  * Admin placement: Code element in BODY END.
  */
@@ -21,13 +21,15 @@
     window.CarrdPluginOptions &&
     window.CarrdPluginOptions.columns) || {};
 
-  const legacyCardsOptions = {
-    enabled: legacyColumnsOptions.cards && typeof legacyColumnsOptions.cards.enabled !== 'undefined'
-      ? legacyColumnsOptions.cards.enabled
-      : undefined,
-    cardSelector: legacyColumnsOptions.cardSelector,
-    defaultCardBg: legacyColumnsOptions.defaultCardBg
-  };
+  const legacyCardsOptions = Object.fromEntries(
+    Object.entries({
+      enabled: legacyColumnsOptions.cards && typeof legacyColumnsOptions.cards.enabled !== 'undefined'
+        ? legacyColumnsOptions.cards.enabled
+        : undefined,
+      cardSelector: legacyColumnsOptions.cardSelector,
+      defaultCardBg: legacyColumnsOptions.defaultCardBg
+    }).filter(([, v]) => v !== undefined)
+  );
 
   const CONFIG = { ...DEFAULTS, ...legacyCardsOptions, ...externalOptions };
   const SELECTORS = {
@@ -78,7 +80,7 @@
       const columns = Array.from(inner.children);
 
       columns.forEach((column, index) => {
-        if (column.querySelector('.theme-card-item')) return;
+        if (column.querySelector('.theme-card-item, .card-item')) return;
 
         const cardItem = document.createElement('div');
         cardItem.classList.add(SELECTORS.cardItem);

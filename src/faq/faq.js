@@ -1,6 +1,6 @@
 /*
  * Plugin: FAQ
- * Version: 0.1.11
+ * Version: 0.1.12
  * Purpose: Accordion behavior for FAQ containers.
  * Admin placement: Code element in BODY END.
  */
@@ -70,6 +70,9 @@
     let firstQuestion = true;
 
     containers.forEach(container => {
+      if (container.dataset.faqInitialized === 'true') return;
+      container.dataset.faqInitialized = 'true';
+
       const dividers = Array.from(container.querySelectorAll(CONFIG.dividerSelector)).filter(
         divider => divider.closest(CONFIG.containerSelector) === container
       );

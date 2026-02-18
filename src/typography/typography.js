@@ -1,6 +1,6 @@
 /*
  * Plugin: Typography
- * Version: 0.1.11
+ * Version: 0.1.12
  * Purpose: Parse pseudo-Markdown syntax in .txt containers and convert to semantic HTML.
  * Admin placement: Code element in BODY END.
  *

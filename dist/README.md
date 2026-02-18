@@ -1,7 +1,7 @@
 ## Version
 
-- Version: `0.1.11`
-- Build date (UTC): `2026-02-17`
+- Version: `0.1.12`
+- Build date (UTC): `2026-02-18`
 - [View Changelog](CHANGELOG.md)
 
 ---
@@ -132,7 +132,7 @@ Each plugin includes a ready-to-use embed file combining CSS + JS.
 | Plugin | Path | Included in theme-core? |
 |--------|------|-------------------------|
 | **Cards** | `dist/cards/` | ✅ |
-| **Columns** | `dist/columns/` | ❌ Legacy compatibility |
+| **Columns (DEPRECATED)** | `dist/columns/` | ❌ Legacy compatibility |
 | **Cookie Banner** | `dist/cookie-banner/` | ❌ |
 | **FAQ** | `dist/faq/` | ✅ |
 | **Grid Cluster** | `dist/grid-cluster/` | ✅ |

@@ -1,6 +1,6 @@
 /*
  * Plugin: Grid Cluster
- * Version: 0.1.11
+ * Version: 0.1.12
  * Purpose: Wrap consecutive grid containers into responsive clusters.
  * Admin placement: Code element in BODY END.
  */
@@ -31,20 +31,22 @@
     window.CarrdPluginOptions &&
     window.CarrdPluginOptions.columns) || {};
 
-  const legacyGridOptions = {
-    enabled: legacyColumnsOptions.grid && typeof legacyColumnsOptions.grid.enabled !== 'undefined'
-      ? legacyColumnsOptions.grid.enabled
-      : undefined,
-    gridClasses: legacyColumnsOptions.gridClasses,
-    widthClasses: legacyColumnsOptions.widthClasses
-  };
+  const legacyGridOptions = Object.fromEntries(
+    Object.entries({
+      enabled: legacyColumnsOptions.grid && typeof legacyColumnsOptions.grid.enabled !== 'undefined'
+        ? legacyColumnsOptions.grid.enabled
+        : undefined,
+      gridClasses: legacyColumnsOptions.gridClasses,
+      widthClasses: legacyColumnsOptions.widthClasses
+    }).filter(([, v]) => v !== undefined)
+  );
 
   const CONFIG = { ...DEFAULTS, ...legacyGridOptions, ...externalOptions };
   const SELECTORS = {
-    gridContainer: 'theme-columns-grid',
-    desktopWidths: 'theme-columns-grid--desktop-widths',
-    constrainWidth: 'theme-columns-constrain',
-    imageFrameInGrid: '.theme-columns-grid .image-component > .frame'
+    gridContainer: 'theme-grid',
+    desktopWidths: 'theme-grid--desktop-widths',
+    constrainWidth: 'theme-grid-constrain',
+    imageFrameInGrid: '.theme-grid .image-component > .frame'
   };
 
   const GRID_CLASSES = CONFIG.gridClasses;
@@ -102,7 +104,7 @@
 
     const templateParts = columnWidths.map(value => value || 'minmax(0, 1fr)');
     container.classList.add(SELECTORS.desktopWidths);
-    container.style.setProperty('--theme-columns-desktop-template', templateParts.join(' '));
+    container.style.setProperty('--theme-grid-desktop-template', templateParts.join(' '));
   }
 
   function constrainImageFrames() {
@@ -125,6 +127,7 @@
     gridBlocks.forEach(block => {
       if (collected.has(block)) return;
       if (block.dataset.gridInitialized === 'true') return;
+      if (block.classList.contains(SELECTORS.gridContainer)) return;
 
       const cluster = [block];
       const baseSize = getGridSize(block);

@@ -1,6 +1,6 @@
 /*
  * Plugin: Shopping Cart
- * Version: 0.1.11
+ * Version: 0.1.12
  * Purpose: Cart UI, item state, and order details sync for Carrd forms.
  * Admin placement: Code element in BODY END.
  *

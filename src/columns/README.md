@@ -1,8 +1,11 @@
-# Columns
+# Columns (DEPRECATED)
+
+> **Status:** Legacy compatibility plugin.
+> **Bundle policy:** Not included in `theme-core` bundle.
+> **Recommended replacement:** `Grid Cluster` + `Cards`.
+> Keep this plugin only for existing sites that already rely on `window.CarrdPluginOptions.columns`.
 
 Grid layout with optional Cards styling.
-
-> Legacy compatibility plugin. New projects should use `Grid Cluster` and `Cards` as separate plugins.
 
 ## Features
 - **Responsive Grid**: 2-6 column layouts with breakpoints
@@ -113,6 +116,7 @@ window.CarrdPluginOptions = {
 | `data-padding-mobile` | Mobile padding |
 | `data-color` | Background color for all cards |
 | `data-color-1`, `data-color-2`... | Individual card colors |
+| `data-border-color-1`, `data-border-color-2`... | Per-card border color override |
 
 ## Built-in Utility Styles
 

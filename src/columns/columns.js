@@ -1,13 +1,9 @@
 /*
- * Plugin: Columns
- * Version: 0.1.11
- * Purpose: Legacy compatibility wrapper for grid cluster and cards behavior.
+ * Plugin: Columns (DEPRECATED)
+ * Version: 0.1.12
+ * Purpose: Legacy wrapper. Use grid-cluster + cards plugins instead.
  * Admin placement: Code element in BODY END.
- *
- * Notes:
- * - Grid Cluster: Wraps consecutive `.grid-*` containers into a responsive grid.
- * - Cards: Applies styling (padding, border radius, background) to card items.
- * - New projects should use dedicated plugins: `grid-cluster` and `cards`.
+ * Status: DEPRECATED -- included for backward compatibility only.
  */
 (function() {
   'use strict';
@@ -145,11 +141,12 @@
     gridBlocks.forEach(block => {
       if (collected.has(block)) return;
       if (block.dataset.gridInitialized === 'true') return;
+      if (block.classList.contains(SELECTORS.gridContainer)) return;
 
       const cluster = [block];
       const baseSize = getGridSize(block);
       let sibling = block.nextElementSibling;
-      
+
       while (isGridBlock(sibling)) {
         const siblingSize = getGridSize(sibling);
         if (baseSize !== null && siblingSize !== baseSize) {

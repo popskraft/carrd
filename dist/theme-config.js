@@ -1,6 +1,6 @@
 /*
  * File: Carrd Plugin Config
- * Version: 0.1.11
+ * Version: 0.1.12
  * Purpose: Global options for Carrd plugins.
  * Admin placement: Code element in HEAD before plugin scripts.
  */
@@ -38,7 +38,31 @@ window.CarrdPluginOptions.faq = {
     defaultOpen: false
 };
 
-/* Columns (Grid + Cards) */
+/* Cards */
+window.CarrdPluginOptions.cards = {
+    enabled: true,
+    cardSelector: '.cards',
+    defaultCardBg: 'var(--theme-card-bg-default)'
+};
+
+/* Grid Cluster */
+window.CarrdPluginOptions.gridCluster = {
+    enabled: true,
+    gridClasses: ['grid-2', 'grid-3', 'grid-4', 'grid-5', 'grid-6'],
+    widthClasses: {
+        'w-20': '20%',
+        'w-25': '25%',
+        'w-30': '33%',
+        'w-40': '40%',
+        'w-50': '50%',
+        'w-60': '60%',
+        'w-70': '67%',
+        'w-75': '75%',
+        'w-80': '80%'
+    }
+};
+
+/* Columns (Legacy -- use 'cards' and 'gridCluster' for new projects) */
 window.CarrdPluginOptions.columns = {
     gridClasses: ['grid-2', 'grid-3', 'grid-4', 'grid-5', 'grid-6'],
     cardSelector: '.cards',
