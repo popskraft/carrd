@@ -18,6 +18,7 @@ A plugin for displaying modal dialogs from Carrd container components.
 2. Give it a unique ID (for example `modalContact`).
 3. Add a link or button that points to the modal ID, for example:
    `href="#modalContact"` or `data-modal="modalContact"`.
+4. Set modal width in Carrd Builder using the container width controls (the plugin no longer forces modal width).
 
 ## HTML Structure
 
@@ -102,7 +103,6 @@ CarrdModal.isOpen('modalContact'); // Specific modal
     --theme-modal-overlay-bg: var(--theme-overlay-bg);
     
     /* Modal Box */
-    --theme-modal-max-width: 600px;
     --theme-modal-max-height: 90vh;
     --theme-modal-padding: 1rem;
     
@@ -129,7 +129,6 @@ Add these variables to `theme-design-tokens.css`:
 :root {
     /* Modal */
     --theme-modal-overlay-bg: var(--theme-overlay-bg);
-    --theme-modal-max-width: 600px;
     --theme-modal-close-bg: var(--theme-ui-control-bg);
     --theme-modal-close-hover-bg: var(--theme-ui-control-bg-hover);
 }

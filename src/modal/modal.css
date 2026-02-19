@@ -68,8 +68,7 @@
   pointer-events: auto;
   /* Re-enable clicks */
   position: relative;
-  width: 100%;
-  max-width: var(--theme-modal-max-width, 1200px);
+  /* Keep Carrd's native container width from builder settings */
   max-height: var(--theme-modal-max-height, 90vh);
   overflow-y: auto;
 
