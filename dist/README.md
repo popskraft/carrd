@@ -1,7 +1,7 @@
 ## Version
 
 - Version: `0.1.12`
-- Build date (UTC): `2026-02-19`
+- Build date (UTC): `2026-02-20`
 - [View Changelog](CHANGELOG.md)
 
 ---
@@ -48,9 +48,9 @@ Place plugin CSS in **Head** and JS in **Body End**.
 <script src="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/faq/faq.min.js"></script>
 ```
 
-### Option 2: CDN - Full Bundle (All Plugins)
+### Option 2: CDN - Full Bundle (theme-core)
 
-Load all plugins at once (excludes no-loadwaiting).
+Load the curated `theme-core` bundle.
 
 **HEAD:**
 
@@ -67,7 +67,7 @@ Load all plugins at once (excludes no-loadwaiting).
 ```
 
 > [!NOTE]
-> Best for sites using 3+ plugins. The bundle includes: Slider, Modal, Shopping Cart, FAQ, Grid Cluster, Cards. (No-loadwaiting is standalone only.)
+> Best for sites using 3+ plugins. `theme-core` membership is defined by the build script, not by all folders in `src/`. Check `scripts/minify_plugins.py` (`THEME_CORE_CANDIDATES` + `THEME_BUNDLE_EXCLUDES`) for the exact source of truth.
 
 ### Option 3: Direct Embed (HTML Element)
 

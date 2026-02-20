@@ -40,9 +40,9 @@ Place plugin CSS in **Head** and JS in **Body End**.
 <script src="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/faq/faq.min.js"></script>
 ```
 
-### Option 2: CDN - Full Bundle (All Plugins)
+### Option 2: CDN - Full Bundle (theme-core)
 
-Load all plugins at once (excludes no-loadwaiting).
+Load the curated `theme-core` bundle.
 
 **HEAD:**
 
@@ -59,7 +59,7 @@ Load all plugins at once (excludes no-loadwaiting).
 ```
 
 > [!NOTE]
-> Best for sites using 3+ plugins. The bundle includes: Slider, Modal, Shopping Cart, FAQ, Grid Cluster, Cards. (No-loadwaiting is standalone only.)
+> Best for sites using 3+ plugins. `theme-core` membership is defined by the build script, not by all folders in `src/`. Check `scripts/minify_plugins.py` (`THEME_CORE_CANDIDATES` + `THEME_BUNDLE_EXCLUDES`) for the exact source of truth.
 
 ### Option 3: Direct Embed (HTML Element)
 
@@ -131,6 +131,10 @@ Each plugin includes a ready-to-use embed file combining CSS + JS.
 | **Modal** | `dist/modal/` | ✅ |
 | **Slider** | `dist/slider/` | ✅ |
 | **No-loadwaiting** | `dist/no-loadwaiting/` | ❌ Standalone only |
+
+Source of truth:
+- Plugin list in this table is generated from folders in `src/`.
+- `Included in theme-core?` is computed by `scripts/minify_plugins.py` using `THEME_CORE_CANDIDATES` and `THEME_BUNDLE_EXCLUDES`.
 
 Each plugin folder contains:
 
