@@ -1,6 +1,6 @@
 /*
  * Plugin: Cards
- * Version: 0.1.12
+ * Version: 0.1.13
  * Purpose: Turn column items into styled card wrappers.
  * Admin placement: Code element in BODY END.
  */

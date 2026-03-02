@@ -1,6 +1,6 @@
 /*
  * Plugin: Columns (DEPRECATED)
- * Version: 0.1.12
+ * Version: 0.1.13
  * Purpose: Legacy wrapper. Use grid-cluster + cards plugins instead.
  * Admin placement: Code element in BODY END.
  * Status: DEPRECATED -- included for backward compatibility only.

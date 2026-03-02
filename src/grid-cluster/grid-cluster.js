@@ -1,6 +1,6 @@
 /*
  * Plugin: Grid Cluster
- * Version: 0.1.12
+ * Version: 0.1.13
  * Purpose: Wrap consecutive grid containers into responsive clusters.
  * Admin placement: Code element in BODY END.
  */

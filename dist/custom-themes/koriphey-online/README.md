@@ -1,11 +1,11 @@
 # Koriphey Online — Custom Theme
 
-> Built: 2026-02-20 | Base version: v0.1.12
+> Built: 2026-03-02 | Base version: v0.1.13
 
 Custom theme for **Koriphey Online** site on Carrd.
 Files in this folder are production-ready and served via **jsDelivr CDN**.
 
-> CSS/JS bundles are connected as external links. Config is pasted manually to HEAD from `custom-config.js`.
+> Plugin bundles are connected as external links. Theme CSS + config are pasted manually from `custom-theme-embed.html`.
 
 ---
 
@@ -13,25 +13,24 @@ Files in this folder are production-ready and served via **jsDelivr CDN**.
 
 Add **Code** (Embed) elements to your Carrd site with the links below.
 
-### 1. HEAD — Base theme + Plugin styles + Custom overrides
+### 1. HEAD — Plugin styles + Theme styles (manual)
 
 **Code element → placement: Head**
 
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/theme-design-tokens.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/theme-ui.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/custom-themes/koriphey-online/dist/custom-plugins-head.min.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/custom-themes/koriphey-online/dist/custom-theme.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/custom-themes/koriphey-online/custom-plugins-head.min.css">
 ```
 
-### 2. HEAD — Plugin config
+Then open `custom-theme-embed.html` and copy only the `HEAD` `<style>...</style>` block into a second Head code element.
 
-**Second Code element → placement: Head** (after styles):
+### 2. BODY TOP — Plugin config (manual)
 
-Copy/paste the full contents of `custom-config.js` from this folder.
+**Code element → placement: Body Top**:
+
+Open `custom-theme-embed.html` and copy the `BODY TOP` `<script>...</script>` block.
 
 ```html
-<!-- Paste full contents of custom-config.js here -->
+<!-- Paste BODY TOP block from custom-theme-embed.html -->
 <script>
 /* Custom theme config */
 </script>
@@ -42,7 +41,7 @@ Copy/paste the full contents of `custom-config.js` from this folder.
 **Code element → placement: Body End**:
 
 ```html
-<script src="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/custom-themes/koriphey-online/dist/custom-plugins-body-end.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/custom-themes/koriphey-online/custom-plugins-body-end.min.js"></script>
 ```
 
 ---
@@ -51,10 +50,10 @@ Copy/paste the full contents of `custom-config.js` from this folder.
 
 | File | Description | Carrd placement |
 |------|-------------|-----------------|
-| `custom-theme.min.css` | Custom CSS overrides (design tokens + UI) | HEAD (last) |
+| `custom-theme.min.css` | Optional CDN theme styles (minified) | HEAD (alternative to embed) |
 | `custom-plugins-head.min.css` | Consolidated plugin styles | HEAD |
 | `custom-plugins-body-end.min.js` | Consolidated plugin scripts | Body End |
-| `custom-config.js` | Ready `<script>...</script>` block for manual paste | HEAD (manual paste) |
+| `custom-theme-embed.html` | Non-minified theme embed blocks (`HEAD` + `BODY TOP`) | Manual paste |
 
 ---
 
@@ -70,12 +69,12 @@ After pushing to GitHub, changes may take a few minutes to appear.
 To force cache refresh, use a specific commit hash:
 
 ```
-https://cdn.jsdelivr.net/gh/popskraft/carrd@<commit-hash>/custom-themes/koriphey-online/dist/custom-theme.min.css
+https://cdn.jsdelivr.net/gh/popskraft/carrd@<commit-hash>/dist/custom-themes/koriphey-online/custom-theme.min.css
 ```
 
 ---
 
 ## Build metadata
 
-- Version: `0.1.12`
-- Build date (UTC): `2026-02-20`
+- Version: `0.1.13`
+- Build date (UTC): `2026-03-02`
