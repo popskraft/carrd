@@ -45,6 +45,20 @@ window.CarrdPluginOptions.cards = {
     defaultCardBg: 'var(--theme-card-bg-default)'
 };
 
+/* Stacker */
+window.CarrdPluginOptions.stacker = {
+    enabled: true,
+    selector: '.stacker',
+    top: 180,
+    overlap: 0,
+    gap: 0,
+    zIndexBase: 10,
+    breakpoints: {
+        737: { top: 100, overlap: 24 },
+        1280: { top: 180, overlap: 32 }
+    }
+};
+
 /* Grid Cluster */
 window.CarrdPluginOptions.gridCluster = {
     enabled: true,
@@ -98,11 +112,13 @@ window.CarrdPluginOptions.slider = {
     autoplay: false,
     autoplayInterval: 5000,
     gap: 16,
+    hideOverflow: false,
     slidesPerView: 1,
+    peek: 0,
     equalHeight: true,
     breakpoints: {
-        737: { slidesPerView: 3 },   // Tablet/Mobile
-        1280: { slidesPerView: 4 }   // Desktop M
+        737: { slidesPerView: 3 },            // Tablet/Mobile
+        1280: { slidesPerView: 4, gap: 32 }   // Desktop M
     }
 };
 

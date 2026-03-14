@@ -1,0 +1,26 @@
+/*
+ * Plugin: Stacker
+ * Version: 0.1.13
+ * Purpose: Overlapping sticky card stack for clustered containers.
+ * Admin placement: Code element in HEAD.
+ *
+ * NOTE: Cannot use position:sticky because Carrd's .site-wrapper
+ * has overflow:hidden which breaks sticky. Uses JS-driven positioning instead.
+ */
+
+/* ── Cluster wrapper ── */
+.theme-stacker-cluster {
+  position: relative;
+  overflow: visible;
+}
+
+/* ── Card items ── */
+.theme-stacker-item {
+  position: relative;
+  z-index: var(--theme-stacker-z-index, 1);
+  will-change: transform;
+}
+
+.theme-stacker-item > .wrapper {
+  width: 100%;
+}

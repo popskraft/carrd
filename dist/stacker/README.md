@@ -1,4 +1,4 @@
-# Grid Cluster
+# Stacker
 
 ## Version
 
@@ -16,7 +16,7 @@
 5. Publish the site and refresh the page.
 
 Optional: if you want a single snippet, open
-`dist/grid-cluster/grid-cluster-embed.html`, copy everything, and paste it
+`dist/stacker/stacker-embed.html`, copy everything, and paste it
 into **Hidden → Body End**. Note: you still need `theme-design-tokens.css` and `theme-ui.css` in HEAD.
 
 **Configuration (Optional):**
@@ -27,14 +27,14 @@ To customize plugin behavior, add `window.CarrdPluginOptions` **before** plugin 
 <!-- BODY END: Configuration -->
 <script>
 window.CarrdPluginOptions = {
-  grid-cluster: {
+  stacker: {
     // See Configuration section below for all options
   }
 };
 </script>
 
 <!-- BODY END: Plugin script -->
-<script src="...grid-cluster.min.js"></script>
+<script src="...stacker.min.js"></script>
 ```
 
 For all available options, see [theme-config.js](../theme-config.js) or the Configuration section below.
@@ -61,44 +61,56 @@ For all available options, see [theme-config.js](../theme-config.js) or the Conf
 ```html
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/theme-design-tokens.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/theme-ui.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/grid-cluster/grid-cluster.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/stacker/stacker.min.css">
 ```
 
 <!-- BODY END -->
 ```html
-<script src="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/grid-cluster/grid-cluster.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/popskraft/carrd@main/dist/stacker/stacker.min.js"></script>
 ```
 
 ---
 
-Wraps consecutive Carrd grid containers into responsive layout clusters.
+Clusters consecutive Carrd containers into a sticky stack where each next card rises from below, covers the previous one, and the whole cluster releases when its bottom edge leaves the viewport.
 
-> Included in `theme-core`. Also supports legacy fallback from `window.CarrdPluginOptions.columns` (`gridClasses`, `widthClasses`, `grid.enabled`) for migration safety.
+> Included in `theme-core`.
+
+## Features
+
+- **Auto-clustering**: Consecutive `.stacker` containers are wrapped automatically
+- **Sticky overlay flow**: Each next container pins to the same top line and visually replaces the previous one
+- **Responsive spacing**: Supports breakpoint-specific `gap` and `top` offsets
+- **Per-instance overrides**: Optional `data-stacker-id` on the first container in a cluster
 
 ## Carrd Admin Settings
-1. Add one of `.grid-2`, `.grid-3`, `.grid-4`, `.grid-5`, `.grid-6` to consecutive containers.
-2. Optional: add `.grid-sm-2` to any container in the cluster for two columns on mobile.
-3. Optional: add `.justify` to the first container in a cluster to propagate justify layout.
-4. Optional: add width classes (`.w-20`, `.w-25`, `.w-30`, `.w-40`, `.w-50`, `.w-60`, `.w-70`, `.w-75`, `.w-80`) on first-row items.
+1. Add class `.stacker` to each consecutive container that should belong to the same stack.
+2. Keep the stacker containers next to each other in the DOM without unrelated elements between them.
+3. Optional: add `data-stacker-id="process"` on the first container of a cluster for per-instance settings.
+4. Optional: set `top` to your sticky header height if cards should stop below a fixed navigation bar.
 
 ## Configuration
 
 ```html
 <script>
 window.CarrdPluginOptions = {
-    gridCluster: {
+    stacker: {
         enabled: true,
-        gridClasses: ['grid-2', 'grid-3', 'grid-4', 'grid-5', 'grid-6'],
-        widthClasses: {
-            'w-20': '20%',
-            'w-25': '25%',
-            'w-30': '33%',
-            'w-40': '40%',
-            'w-50': '50%',
-            'w-60': '60%',
-            'w-70': '67%',
-            'w-75': '75%',
-            'w-80': '80%'
+        selector: '.stacker',
+        top: 0,
+        gap: null,
+        zIndexBase: 10,
+        breakpoints: {
+            737: { gap: 24 },
+            1280: { gap: 32 }
+        },
+        instances: {
+            process: {
+                top: 0,
+                breakpoints: {
+                    737: { gap: 24 },
+                    1280: { gap: 32 }
+                }
+            }
         }
     }
 };
@@ -109,28 +121,45 @@ window.CarrdPluginOptions = {
 
 | Option | Default | Description |
 |--------|---------|-------------|
-| `enabled` | `true` | Enable/disable grid cluster processing |
-| `gridClasses` | `['grid-2'...'grid-6']` | Classes used for cluster detection |
-| `widthClasses` | `{ 'w-20': '20%' ... }` | Map of class names to desktop width values |
+| `enabled` | `true` | Enable/disable stack processing |
+| `selector` | `.stacker` | Selector used to find stack items |
+| `top` | `0` | Sticky top offset in px |
+| `gap` | `null` | Gap between items in px. `null` keeps the measured Carrd spacing |
+| `zIndexBase` | `10` | Base z-index for the first stacked item |
+| `breakpoints` | `{}` | Responsive overrides for `top` and `gap` |
+| `instances` | `{}` | Per-cluster overrides keyed by `data-stacker-id` |
+
+## Runtime API
+
+```javascript
+window.CarrdStacker = {
+    init,
+    destroyAll,
+    destroyById,
+    getInstances
+};
+```
+
+Notes:
+- `destroyById('process')` works only if the first container in that cluster has `data-stacker-id="process"`.
+- `getInstances()` returns internal cluster instances for advanced/manual control.
 
 ## CSS Variables
 
 ```css
 :root {
-    --theme-grid-row-gap: 1rem;
-    --theme-grid-column-gap: 1rem;
-    --theme-grid-column-gap-sm: 0.5rem;
-    --theme-grid-row-gap-desktop: 2rem;
-    --theme-grid-column-gap-desktop: 1.5rem;
-    --theme-grid-column-gap-desktop-large: 2rem;
+    --theme-stacker-gap: 1rem;
+    --theme-stacker-top: 0px;
 }
 ```
 
-## Notes
+## How It Works
 
-- Clusters are created only from consecutive siblings with the same `grid-*` size.
-- Width overrides from `w-*` classes are applied using the first row of the cluster.
-- Plugin marks processed elements with `data-grid-initialized="true"` to avoid duplicate re-processing.
+- The plugin scans for consecutive `.stacker` siblings.
+- It creates one wrapper around that sequence.
+- Every stacked item becomes `position: sticky` with the same `top` value.
+- Later items get higher `z-index`, so they naturally cover earlier ones while scrolling.
+- When the wrapper bottom reaches the sticky boundary, the whole stack scrolls away as one cluster.
 
 ---
 

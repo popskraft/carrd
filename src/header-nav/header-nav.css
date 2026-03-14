@@ -45,8 +45,8 @@
 .theme-header-nav-toggle {
   --theme-header-nav-bar-offset: calc(var(--theme-header-nav-bar-gap, 5px) + var(--theme-header-nav-bar-height, 2px));
   position: absolute;
-  top: var(--theme-header-nav-toggle-top, 0.75rem);
-  right: var(--theme-header-nav-toggle-right, 0.75rem);
+  top: var(--theme-header-nav-toggle-top, 1.5rem);
+  right: var(--theme-header-nav-toggle-right, 0rem);
   width: var(--theme-header-nav-toggle-size, 2.5rem);
   height: var(--theme-header-nav-toggle-size, 2.5rem);
   display: none;

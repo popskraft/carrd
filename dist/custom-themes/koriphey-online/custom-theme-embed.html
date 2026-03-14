@@ -6,9 +6,87 @@
 
 <!-- HEAD -->
 <style>
-/* Custom Theme Koriphey Online HEAD v0.1.13 (2026-03-02) */
+/* Custom Theme Koriphey Online HEAD v0.1.13 (2026-03-14) */
 
 /* Source: custom-design-tokens.css */
+:root {
+  /* Colors */
+  --theme-color-primary: #0085FF;
+  --theme-color-primary-hover: #0060B8;
+  --theme-color-primary-dark: #19355A;
+  --theme-color-primary-light: #BFE3FF99;
+  --theme-color-text: #4A5463;
+  --theme-color-headlines: #19355A;
+  --theme-color-border: #DBEEFF;
+  --theme-color-danger: #EF4444;
+  --theme-color-success: #10B981;
+  --theme-color-black: #000000;
+  --theme-color-bg: #F3F8FA;
+  --theme-color-accent: var(--theme-color-primary);
+  --theme-overlay-bg: #52acc8ca;
+
+  /* Typography */
+  --theme-font-family: "Raleway", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --theme-font-size-base: 16px;
+  --theme-line-height-base: 1.6;
+
+  /* Buttons */
+  --theme-btn-primary-bg: var(--theme-color-primary);
+  --theme-btn-primary-hover-bg: var(--theme-color-primary-hover);
+  --theme-btn-text: #ffffff;
+
+  /* Links */
+  --theme-link-color: var(--theme-color-primary);
+  --theme-link-hover-color: var(--theme-color-primary-hover);
+
+  /* UI Controls */
+  --theme-ui-control-size: 40px;
+  --theme-ui-control-radius: 999px;
+  --theme-ui-control-bg: var(--theme-color-bg);
+  --theme-ui-control-bg-hover: var(--theme-color-primary-light);
+  --theme-ui-control-color: var(--theme-color-text);
+  --theme-ui-control-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  --theme-ui-icon-size: 20px;
+  --theme-ui-icon-stroke: 2;
+
+  /* UI Dots */
+  --theme-ui-dot-size: 10px;
+  --theme-ui-dot-bg: rgba(0, 0, 0, 0.2);
+  --theme-ui-dot-hover-bg: rgba(0, 0, 0, 0.4);
+  --theme-ui-dot-active-bg: var(--theme-color-primary);
+
+  /* UI Surfaces */
+  --theme-ui-surface-muted: rgba(227, 228, 230, 0.2);
+  --theme-ui-surface-muted-hover: rgba(227, 228, 230, 0.4);
+
+  /* Slider Defaults */
+  --theme-slider-dot-size: var(--theme-ui-dot-size);
+  --theme-slider-dot-bg: var(--theme-ui-dot-bg);
+  --theme-slider-dot-hover-bg: var(--theme-ui-dot-hover-bg);
+  --theme-slider-dot-active-bg: var(--theme-ui-dot-active-bg);
+  --theme-slider-dots-margin: 1rem;
+  --theme-slider-dots-margin-mobile: 0.75rem;
+  --theme-slider-arrow-size: var(--theme-ui-control-size);
+  --theme-slider-arrow-bg: var(--theme-ui-control-bg);
+  --theme-slider-arrow-hover-bg: var(--theme-ui-control-bg-hover);
+  --theme-slider-arrow-color: var(--theme-ui-control-color);
+  --theme-slider-arrow-radius: var(--theme-ui-control-radius);
+  --theme-slider-arrow-shadow: var(--theme-ui-control-shadow);
+  --theme-slider-arrow-offset: 0.5rem;
+  --theme-slider-arrow-icon-size: var(--theme-ui-icon-size);
+
+  /* Modal Defaults */
+  --theme-modal-close-size: var(--theme-ui-control-size);
+  --theme-modal-close-bg: var(--theme-ui-control-bg);
+  --theme-modal-close-hover-bg: var(--theme-ui-control-bg-hover);
+  --theme-modal-close-color: var(--theme-ui-control-color);
+  --theme-modal-close-radius: var(--theme-ui-control-radius);
+  --theme-modal-close-icon-size: 24px;
+  --theme-modal-close-icon-stroke: var(--theme-ui-icon-stroke);
+}
+
+/* Source: custom-ui.css */
+/* Custom Theme CSS */
 :root {
   /* Colors */
   --theme-color-primary: #0085FF;
@@ -94,16 +172,20 @@
   --primary-dark: var(--theme-color-primary-dark);
   --magenta: #E94381;
   --magenta-light: #FFDEFB99;
-  --orange: #FF7700;  
+  --orange: #FF7700;
   --orange-light: #FFE2D799;
   --green: #10B981;
   --green-light: #BDFFD099;
   --yellow: #E6EC3A;
-  --yellow-light: #f8ff9d99;  
+  --yellow-light: #f8ff9d99;
   --teal: #02B5D0;
-  --teal-light: #C1F4FF99 ;
-  
+  --teal-light: #C1F4FF99;
+
   --theme-grid-column-gap-desktop-large: 1.5rem;
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
 }
 
 @media (max-width: 736px) {
@@ -130,6 +212,7 @@
     bottom: 2.5rem;
   }
 }
+
 @media (max-width: 736px) {
   .icon-next.right.down li {
     transform: rotate(90deg);
@@ -145,6 +228,10 @@
   top: 2.5rem !important;
 }
 
+.media-image {
+  height: auto;
+  max-width: 100%;
+}
 .video-component>.frame.with-overlay::before {
   background-image: none;
 }
@@ -157,13 +244,17 @@
   opacity: 1;
 }
 
+.theme-slider-wrapper {
+  padding-bottom: 2rem;
+}
+
 /* UTILITIES */
 
- .blob {
-   background: var(--gray-lighter);
-   padding: calc(var(--padding-vertical) / 2) calc(var(--padding-horizontal) / 2);
-   border-radius: .5rem;
- }
+.blob {
+  background: var(--gray-lighter);
+  padding: calc(var(--padding-vertical) / 2) calc(var(--padding-horizontal) / 2);
+  border-radius: .5rem;
+}
 
 .float-left {
   float: left;
@@ -172,6 +263,10 @@
 
 .overflow-hidden {
   overflow: hidden;
+}
+
+.rounded .frame img {
+  border-radius: .75rem !important;
 }
 
 /* COLORS */
@@ -349,11 +444,11 @@
 }
 
 /*
- * File: Carrd Theme UI
- * Version: 0.1.12
- * Purpose: Shared UI styles and utilities for Mini theme plugins.
- * Admin placement: Code element in HEAD (load after theme-design-tokens.css).
- */
+* File: Carrd Theme UI
+* Version: 0.1.12
+* Purpose: Shared UI styles and utilities for Mini theme plugins.
+* Admin placement: Code element in HEAD (load after theme-design-tokens.css).
+*/
 
 /* Slider dots */
 .theme-slider-dot {
@@ -434,7 +529,7 @@
 
 <!-- BODY TOP -->
 <script>
-/* Custom Theme Koriphey Online BODY TOP v0.1.13 (2026-03-02) */
+/* Custom Theme Koriphey Online BODY TOP v0.1.13 (2026-03-14) */
 window.CarrdPluginOptions = window.CarrdPluginOptions || {};
 window.CarrdPluginOptions.slider = window.CarrdPluginOptions.slider || {};
 

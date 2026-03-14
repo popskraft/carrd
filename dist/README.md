@@ -1,7 +1,7 @@
 ## Version
 
 - Version: `0.1.13`
-- Build date (UTC): `2026-03-02`
+- Build date (UTC): `2026-03-14`
 - [View Changelog](CHANGELOG.md)
 
 ---
@@ -141,6 +141,7 @@ Each plugin includes a ready-to-use embed file combining CSS + JS.
 | **No-loadwaiting** | `dist/no-loadwaiting/` | ❌ Standalone only |
 | **Shopping Cart** | `dist/shopping-cart/` | ✅ |
 | **Slider** | `dist/slider/` | ✅ |
+| **Stacker** | `dist/stacker/` | ✅ |
 | **Typography** | `dist/typography/` | ✅ |
 
 ---

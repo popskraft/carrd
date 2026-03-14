@@ -43,6 +43,10 @@
   .container-component.justify .wrapper {
     display: flex;
   }
+
+  .container-component.justify .inner {
+    width: 100%;
+  }
 }
 
 @media (min-width: 1025px) {

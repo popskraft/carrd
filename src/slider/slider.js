@@ -89,8 +89,13 @@
       this.startX = 0;
       this.currentX = 0;
       this.translateX = 0;
+      this.dragStartTranslate = 0;
+      this.draggedTranslate = 0;
       this.autoplayTimer = null;
       this.slidesPerView = this.config.slidesPerView;
+      this.currentGap = this.config.gap;
+      this.currentPeek = this.config.peek;
+      this.currentMaxSlideWidth = this.config.maxSlideWidth;
       this.eventHandlers = [];
       this.dotHandlers = [];
       this.resizeTimeout = null;
@@ -296,6 +301,9 @@
     updateSlidesPerView() {
       const windowWidth = window.innerWidth;
       let newSlidesPerView = this.config.slidesPerView;
+      let newGap = this.config.gap;
+      let newPeek = this.config.peek;
+      let newMaxSlideWidth = this.config.maxSlideWidth;
       
       // Sort breakpoints in ascending order
       const breakpointKeys = Object.keys(this.config.breakpoints)
@@ -305,17 +313,26 @@
       // Find the applicable breakpoint
       for (const bp of breakpointKeys) {
         if (windowWidth >= bp) {
-          newSlidesPerView = this.config.breakpoints[bp].slidesPerView || newSlidesPerView;
+          const breakpointConfig = this.config.breakpoints[bp] || {};
+          newSlidesPerView = breakpointConfig.slidesPerView || newSlidesPerView;
+          newGap = Number.isFinite(Number(breakpointConfig.gap)) ? Number(breakpointConfig.gap) : newGap;
+          newPeek = Number.isFinite(Number(breakpointConfig.peek)) ? Number(breakpointConfig.peek) : newPeek;
+          newMaxSlideWidth = Number.isFinite(Number(breakpointConfig.maxSlideWidth))
+            ? Number(breakpointConfig.maxSlideWidth)
+            : newMaxSlideWidth;
         }
       }
       
       // Add peek value if configured
-      if (this.config.peek) {
-        newSlidesPerView += this.config.peek;
+      if (newPeek) {
+        newSlidesPerView += newPeek;
       }
       
       // Don't exceed the number of slides
       this.slidesPerView = Math.min(newSlidesPerView, this.slides.length);
+      this.currentGap = newGap;
+      this.currentPeek = newPeek;
+      this.currentMaxSlideWidth = newMaxSlideWidth;
       
       // Update slide widths
       this.updateSlideWidths();
@@ -331,7 +348,7 @@
     }
     
     updateSlideWidths() {
-      const gap = this.config.gap;
+      const gap = this.currentGap;
       const totalGaps = Math.ceil(this.slidesPerView) - 1;
       let slideWidth = `calc((100% - ${totalGaps * gap}px) / ${this.slidesPerView})`;
       const maxSlideWidth = this.getMaxSlideWidth();
@@ -350,7 +367,7 @@
     getMaxSlideWidth() {
       if (window.innerWidth <= 736) return null;
 
-      const maxSlideWidth = Number(this.config.maxSlideWidth);
+      const maxSlideWidth = Number(this.currentMaxSlideWidth);
       if (!Number.isFinite(maxSlideWidth) || maxSlideWidth <= 0) {
         return null;
       }
@@ -370,6 +387,8 @@
       this.wrapper.classList.add('is-dragging');
       this.startX = this.getPositionX(e);
       this.currentX = this.startX;
+      this.dragStartTranslate = this.translateX;
+      this.draggedTranslate = this.translateX;
       
       // Stop autoplay during drag
       this.stopAutoplay();
@@ -382,17 +401,18 @@
       const diff = this.currentX - this.startX;
       
       // Calculate new position with resistance at edges
-      let newTranslate = this.translateX + diff;
+      let newTranslate = this.dragStartTranslate + diff;
       const maxTranslate = 0;
       const minTranslate = this.getMinTranslate();
       
       // Apply resistance at edges
       if (newTranslate > maxTranslate) {
-        newTranslate = maxTranslate + (diff * 0.2);
+        newTranslate = maxTranslate + ((newTranslate - maxTranslate) * 0.2);
       } else if (newTranslate < minTranslate) {
         newTranslate = minTranslate + ((newTranslate - minTranslate) * 0.2);
       }
       
+      this.draggedTranslate = newTranslate;
       this.track.style.transform = `translateX(${newTranslate}px)`;
       
       // Prevent scrolling while dragging (only if event is cancelable)
@@ -410,13 +430,15 @@
       const diff = this.currentX - this.startX;
       const slideWidth = this.getSlideWidth();
       const threshold = slideWidth * this.config.snapThreshold;
+      const maxIndex = this.getTotalPages() - 1;
+      const unclampedTranslate = this.draggedTranslate;
+      const clampedTranslate = Math.min(0, Math.max(this.getMinTranslate(), unclampedTranslate));
       
       if (Math.abs(diff) > threshold) {
-        if (diff > 0) {
-          this.prev();
-        } else {
-          this.next();
-        }
+        const nearestIndex = slideWidth > 0
+          ? Math.round(Math.abs(clampedTranslate) / slideWidth)
+          : this.currentIndex;
+        this.goToSlide(Math.min(maxIndex, Math.max(0, nearestIndex)));
       } else {
         // Snap back to current slide
         this.updateSlider();
@@ -438,7 +460,7 @@
     
     getSlideWidth() {
       if (!this.slideElements || !this.slideElements[0]) return 0;
-      return this.slideElements[0].offsetWidth + this.config.gap;
+      return this.slideElements[0].offsetWidth + this.currentGap;
     }
     
     getMinTranslate() {

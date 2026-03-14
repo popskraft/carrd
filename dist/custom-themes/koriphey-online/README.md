@@ -1,6 +1,6 @@
 # Koriphey Online — Custom Theme
 
-> Built: 2026-03-02 | Base version: v0.1.13
+> Built: 2026-03-14 | Base version: v0.1.13
 
 Custom theme for **Koriphey Online** site on Carrd.
 Files in this folder are production-ready and served via **jsDelivr CDN**.
@@ -77,4 +77,4 @@ https://cdn.jsdelivr.net/gh/popskraft/carrd@<commit-hash>/dist/custom-themes/kor
 ## Build metadata
 
 - Version: `0.1.13`
-- Build date (UTC): `2026-03-02`
+- Build date (UTC): `2026-03-14`
